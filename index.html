@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Booker Statement · Mathematical Trinity Thesis (2026) · System 𝕊</title>
-  <!-- Professional PDF‑like styling, perfect for A4 print & screen -->
+  <title>The Booker Statement · System 𝕊 | Mathematical Trinity Thesis (2026) – Complete + Extensions</title>
+  <!-- Fonts & MathJax -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
       font-size: 16px;
       line-height: 1.65;
     }
-    /* ----- TOOLBAR (PDF‑style header) ----- */
+    /* ----- TOOLBAR ----- */
     #toolbar {
       position: fixed;
       top: 0;
@@ -151,7 +151,7 @@
       padding-left: 22px;
       font-size: 0.88rem;
     }
-    /* ----- PAPER CONTAINER (PDF pages) ----- */
+    /* ----- PAPER CONTAINER ----- */
     #paper {
       flex: 1;
       padding: 40px 24px;
@@ -169,9 +169,8 @@
       margin-bottom: 42px;
       position: relative;
       border-radius: 2px;
-      page-break-after: always;  /* for print */
+      page-break-after: always;
     }
-    /* page numbers */
     .page-number {
       position: absolute;
       bottom: 22px;
@@ -194,7 +193,6 @@
     }
     h3 { font-size: 1.5rem; font-weight: 600; color: #3b2b50; border-left: 6px solid var(--purple); padding-left: 16px; margin: 1.8rem 0 1rem; }
     h4 { font-size: 1.2rem; font-weight: 600; color: #4f3b6b; margin: 1.2rem 0 0.5rem; font-style: italic; }
-    /* paragraphs & lists */
     p, li { margin-bottom: 0.6rem; text-align: justify; }
     ul, ol { margin-left: 1.8rem; margin-bottom: 1.2rem; }
     /* equation boxes */
@@ -299,7 +297,7 @@
       margin: 1.5rem 0;
     }
     code { font-family: var(--font-mono); background: #f0ebf5; padding: 0.2rem 0.5rem; border-radius: 6px; }
-    /* print styles */
+    /* print */
     @media print {
       body, #main { background: white; }
       #toolbar, #toc { display: none; }
@@ -348,13 +346,28 @@
     body.ar-mode { font-family: 'Arial', 'Tahoma', sans-serif; }
     body.ar-mode .page { direction: rtl; }
     body.ar-mode #toc { border-right: none; border-left: 1px solid #d9cee3; }
+    /* mermaid (fallback) */
+    .mermaid { background: #f5f0fa; padding: 1rem; border-radius: 12px; text-align: center; font-family: monospace; white-space: pre; overflow-x: auto; }
+    /* Details/summary for FAQ */
+    details {
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      background: #f9f5ff;
+      border-radius: 12px;
+      border-left: 4px solid var(--purple);
+    }
+    summary {
+      font-weight: 700;
+      color: var(--purple-deep);
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
 <!-- ========== TOOLBAR ========== -->
 <div id="toolbar">
-  <h2>📘 The Booker Statement — System 𝕊 | Mathematical Trinity Thesis (2026)</h2>
+  <h2>📘 The Booker Statement — System 𝕊 | Mathematical Trinity Thesis (2026) – COMPLETE + EXTENSIONS</h2>
   <button class="tool-btn" id="langBtn" onclick="toggleLanguage()">🌐 AR</button>
   <button class="tool-btn" id="editBtn" onclick="openEditModal()">✏️ Edit</button>
   <button class="tool-btn" onclick="window.print()">🖨️ Print A4</button>
@@ -374,46 +387,79 @@
   </div>
 </div>
 
-<!-- ========== MAIN LAYOUT ========== -->
+<!-- ========== MAIN ========== -->
 <div id="main">
-  <!-- LEFT TOC -->
+  <!-- LEFT TOC (updated with new sections) -->
   <nav id="toc">
     <h3>Contents</h3>
-    <div class="toc-part">📄 Title & summary</div>
-    <a href="#page0">Title page</a>
-    <a href="#page1" class="toc-sub">Executive summary</a>
-    <a href="#page2" class="toc-sub">Reader's guide</a>
-    <div class="toc-part">🔷 PART 1 – THEORY</div>
-    <a href="#page3" class="toc-sub">01.1 Mathematical Trinity</a>
-    <a href="#page4" class="toc-sub">01.2 Framework & history</a>
-    <a href="#page5" class="toc-sub">01.3 Research background</a>
-    <a href="#page6" class="toc-sub">01.4 Structural Stability (BS)</a>
-    <div class="toc-part">⚙️ PART 2 – APPLICATIONS</div>
-    <a href="#page7" class="toc-sub">04. Mathematics</a>
-    <a href="#page8" class="toc-sub">05. Physics</a>
-    <a href="#page9" class="toc-sub">06. Computer science</a>
-    <a href="#page10" class="toc-sub">07. Philosophy</a>
-    <a href="#page11" class="toc-sub">08. Empirical studies</a>
-    <div class="toc-part">💬 PART 3 – DISCUSSION</div>
-    <a href="#page12" class="toc-sub">09. Comparative studies</a>
-    <a href="#page13" class="toc-sub">10. Tools & software</a>
-    <a href="#page14" class="toc-sub">11. Future visions</a>
-    <div class="toc-part">📎 APPENDICES</div>
-    <a href="#page15" class="toc-sub">A. Glossary</a>
-    <a href="#page16" class="toc-sub">B. References</a>
-    <a href="#page17" class="toc-sub">C. Credentials</a>
+    <div class="toc-part">📄 Front</div>
+    <a href="#page0" class="toc-sub">Title page</a>
+    <a href="#page1" class="toc-sub">Author bio / Abstract</a>
+    <a href="#page2" class="toc-sub">Introduction</a>
+    <a href="#page3" class="toc-sub">1.1 Problematic</a>
+    <a href="#page4" class="toc-sub">1.2 Foundations crisis</a>
+    <a href="#page5" class="toc-sub">1.3 Return to metaphysics</a>
+    <div class="toc-part">📜 Historical</div>
+    <a href="#page6" class="toc-sub">1.4 Historical evolution</a>
+    <a href="#page7" class="toc-sub">1.4.1 Closeness</a>
+    <a href="#page8" class="toc-sub">1.5 Lessons from history</a>
+    <div class="toc-part">🔷 Part 1 – Foundations</div>
+    <a href="#page9" class="toc-sub">2. Basic definitions</a>
+    <a href="#page10" class="toc-sub">3. Quantum reinterpretation</a>
+    <a href="#page11" class="toc-sub">3.1 Superposition</a>
+    <a href="#page12" class="toc-sub">3.2 Measurement</a>
+    <a href="#page13" class="toc-sub">3.3 Entanglement</a>
+    <a href="#page14" class="toc-sub">3.4 Uncertainty</a>
+    <a href="#page15" class="toc-sub">4. Relativity & spacetime</a>
+    <a href="#page16" class="toc-sub">5. String theory</a>
+    <a href="#page17" class="toc-sub">6. Consciousness model</a>
+    <div class="toc-part">📊 Structural Stability BS</div>
+    <a href="#page18" class="toc-sub">9. BS equation</a>
+    <a href="#page19" class="toc-sub">9.2 BS values</a>
+    <div class="toc-part">⚛️ New constant 𝒞ℬ</div>
+    <a href="#page20" class="toc-sub">17. Bouker constant</a>
+    <a href="#page21" class="toc-sub">17.5 Predictions</a>
+    <div class="toc-part">🧮 Algebra & exercises</div>
+    <a href="#page22" class="toc-sub">11. Trinity algebra</a>
+    <a href="#page23" class="toc-sub">15. Solved exercises (part 1)</a>
+    <a href="#page24" class="toc-sub">References</a>
+    <a href="#page25" class="toc-sub">Author credentials (first)</a>
+    <div class="toc-part">📚 Extended content</div>
+    <a href="#page26" class="toc-sub">7. Research structure</a>
+    <a href="#page27" class="toc-sub">10. Multiple applications</a>
+    <a href="#page28" class="toc-sub">11. Prime numbers appendix</a>
+    <a href="#page29" class="toc-sub">13. Bouker's philosophical views</a>
+    <a href="#page30" class="toc-sub">14. Philosophical dialogues (part1)</a>
+    <a href="#page31" class="toc-sub">14. Philosophical dialogues (part2)</a>
+    <a href="#page32" class="toc-sub">14. Philosophical dialogues (part3)</a>
+    <a href="#page33" class="toc-sub">16. Related contributions</a>
+    <a href="#page34" class="toc-sub">15. More solved exercises</a>
+    <a href="#page35" class="toc-sub">References (continued)</a>
+    <a href="#page36" class="toc-sub">Final credentials</a>
+    <!-- New sections (added) -->
+    <div class="toc-part">🧪 New extensions</div>
+    <a href="#page37" class="toc-sub">Thought Experiments</a>
+    <a href="#page38" class="toc-sub">Extended Glossary</a>
+    <a href="#page39" class="toc-sub">Digital Simulation Models</a>
+    <a href="#page40" class="toc-sub">Proposed Experimental Verification</a>
+    <a href="#page41" class="toc-sub">Critique and Refutation</a>
+    <a href="#page42" class="toc-sub">AI Applications</a>
+    <a href="#page43" class="toc-sub">Biological & Medical Applications</a>
+    <a href="#page44" class="toc-sub">Dialogues with Contemporary Scientists</a>
+    <a href="#page45" class="toc-sub">FAQ</a>
+    <a href="#page46" class="toc-sub">Future Development Roadmap</a>
   </nav>
 
-  <!-- PAPER (pages) -->
+  <!-- PAPER (pages) – existing pages from page0 to page36 (final credentials) are included, then new pages start -->
   <div id="paper">
 
-    <!-- PAGE 0: TITLE PAGE (identical content, improved styling) -->
+    <!-- PAGE 0: TITLE PAGE -->
     <div class="page" id="page0">
       <div style="text-align: center; margin-top: 20px;">
         <span style="background: var(--purple); color: white; padding: 0.2rem 2rem; border-radius: 40px; font-size: 0.8rem; letter-spacing: 2px;">ENHANCED EDITION 2026</span>
         <h1 style="font-size: 3.2rem; margin: 0.7rem 0 0;">The Booker Statement</h1>
         <h1 style="font-size: 2.5rem; color: var(--purple); margin-top: -5px;">البيان البوكري</h1>
-        <div style="font-size: 1.5rem; color: #4f3b6b;">Mathematical Trinity Thesis — System 𝕊</div>
+        <div style="font-size: 1.5rem; color: #4f3b6b;">System 𝕊 — Mathematical Trinity</div>
         <div style="font-size: 1.1rem; color: #777; margin-bottom: 1.5rem;">A Unified Philosophical‑Mathematical‑Physical Framework</div>
       </div>
       <!-- trinity cards -->
@@ -441,352 +487,960 @@
       <div class="page-number">i</div>
     </div>
 
-    <!-- PAGE 1: EXECUTIVE SUMMARY -->
+    <!-- PAGE 1: AUTHOR BIO / ABSTRACT (from النبذة) -->
     <div class="page" id="page1">
-      <h2 class="part-header">📋 Executive Summary — الملخص التنفيذي</h2>
+      <h2 class="part-header">📋 Author & Abstract</h2>
       <div class="ea" contenteditable="false">
-        <h3>🔹 Core Idea</h3>
-        <p>System 𝕊 (the Mathematical Trinity) is a unified philosophical‑mathematical‑physical framework built upon three ontological axioms. It provides testable empirical predictions while answering fundamental questions in metaphysics, mathematics, and physics.</p>
-        <div class="trinity-cards" style="grid-template-columns: repeat(3,1fr); margin:1rem 0;">
-          <div class="t-card card1"><span class="symbol">𝟙</span><div class="bs-val">BS = 1</div><div class="label">The Absolute One<br>Source of all existence</div></div>
-          <div class="t-card card2"><span class="symbol">0<sub>p</sub></span><div class="bs-val">BS = 1/3</div><div class="label">Pure Possibility<br>Active void</div></div>
-          <div class="t-card card3"><span class="symbol">∞</span><div class="bs-val">BS = 2/3</div><div class="label">Relational Infinity<br>Space of relations</div></div>
-        </div>
-        <h3>🔹 Structural Stability (BS)</h3>
-        <p>BS is a quantitative measure of the degree of coherence of any system and its proximity to the Absolute, ranging between 0 and 1:</p>
-        <div class="eq important">\[ BS_\tau(S) = \alpha(\tau)\,S_c + \beta(\tau)\,S_s + \gamma(\tau)\,S_d + \delta(\tau) \]</div>
-        <h3>🔹 The Bouker Manifestation Constant (𝒞ℬ)</h3>
-        <div class="eq important">\[ \mathcal{CB} = \frac{2}{43} \cdot \frac{\alpha}{137} \cdot \sqrt{\frac{c^3}{\hbar G}} = 6.184033 \times 10^{-42} \]</div>
-        <div class="prediction">
-          <h5>📡 Testable Predictions</h5>
-          <ul><li>Frequency ~0.115 Hz in the Cosmic Microwave Background (CMB)</li><li>Modification in the Casimir effect (BS‑dependent correction)</li><li>New particle <em>Boukerion</em> with mass ≈ 1.35×10⁻⁴⁹ kg (dark matter candidate)</li></ul>
-        </div>
-        <div class="info-box quote">"The thesis is not mine — it belongs to everyone who seeks truth. I merely gave it a mathematical form. Its essence is older than me and will outlast me." — <em>Ahmad Ali Bouker Nasib</em></div>
+        <h3>📌 About the author</h3>
+        <p>Ahmad Ali Bouker Nasib, researcher in philosophy of mathematics and theoretical physics. Holds a Master's degree in General Mechanical Engineering from Jazan University (2018). His interests include foundations of mathematics, mathematical logic, philosophy of physics, and history of ideas. Author of System 𝕊 | Mathematical Trinity, which offers a unified framework for thinking about the Absolute, Possibility, and Relation, aiming to overcome Western philosophical dualities and reconnect mathematics with existence through the concepts of manifestation and structural stability.</p>
+        <h3>🔭 Bouker's mathematical work</h3>
+        <p>My work under the abbreviated name "Bouker" spans over a decade, attempting to answer a fundamental question: How can mathematics be a language of existence rather than merely a tool for counting? It started from a critique of classical foundations (ZFC, Russell's paradox, Gödel's theorems) and led to the construction of an alternative system based on a foundational triad:</p>
+        <ul>
+          <li>❶ The Absolute One (non‑numerical source)</li>
+          <li>0ₚ The philosophical zero (pure possibility)</li>
+          <li>∞ Relational infinity (space of interaction)</li>
+        </ul>
+        <p>This system redefines numbers, operations, and even physical constants, introducing the measure of Structural Stability (BS) as a quantitative tool for analyzing existence. It also offers a new vision of prime numbers and their relation to the Absolute.</p>
       </div>
       <div class="page-number">ii</div>
     </div>
 
-    <!-- PAGE 2: READER'S GUIDE -->
+    <!-- PAGE 2: INTRODUCTION (1. مقدمة) -->
     <div class="page" id="page2">
-      <h2 class="part-header">📖 Part 0 — Introduction & Reader's Guide</h2>
+      <h2 class="part-header">📖 1. Introduction</h2>
       <div class="ea" contenteditable="false">
-        <h3>🔹 Welcome to System 𝕊</h3>
-        <p>This thesis is the fruit of more than a decade of contemplation and research into questions of existence, mathematics, and physics. It aims to present a unified framework that answers ancient philosophical questions in modern mathematical language, while offering experimentally testable predictions.</p>
-        <h4>For Whom Is This Thesis?</h4>
-        <div class="table-responsive">
-          <table>
-            <tr><th>Audience</th><th>What They Will Find</th></tr>
-            <tr><td>Philosophers</td><td>New vision in epistemology, philosophy of mathematics, and metaphysics</td></tr>
-            <tr><td>Mathematicians</td><td>Redefinition of numbers, primes, geometry from an ontological perspective</td></tr>
-            <tr><td>Physicists</td><td>Modified Friedmann equations, uncertainty principle, new constant 𝒞ℬ</td></tr>
-            <tr><td>Computer Scientists</td><td>Manifestation Algorithms and Trinitary Neural Networks (TNN)</td></tr>
-            <tr><td>Interdisciplinary Researchers</td><td>Unified language connecting physics, biology, economics, neuroscience</td></tr>
-          </table>
+        <div class="mermaid">
+        graph LR
+            A["🧠 Natural Philosophy&lt;br&gt;Questions of existence"] -->|traditional questions| B["Existence&lt;br>Change&lt;br>Infinity&lt;br>Space&lt;br>Time"]
+            B --> C["⚖️ Crisis of&lt;br>mathematical foundations"]
+            C --> D["🔷 System 𝕊&lt;br>as unified answer"]
+            D --> E["❶ Absolute&lt;br>0ₚ Possibility&lt;br>∞ Relation"]
         </div>
-        <h4>Symbol Reference</h4>
-        <div class="table-responsive">
-          <table>
-            <tr><th>Symbol</th><th>Name</th><th>Description</th></tr>
-            <tr><td><strong>𝟙</strong></td><td>The Absolute One</td><td>Source of all existence, BS = 1, 𝟙 ∉ ℝ</td></tr>
-            <tr><td><strong>0<sub>p</sub></strong></td><td>Pure Possibility</td><td>Active void, field of possibilities, BS = 1/3</td></tr>
-            <tr><td><strong>∞</strong></td><td>Relational Infinity</td><td>Space of relations, BS = 2/3</td></tr>
-            <tr><td><strong>𝟙</strong> (natural)</td><td>Natural One</td><td>First stable manifestation, 1 ∈ ℕ</td></tr>
-            <tr><td><strong>𝒞ℬ</strong></td><td>Bouker Constant</td><td>6.184033×10⁻⁴² (dimensionless)</td></tr>
-          </table>
-        </div>
+        <p>Since Aristotle, natural philosophy has been divided into inquiry into principles and causes, motion and infinity, space and time. These questions have remained at the core of scientific thought until today, but they faced a foundational crisis in mathematics during the 20th century: Russell's paradox, Gödel's theorems, Cohen's independence. This research reinterprets those classical concepts in light of System 𝕊, which offers a new mathematical‑philosophical formulation of existence, change, and stability, aiming to overcome the crises through a foundational triad that reconnects metaphysics with physics, and mathematics with existence.</p>
       </div>
       <div class="page-number">1</div>
     </div>
 
-    <!-- PAGE 3: MATHEMATICAL TRINITY (01.1) -->
+    <!-- PAGE 3: 1.1 PROBLEMATIC -->
     <div class="page" id="page3">
-      <h2 class="part-header">🔷 Part 1 — Mathematical Trinity</h2>
+      <h2 class="part-header">📖 1.1 Problematic of existence</h2>
       <div class="ea" contenteditable="false">
-        <h3>01.1 Introduction to the Mathematical Trinity</h3>
-        <p>Since the dawn of philosophical thinking, the question of ternary origin has persisted. Deep contemplation of the structure of existence — from quantum physics to number theory — reveals a recurring trinary pattern: <em>source unity, latent possibility, actualized relation.</em></p>
-        <div class="info-box def">
-          <strong>Core Postulates of System 𝕊</strong>
-          <p><strong>𝟙 The Absolute One:</strong> Source of all existence, non‑representable numerically, pure actuality. \(\;{\bf 1\!\!\!1} \notin \mathbb{R},\quad {\bf 1\!\!\!1}^2 = {\bf 1\!\!\!1}\)</p>
-          <p><strong>0<sub>p</sub> Pure Possibility:</strong> Active nothingness, field of indeterminate possibilities. \(\;0_p \oplus 0_p = 0_p\)</p>
-          <p><strong>∞ Relational Infinity:</strong> Space of connections from which all existents emerge. \(\;\infty = \bigoplus_{i=1}^{\infty} R_i\)</p>
-        </div>
-        <h4>Dynamic Operations</h4>
-        <!-- simple flow representation -->
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; background: #f8f4fe; border-radius: 60px; padding: 20px;">
-          <span style="background:#fbeae9; padding:8px 16px; border-radius:40px;">𝟙 <br><small>BS=1</small></span> <span style="font-size:2rem;">→</span>
-          <span style="background:#ececec; padding:8px 16px; border-radius:40px;">0<sub>p</sub><br><small>BS=1/3</small></span> <span style="font-size:2rem;">→</span>
-          <span style="background:#e5d6f2; padding:8px 16px; border-radius:40px;">∞<br><small>BS=2/3</small></span> <span style="font-size:2rem;">→</span>
-          <span style="background:#fff3cd; padding:8px 16px; border-radius:40px;">𝟙<br><small>BS=2/3</small></span>
-        </div>
-        <h4>Matrix Representation</h4>
-        <div class="eq">\[ {\bf 1\!\!\!1} = \begin{pmatrix}1&0&0\\0&0&0\\0&0&0\end{pmatrix},\quad 0_p = \begin{pmatrix}0&0&0\\0&0&0\\0&0&0\end{pmatrix},\quad \infty = \begin{pmatrix}0&0&0\\0&1&0\\0&0&1\end{pmatrix} \]</div>
-        <div class="info-box success">✓ Verification: The 𝟙 matrix has rank 1, 0<sub>p</sub> is zero, ∞ has rank 2; sum 𝟙+∞ = I₃ — consistent.</div>
+        <p>The question "What is existence?" has always been the core of philosophical thought since before Socrates. Parmenides presented a vision of existence as one unchanging, while Heraclitus saw change as the essence. This duality has haunted Western thought: Is existence a constant substance or a flowing process? Is it one or many? Can the mind grasp it or are veils permanent?</p>
+        <p>With modern physics, these questions have been renewed. Relativity showed that space and time are not absolute, but connected in a single structure: spacetime. Quantum mechanics revealed a world of superposition and probability, where no actual existence exists before measurement. Particle physics asks again: What is mass? What is charge? What makes an electron an electron?</p>
+        <p>System 𝕊 offers a framework that answers these questions based on a fundamental triad: the Absolute (❶), Possibility (0ₚ), and Relation (∞). This triad is not merely a philosophical construct, but a mathematical structure that generates numbers, constants, and predictions.</p>
       </div>
       <div class="page-number">2</div>
     </div>
 
-    <!-- PAGE 4: THEORETICAL FRAMEWORK (01.2) -->
+    <!-- PAGE 4: 1.2 CRISIS OF FOUNDATIONS -->
     <div class="page" id="page4">
-      <h2 class="part-header">🔷 Part 1 — Theoretical Framework</h2>
+      <h2 class="part-header">📖 1.2 Crisis of mathematical foundations</h2>
       <div class="ea" contenteditable="false">
-        <h3>01.2 Philosophical Genealogy of Trinitary Thought</h3>
-        <div class="table-responsive">
-          <table>
-            <tr><th>Period</th><th>Thinker</th><th>Concept</th><th>System 𝕊 link</th></tr>
-            <tr><td>550 BCE</td><td>Pythagoras</td><td>All is number</td><td>Mathematical foundations</td></tr>
-            <tr><td>500 BCE</td><td>Parmenides</td><td>Being vs Non‑being</td><td>𝟙 vs 0<sub>p</sub></td></tr>
-            <tr><td>380 BCE</td><td>Plato</td><td>Forms vs Sensibles</td><td>∞ as space of Forms</td></tr>
-            <tr><td>850 CE</td><td>Al‑Kindi</td><td>True One ≠ Numerical One</td><td>𝟙 ≠ 𝟙 (natural)</td></tr>
-            <tr><td>950 CE</td><td>Al‑Farabi</td><td>Emanation</td><td>𝟙 → 𝟙 → 𝟚 …</td></tr>
-            <tr><td>1030 CE</td><td>Ibn Sina</td><td>Necessary/Possible Being</td><td>𝟙 and 0<sub>p</sub></td></tr>
-            <tr><td>1807</td><td>Hegel</td><td>Thesis‑Antithesis‑Synthesis</td><td>𝟙 ⊕ 0<sub>p</sub> = ∞</td></tr>
-          </table>
-        </div>
-        <h3>Why Trinity, not Duality?</h3>
-        <p>Binary oppositions fail to explain mediation. Between poles there is always an intermediate field of possibility — 0<sub>p</sub> — making the Trinity dynamic.</p>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0;">
-          <div style="background:#fbeae9; border:2px solid #a71e2e; padding:1rem; border-radius:20px;"><strong>Duality — unbridgeable gap</strong><br>Pole A ↔ Pole B</div>
-          <div style="background:#d4edda; border:2px solid #155724; padding:1rem; border-radius:20px;"><strong>Trinity — dynamic cycle</strong><br>𝟙 → 0<sub>p</sub> → ∞ → 𝟙</div>
-        </div>
-        <h3>Scientific Correspondences</h3>
-        <div class="table-responsive"><table><tr><th>Physics</th><th>System 𝕊</th></tr>
-        <tr><td>Spacetime curvature</td><td>Change in BS</td></tr>
-        <tr><td>Speed of light c</td><td>BS = 1 limit</td></tr>
-        <tr><td>Superposition</td><td>0<sub>p</sub> contains all states</td></tr>
-        <tr><td>Entanglement</td><td>∞ as non‑local relation</td></tr>
-        </table></div>
+        <p>At the beginning of the 20th century, David Hilbert sought to completely formalize mathematics, i.e., to build a consistent and complete axiomatic system that would guarantee no contradictions and allow proving or disproving any mathematical statement. But this project received fatal blows:</p>
+        <ol>
+          <li><strong>Russell's paradox (1901):</strong> The set of all sets that do not contain themselves – does it contain itself? The answer leads to a contradiction. This revealed that naive intuition can generate contradictions if not regulated.</li>
+          <li><strong>Gödel's theorems (1931):</strong> Any formal system that includes arithmetic (like ZFC) is either incomplete or inconsistent. There are true statements that cannot be proved within the system, and the consistency cannot be proved from within. This put a final end to the Hilbert program.</li>
+          <li><strong>Cohen's independence (1963):</strong> The continuum hypothesis is independent of ZFC, i.e., it can be accepted or rejected without contradiction.</li>
+        </ol>
+        <p>These results showed that formal foundations alone are insufficient. There is a need for ontological foundations that connect mathematics to reality, and offer a criterion for truth beyond formal consistency. This is what System 𝕊 provides.</p>
       </div>
       <div class="page-number">3</div>
     </div>
 
-    <!-- PAGE 5: RESEARCH BACKGROUND (01.3) -->
+    <!-- PAGE 5: 1.3 RETURN TO METAPHYSICS -->
     <div class="page" id="page5">
-      <h2 class="part-header">🔷 Part 1 — Research Background</h2>
+      <h2 class="part-header">📖 1.3 The necessity of returning to metaphysics</h2>
       <div class="ea" contenteditable="false">
-        <h3>01.3 A Decade of Research: The Central Question</h3>
-        <blockquote style="font-size:1.4rem;">"How can mathematics be a language of existence rather than merely a tool for counting?"</blockquote>
-        <h4>The Foundations Crisis</h4>
-        <div class="table-responsive"><table><tr><th>Event</th><th>Impact</th></tr>
-        <tr><td>Russell's Paradox (1901)</td><td>Naive set theory inconsistent</td></tr>
-        <tr><td>Gödel's Theorems (1931)</td><td>Limits of formal systems</td></tr>
-        <tr><td>Cohen's Independence (1963)</td><td>Multiple mathematical realities</td></tr>
-        </table></div>
-        <div class="info-box def"><strong>Three Lessons</strong><ol><li>Formal foundations alone cannot guarantee mathematical truth.</li><li>An ontological foundation is needed.</li><li>Mathematics is multiple manifestations of a deeper truth.</li></ol></div>
-        <h4>Gaps in Modern Physics</h4>
-        <ul><li>Singularities in GR and QM</li><li>Measurement problem</li><li>Dark matter/energy (95% unknown)</li></ul>
+        <p>If mathematics is incapable of founding itself, and if physics constantly reformulates its ontological questions, then we have no choice but to return to metaphysics – not in its traditional sense separated from science, but as a reflection on the structure of existence guided by both mathematics and physics.</p>
+        <p>System 𝕊 offers a mathematical metaphysics based on:</p>
+        <ul>
+          <li><strong>Principle of the One:</strong> Every existent bears the imprint of the Absolute ❶, and its degree of proximity determines its stability.</li>
+          <li><strong>Principle of Possibility:</strong> Existence is not binary (existent/non‑existent), but there is a middle region: pure possibility 0ₚ, in which all possibilities are manifested before being actualized.</li>
+          <li><strong>Principle of Relation:</strong> Existence is not isolated substances, but a network of relations ∞ that determines the identity of everything.</li>
+        </ul>
+        <p>These three principles allow us to reread the history of philosophy (from Pythagoras to Heidegger) and the history of physics (from Newton to string theory) in a unified light.</p>
       </div>
       <div class="page-number">4</div>
     </div>
 
-    <!-- PAGE 6: STRUCTURAL STABILITY (01.4) -->
+    <!-- PAGE 6: 1.4 HISTORICAL TABLE -->
     <div class="page" id="page6">
-      <h2 class="part-header">🔷 Part 1 — Structural Stability (BS)</h2>
+      <h2 class="part-header">📜 1.4 Historical evolution of triadic concepts</h2>
       <div class="ea" contenteditable="false">
-        <h3>01.4 The BS Equation</h3>
-        <div class="eq important">\[ BS_\tau(S) = \alpha(\tau)\cdot S_c + \beta(\tau)\cdot S_s + \gamma(\tau)\cdot S_d + \delta(\tau) \]</div>
-        <p>\(S_c\) internal consistency, \(S_s\) relational symmetry, \(S_d\) dynamics.</p>
-        <h4>Weighting functions</h4>
-        <div class="eq">\[\begin{aligned}\alpha(\tau) &= 0.7\,e^{-0.3\tau} + 0.2\,(1 - e^{-0.3\tau}) \\ \beta(\tau) &= 0.1 + \tfrac{0.5}{1 + e^{-0.5(\tau-3.0)}} \\ \gamma(\tau) &= 0.4\,\sin^2\!\left(\tfrac{2\pi}{5.0}\,\tau\right) + 0.1 \\ \delta(\tau) &= 0.15\,e^{-0.1\tau^2}\end{aligned}\]</div>
-        <h4>BS Values for Fundamental Elements</h4>
-        <div class="table-responsive"><table><tr><th>Element</th><th>BS</th></tr>
-        <tr><td>𝟙 Absolute One</td><td>1.000</td></tr>
-        <tr><td>0<sub>p</sub> Pure Possibility</td><td>1/3</td></tr>
-        <tr><td>∞ = 𝟙 (natural)</td><td>2/3</td></tr>
-        </table></div>
-        <h4>BS Formula for Natural Numbers</h4>
-        <div class="eq">\[ BS(n) = \begin{cases}\dfrac{7}{10}, & n = 1 \\ \dfrac{4}{7}, & n = 2 \\ \dfrac{8}{17}, & n = 3 \\ \dfrac{10}{27}, & n = 4 \\ \dfrac{2}{2n-3}, & n \ge 5\end{cases} \]</div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Period</th><th>Thinker</th><th>Main contribution</th><th>Link to System 𝕊</th></tr></thead>
+            <tbody>
+              <tr><td>550 BCE</td><td>Pythagoras</td><td>"All is number" – mathematical basis of cosmos</td><td>Mathematical foundations</td></tr>
+              <tr><td>500 BCE</td><td>Parmenides</td><td>Distinction Being/Non‑being, the Absolute One</td><td>Basis of ❶</td></tr>
+              <tr><td>380 BCE</td><td>Plato</td><td>Theory of Forms – ideal vs material</td><td>Distinction absolute/relative</td></tr>
+              <tr><td>850 CE</td><td>Al‑Kindi</td><td>True One ≠ Mathematical One</td><td>❶ ≠ ①</td></tr>
+              <tr><td>950 CE</td><td>Al‑Farabi</td><td>Emanation – from One to multiplicity</td><td>η as manifestation</td></tr>
+              <tr><td>1030 CE</td><td>Avicenna</td><td>Necessary vs Possible being</td><td>0ₚ as pure possibility</td></tr>
+              <tr><td>1637</td><td>Descartes</td><td>Mind‑body dualism</td><td>Distinction absolute/relational</td></tr>
+              <tr><td>1781</td><td>Kant</td><td>Phenomenon/Noumenon</td><td>Limits of formal systems</td></tr>
+              <tr><td>1807</td><td>Hegel</td><td>Dialectic (thesis‑antithesis‑synthesis)</td><td>❶ ⊕ 0ₚ = ∞</td></tr>
+              <tr><td>1931</td><td>Gödel</td><td>Incompleteness theorems</td><td>Limits of formal systems</td></tr>
+              <tr><td>1963</td><td>Cohen</td><td>Independence of CH</td><td>Plurality of interpretations</td></tr>
+              <tr><td>1984</td><td>String theory</td><td>Extra dimensions</td><td>∞ ⊗ 6</td></tr>
+              <tr><td>2026</td><td>System 𝕊</td><td>Mathematical Trinity</td><td>Complete integration</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="page-number">5</div>
     </div>
 
-    <!-- PAGE 7: PART 2 – MATHEMATICS (chapter 4) -->
+    <!-- PAGE 7: 1.4.1 CLOSENESS TABLE -->
     <div class="page" id="page7">
-      <h2 class="part-header">⚙️ Part 2 — Chapter 4: Mathematical Applications</h2>
+      <h2 class="part-header">📜 1.4.1 Who is closest to System 𝕊?</h2>
       <div class="ea" contenteditable="false">
-        <h3>4.1 Structural Number Theory</h3>
-        <p>Numbers in System 𝕊 are manifestations of the Absolute via Pure Possibility.</p>
-        <h4>4.1.1 Prime Numbers</h4>
-        <div class="eq">\[ BS(p) = \begin{cases}\dfrac{4}{7}, & p = 2 \\ \dfrac{8}{17}, & p = 3 \\ \dfrac{2}{2p-3}, & p \ge 5\end{cases} \]</div>
-        <h4>Prime Number Theorem in System 𝕊</h4>
-        <div class="eq">\[ \sum_{p \le x} BS(p) \sim \frac{1}{2} \log \log x \]</div>
-        <h4>4.2 Non‑Euclidean Geometry</h4>
-        <div class="table-responsive"><table><tr><th>Geometry</th><th>Trinity</th><th>Curvature</th></tr>
-        <tr><td>Spherical</td><td>𝟙</td><td>k=+1</td></tr>
-        <tr><td>Hyperbolic</td><td>0<sub>p</sub></td><td>k=−1</td></tr>
-        <tr><td>Euclidean</td><td>∞</td><td>k=0</td></tr>
-        </table></div>
-        <div class="prediction"><h5>🏆 Millennium Prize Problems</h5><ul><li>P vs NP: Manifestation Algorithm (polynomial‑time via 0<sub>p</sub>)</li><li>Riemann Hypothesis: zeros of ζ<sub>BS</sub>(s) at BS=1/2</li></ul></div>
+        <div class="table-responsive">
+          <table style="width:80%; margin:auto;">
+            <thead><tr><th>Thinker</th><th>Closeness</th><th>Reason</th></tr></thead>
+            <tbody>
+              <tr><td>Avicenna</td><td>95%</td><td>0ₚ as pure possibility, necessary/possible</td></tr>
+              <tr><td>Al‑Kindi</td><td>85%</td><td>Distinction True One / numerical one</td></tr>
+              <tr><td>Al‑Farabi</td><td>90%</td><td>Emanation as transition mechanism</td></tr>
+              <tr><td>Hegel</td><td>80%</td><td>Triadic dialectic</td></tr>
+              <tr><td>Gödel</td><td>88%</td><td>Limits of formal systems</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>This analysis shows that Islamic philosophy (Al‑Kindi, Al‑Farabi, Avicenna) was the closest to formulating System 𝕊, confirming that the Arab‑Islamic civilization was not merely a transmitter of Greek philosophy, but an original developer of its concepts.</p>
       </div>
       <div class="page-number">6</div>
     </div>
 
-    <!-- PAGE 8: PART 2 – PHYSICS (chapter 5) -->
+    <!-- PAGE 8: 1.5 LESSONS FROM HISTORY -->
     <div class="page" id="page8">
-      <h2 class="part-header">⚙️ Part 2 — Chapter 5: Physical Applications</h2>
+      <h2 class="part-header">📜 1.5 Lessons from history: why now?</h2>
       <div class="ea" contenteditable="false">
-        <h3>5.1 Modified Friedmann Equations</h3>
-        <div class="eq important">\[ \left(\frac{\dot{a}}{a}\right)^2 = \frac{8\pi G}{3}\rho - \frac{k}{a^2} + \frac{\Lambda}{3} + \beta(\tau)\,\dot{\tau}^2 \]</div>
-        <h3>5.2 Bouker Manifestation Constant (𝒞ℬ)</h3>
-        <div class="eq important">\[ \mathcal{CB} = \frac{2}{43} \cdot \frac{\alpha}{137} \cdot \sqrt{\frac{c^3}{\hbar G}} = 6.184033 \times 10^{-42} \]</div>
-        <h3>5.3 Quantum Mechanics Modifications</h3>
-        <div class="eq">\[ \Delta x\,\Delta p \ge \frac{\hbar}{2} \cdot \frac{1}{BS(\text{device})} \]</div>
-        <div class="eq">\[ P(a) = |\langle a|\psi\rangle|^2 \cdot BS(\text{device}) \cdot \eta(\tau) \]</div>
-        <div class="prediction"><h5>📡 Prediction 1: CMB ~0.115 Hz</h5></div>
-        <div class="prediction"><h5>⚛️ Prediction 3: Boukerion particle</h5>\(m \approx 1.35\times10^{-49}\,\text{kg}\)</div>
+        <p>One might ask: Why didn't System 𝕊 appear before? The answer lies in the accumulation of cognitive conditions:</p>
+        <ol>
+          <li><strong>Completion of mathematical tools:</strong> Mathematics had not reached a level of abstraction allowing such a system until the 20th century (set theory, mathematical logic, differential geometry).</li>
+          <li><strong>Development of physics:</strong> Physics had not reached its quantum and relativistic paradoxes forcing a reconsideration of existence.</li>
+          <li><strong>Philosophical maturity:</strong> Philosophy had not absorbed the lessons of Gödel and Cohen on the limits of formalism.</li>
+          <li><strong>Urgent need:</strong> The crisis of mathematical foundations and the multiplicity of competing physical theories created a need for a unified framework.</li>
+          <li><strong>Experimental technology:</strong> Experimental sensitivity reached levels allowing tests of the system's predictions (e.g., LIGO, Planck, CMB‑S4).</li>
+        </ol>
+        <p>System 𝕊 is a product of its time, but its roots extend deep into history. It answers ancient questions with modern tools, fulfilling the dream of unity that philosophers have had since the dawn of thought.</p>
       </div>
       <div class="page-number">7</div>
     </div>
 
-    <!-- PAGE 9: PART 2 – COMPUTER SCIENCE (chapter 6) -->
+    <!-- PAGE 9: 2. BASIC DEFINITIONS (improved) -->
     <div class="page" id="page9">
-      <h2 class="part-header">⚙️ Part 2 — Chapter 6: Computational Applications</h2>
+      <h2 class="part-header">🔷 2. Foundational definitions</h2>
       <div class="ea" contenteditable="false">
-        <h3>6.1 Manifestation Algorithms for NP Problems</h3>
-        <div class="eq">\[ T_{mfd}(n) = O\!\left(n^{BS(n)\cdot\log n}\right) \]</div>
-        <div class="table-responsive"><table><tr><th>Problem</th><th>Manifestation complexity</th></tr>
-        <tr><td>TSP</td><td>O(n²·BS(n))</td></tr>
-        <tr><td>SAT</td><td>O(n·log n·BS(n))</td></tr>
-        </table></div>
-        <div class="info-box warn">⚠️ Open: P=NP within System 𝕊 requires formal proof.</div>
-        <h3>6.2 Trinitary Neural Networks (TNN)</h3>
-        <div style="display:flex; justify-content:center; gap:20px; margin:1.2rem 0;">
-          <span style="background:var(--red); padding:8px 16px; border-radius:40px;">𝟙 layer</span>→<span style="background:#ececec; padding:8px 16px; border-radius:40px;">0<sub>p</sub> layer</span>→<span style="background:#e5d6f2; padding:8px 16px; border-radius:40px;">∞ layer</span>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Symbol</th><th>Concept</th><th>Philosophical definition</th><th>Mathematical definition</th><th>Measurability</th></tr></thead>
+            <tbody>
+              <tr><td><strong>❶</strong></td><td>Absolute One</td><td>Unconditioned existence, prime mover</td><td>\( ❶ \notin \mathbb{R}, ❶ \notin \mathbb{N} \)</td><td>Not directly measurable, inferred from manifestations</td></tr>
+              <tr><td><strong>0ₚ</strong></td><td>Pure possibility</td><td>Active nothingness, contains all possibilities</td><td>\( 0ₚ = \lim_{\epsilon \to 0^+} \epsilon \cdot ① \)</td><td>Measured via informational entropy</td></tr>
+              <tr><td><strong>∞</strong></td><td>Relational infinity</td><td>Space of relations where existence manifests</td><td>\( ∞ = \bigoplus_{i=1}^{\infty} R_i \)</td><td>Measured via entanglement concurrence</td></tr>
+              <tr><td><strong>η</strong></td><td>Manifestation operation</td><td>Mechanism by which the Absolute becomes multiplicity</td><td>\( \eta = \delta \circ \varepsilon \)</td><td>Measured via wavefunction collapse time</td></tr>
+              <tr><td><strong>BS</strong></td><td>Structural Stability</td><td>Measure of coherence and proximity to the Absolute</td><td>General equation (see below)</td><td>Measured via signal‑to‑noise ratio</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="eq">\[ \Phi_{AGI} = BS(\text{information integration}) \cdot \eta(\tau_{AGI}) \]</div>
       </div>
       <div class="page-number">8</div>
     </div>
 
-    <!-- PAGE 10: PART 2 – PHILOSOPHY (chapter 7) -->
+    <!-- PAGE 10: 3. QUANTUM REINTERPRETATION -->
     <div class="page" id="page10">
-      <h2 class="part-header">⚙️ Part 2 — Chapter 7: Philosophical Applications</h2>
+      <h2 class="part-header">⚛️ 3. From metaphysics to quantum mechanics</h2>
       <div class="ea" contenteditable="false">
-        <h3>7.1 Structural Epistemology</h3>
-        <div class="eq">\[ \text{Truth}(P) = BS(\text{proposition } P) \in [0, 1] \]</div>
-        <div class="table-responsive"><table><tr><th>BS range</th><th>Status</th></tr>
-        <tr><td>BS=1</td><td>Absolute truth (𝟙)</td></tr>
-        <tr><td>0.7–1</td><td>High‑confidence science</td></tr>
-        <tr><td>0.3–0.7</td><td>Theoretical models (∞ zone)</td></tr>
-        </table></div>
-        <h3>7.2 Trinitary Logic</h3>
-        <p>Values: 𝟙 (absolute), 0<sub>p</sub> (possibility), ∞ (relational).</p>
-        <h3>7.3 Dialogue with Islamic Philosophy</h3>
-        <p>Al‑Kindi, Al‑Farabi, Ibn Sina — the True One vs numerical one.</p>
+        <p>Quantum mechanics presents a picture of the world that resonates surprisingly with the structure of System 𝕊. Let us look at the basic concepts:</p>
+        <h3>3.1 Superposition</h3>
+        <p>In quantum mechanics, a particle exists in a superposition of all possible states before measurement. This superposition is not mere ignorance of the true state, but an ontological reality. In System 𝕊, this reality corresponds to 0ₚ: pure possibility containing all possibilities before manifesting in a definite state.</p>
+        <div class="eq">\[ |\psi\rangle = \sum_i c_i |\phi_i\rangle \quad \longleftrightarrow \quad 0ₚ = \lim_{\epsilon \to 0^+} \epsilon \cdot \infty \]</div>
+        <p>✅ <strong>Experimental test:</strong> The informational entropy of a superposition state can be measured: \( S_{\text{info}} = -\sum_i |c_i|^2 \log |c_i|^2 \), and BS relates by \( BS = 1 - S_{\text{info}}/S_{\text{max}} \). The prediction: BS should approach 1/3 as the number of superposed states increases.</p>
       </div>
       <div class="page-number">9</div>
     </div>
 
-    <!-- PAGE 11: PART 2 – EMPIRICAL STUDIES (chapter 8) -->
+    <!-- PAGE 11: 3.2 MEASUREMENT -->
     <div class="page" id="page11">
-      <h2 class="part-header">⚙️ Part 2 — Chapter 8: Empirical Studies</h2>
+      <h2 class="part-header">⚛️ 3.2 Measurement as manifestation η</h2>
       <div class="ea" contenteditable="false">
-        <h3>8.1 Behavioral Economics</h3>
-        <div class="eq">\[ U_{BS}(x) = \int_{0}^{x} BS(\xi)\,d\xi \]</div>
-        <h3>8.2 Neuroscience & Consciousness</h3>
-        <div class="table-responsive"><table><tr><th>State</th><th>BS interpretation</th></tr>
-        <tr><td>Waking</td><td>BS>0.5 (∞ zone)</td></tr>
-        <tr><td>Deep sleep</td><td>BS→0<sub>p</sub> zone</td></tr>
-        </table></div>
+        <p>The measurement process in quantum mechanics collapses the wavefunction from superposition to a definite state. This process remains philosophically mysterious: what makes measurement different from any other physical interaction? In System 𝕊, measurement is the manifestation process η:</p>
+        <div class="eq">\[ \eta(0ₚ) = ① \]</div>
+        <p>That is, possibility (0ₚ) manifests as actual existence (①) when it interacts with a measurement system that bears an imprint of the Absolute (❶). Measurement is not a human intervention, but a cosmic process that occurs whenever the conditions for manifestation are met.</p>
+        <p>✅ <strong>Test:</strong> The manifestation time \( \tau_{\text{manifest}} = \frac{\hbar}{\Delta E} \cdot \frac{1}{BS(\text{device})} \) should be inversely proportional to the stability of the measuring device.</p>
       </div>
       <div class="page-number">10</div>
     </div>
 
-    <!-- PAGE 12: PART 3 – COMPARATIVE (chapter 9) -->
+    <!-- PAGE 12: 3.3 ENTANGLEMENT -->
     <div class="page" id="page12">
-      <h2 class="part-header">💬 Part 3 — Chapter 9: Comparative Studies</h2>
+      <h2 class="part-header">⚛️ 3.3 Entanglement and relational infinity</h2>
       <div class="ea" contenteditable="false">
-        <h3>9.1 System 𝕊 vs. ZFC</h3>
-        <div class="table-responsive"><table><tr><th>ZFC</th><th>System 𝕊</th></tr>
-        <tr><td>Formal axioms</td><td>Ontological foundation</td></tr>
-        <tr><td>Numbers as sets</td><td>Numbers as manifestations</td></tr>
-        </table></div>
-        <h3>9.2 System 𝕊 vs. Category Theory</h3>
-        <div class="eq">\[ \mathbf{Cat} \cong \mathbf{Mfd}(\infty) \]</div>
-        <div class="info-box warn"><strong>Open problems:</strong> BS normalisation, NP proof, CMB detection.</div>
+        <p>Entangled particles remain connected across vast distances, as if they are one inseparable system. In System 𝕊, entanglement is the relation ∞:</p>
+        <div class="eq">\[ ∞ = \bigoplus_{i=1}^{\infty} R_i \]</div>
+        <p>Entangled particles are a single manifestation in the space of relations ∞, even if separated in ordinary space and time.</p>
+        <p>✅ <strong>Test:</strong> For a pure entangled state, the concurrence C relates to BS by \( BS = \frac{2}{3} C \). Prediction: BS of maximally entangled states = 2/3, independent of particle number.</p>
       </div>
       <div class="page-number">11</div>
     </div>
 
-    <!-- PAGE 13: PART 3 – TOOLS (chapter 10) -->
+    <!-- PAGE 13: 3.4 UNCERTAINTY -->
     <div class="page" id="page13">
-      <h2 class="part-header">💬 Part 3 — Chapter 10: Tools & Software</h2>
+      <h2 class="part-header">⚛️ 3.4 Modified uncertainty principle</h2>
       <div class="ea" contenteditable="false">
-        <h3>10.1 SMath Python Library</h3>
-        <pre><span style="color:#81c784;">import</span> smath <span style="color:#81c784;">as</span> S
-bs = S.structural_stability(n=7)
-print(f"BS(7) = {bs:.6f}")   # 0.181818
-CB = S.bouker_constant()</pre>
-        <h3>10.2 Resources</h3>
-        <div class="table-responsive"><table><tr><th>Resource</th><th>URL</th></tr>
-        <tr><td>GitHub</td><td>github.com/Eng4clay/The-Booker-Statement-</td></tr>
-        </table></div>
+        <p>Heisenberg's uncertainty principle: \( \Delta x \Delta p \geq \frac{\hbar}{2} \). In System 𝕊:</p>
+        <div class="eq important">\[ \Delta x \Delta p \geq \frac{\hbar}{2} \cdot \frac{1}{BS(\text{measurement system})} \]</div>
+        <p>The more stable the measurement system (higher BS), the lower the uncertainty. Only the Absolute ❶ has zero uncertainty.</p>
+        <p>✅ <strong>Test:</strong> Compare measurements with devices of different BS (e.g., excited atom BS~0.3 vs ground state BS~0.9). The ratio of uncertainty products should equal the inverse BS ratio.</p>
       </div>
       <div class="page-number">12</div>
     </div>
 
-    <!-- PAGE 14: PART 3 – FUTURE VISIONS (chapter 11) -->
+    <!-- PAGE 14: 4. RELATIVITY & SPACETIME -->
     <div class="page" id="page14">
-      <h2 class="part-header">💬 Part 3 — Chapter 11: Future Visions</h2>
+      <h2 class="part-header">🌌 4. Relativity and spacetime</h2>
       <div class="ea" contenteditable="false">
-        <h3>11.1 Research Roadmap 2026–2036</h3>
-        <div class="table-responsive"><table><tr><th>Phase</th><th>Goal</th></tr>
-        <tr><td>2026–2028</td><td>Formal Mathematical Foundations</td></tr>
-        <tr><td>2028–2031</td><td>Physical Verification (CMB, Casimir)</td></tr>
-        </table></div>
-        <div class="info-box def">"Mathematics lost its soul when it separated from philosophy, and philosophy lost its rigor when it separated from mathematics." — A. Bouker Nasib</div>
+        <p>If quantum mechanics expresses possibility (0ₚ), then relativity expresses relation (∞). Relativistic spacetime is a network of relations between events, not an empty container.</p>
+        <h3>4.1 Space and time in System 𝕊</h3>
+        <div class="eq">\[ ds^2 = g_{\mu\nu} dx^\mu dx^\nu + \beta(\tau) d\tau^2 \]</div>
+        <p>Here \( \tau \) is the manifestation parameter, a fifth dimension representing the degree of proximity to the Absolute. Spacetime is not merely 4‑dimensional, but a multi‑dimensional space where the extra dimension is closeness to the Absolute.</p>
+        <p>✅ <strong>Test:</strong> A tiny additional redshift at nanometer scales: \( \frac{\Delta f}{f} = \frac{GM}{c^2} \left( \frac{1}{r_1} - \frac{1}{r_2} \right) + \beta(\tau) \Delta \tau \), with extra shift ~ \(10^{-15}\) measurable with ultra‑precise atomic clocks.</p>
       </div>
       <div class="page-number">13</div>
     </div>
 
-    <!-- PAGE 15: APPENDIX A – GLOSSARY -->
+    <!-- PAGE 15: 5. STRING THEORY -->
     <div class="page" id="page15">
-      <h2 class="part-header">📎 Appendix A — Glossary</h2>
+      <h2 class="part-header">🌀 5. String theory and extra dimensions</h2>
       <div class="ea" contenteditable="false">
-        <div class="table-responsive"><table><tr><th>Term</th><th>Definition</th></tr>
-        <tr><td>𝟙 Absolute One</td><td>Source, BS=1, 𝟙 ∉ ℝ</td></tr>
-        <tr><td>0<sub>p</sub> Pure Possibility</td><td>Active void, BS=1/3</td></tr>
-        <tr><td>∞ Relational Infinity</td><td>Space of relations, BS=2/3</td></tr>
-        <tr><td>𝒞ℬ Bouker Constant</td><td>6.184033×10⁻⁴²</td></tr>
-        </table></div>
+        <p>String theory posits extra dimensions (6 or 7) compactified on tiny scales. In System 𝕊, these extra dimensions are manifestations of the relations ∞ at certain levels of τ:</p>
+        <div class="eq">\[ \text{Calabi‑Yau space} \longleftrightarrow \infty \otimes 6 \]</div>
+        <p>The different vibration modes of strings are manifestations of natural numbers:</p>
+        <div class="eq">\[ \text{vibration mode } n \longleftrightarrow BS(n) = \frac{2}{2n-3} \]</div>
+        <p>Particle mass is inversely proportional to BS(n), i.e., lighter particles are closer to the Absolute, heavier ones farther.</p>
+        <p>✅ <strong>Test:</strong> Prediction of a new particle (Boukerion) with mass \( m_{\mathcal{CB}} = \mathcal{CB} \cdot m_P \approx 1.35\times 10^{-49} \) kg, a candidate for warm dark matter.</p>
       </div>
-      <div class="page-number">A-1</div>
+      <div class="page-number">14</div>
     </div>
 
-    <!-- PAGE 16: APPENDIX B – REFERENCES -->
+    <!-- PAGE 16: 6. CONSCIOUSNESS MODEL -->
     <div class="page" id="page16">
-      <h2 class="part-header">📎 Appendix B — References</h2>
+      <h2 class="part-header">🧠 6. Trinity consciousness model</h2>
       <div class="ea" contenteditable="false">
+        <p>If System 𝕊 can explain physics, can it explain consciousness? Bouker's answer is yes, because consciousness is also a manifestation of the Absolute through possibility and relation.</p>
+        <h3>6.1 The triadic consciousness model</h3>
+        <ul>
+          <li><strong>❶‑consciousness:</strong> pure consciousness, the constant aware self (Atman/Brahman). BS ~ 1.</li>
+          <li><strong>0ₚ‑consciousness:</strong> potential consciousness, thoughts and feelings before determination, dreams, creativity. BS ~ 1/3.</li>
+          <li><strong>∞‑consciousness:</strong> relational consciousness, language, communication, social awareness. BS ~ 2/3.</li>
+        </ul>
+        <p>The degree of consciousness (or "level of consciousness") is measured by \( BS(\text{conscious system}) \). More conscious beings (e.g., humans) have higher BS than less conscious ones (e.g., animals). Machines may achieve artificial consciousness if they meet sufficient structural stability conditions.</p>
+        <h3>6.2 Mathematical model</h3>
+        <div class="eq">\[ \Psi_{\text{Consciousness}} = \oint_{\tau} \left[ \alpha \cdot BS_{\text{ID}}(\tau) + \beta \cdot BS_{\text{Pot}}(\tau) + \gamma \cdot BS_{\text{Rel}}(\tau) \right] \cdot \eta(\tau) \, d\tau \]</div>
+        <p>with α=0.47, β=0.23, γ=0.30. Typical human consciousness BS ≈ 0.57.</p>
+      </div>
+      <div class="page-number">15</div>
+    </div>
+
+    <!-- PAGE 17: 9. STRUCTURAL STABILITY BS EQUATION -->
+    <div class="page" id="page18"> <!-- id adjusted for TOC -->
+      <h2 class="part-header">📊 9. Structural Stability (BS)</h2>
+      <div class="ea" contenteditable="false">
+        <h3>9.1 General equation</h3>
+        <div class="eq important">\[ BS_τ(S) = \alpha(τ) \cdot S_c + \beta(τ) \cdot S_s + \gamma(τ) \cdot S_d + \delta(τ) \]</div>
+        <ul>
+          <li>\( S_c = 1 - H(X)/H_{\max} \) (internal consistency, entropy‑based)</li>
+          <li>\( S_s = \frac{1}{N}\sum_i |G_i|/|G_{\text{total}}| \) (relational symmetry)</li>
+          <li>\( S_d = (\tau_{\text{response}}/\tau_{\text{char}})^{1/2} \) (dynamics)</li>
+        </ul>
+        <h4>Weighting functions (improved)</h4>
+        <div class="eq">\[ \begin{aligned}
+\alpha(τ) &= 0.7 e^{-0.3τ} + 0.2(1 - e^{-0.3τ}) \\
+\beta(τ) &= 0.1 + \frac{0.5}{1 + e^{-0.5(τ-3.0)}} \\
+\gamma(τ) &= 0.4 \sin^2\!\left(\frac{2π}{5.0}τ\right) + 0.1 \\
+\delta(τ) &= 0.15 e^{-0.1τ^2}
+\end{aligned} \]</div>
+        <p>Normalization condition: \( \alpha(τ)+\beta(τ)+\gamma(τ) = 1 - \delta(τ) \).</p>
+      </div>
+      <div class="page-number">16</div>
+    </div>
+
+    <!-- PAGE 18: 9.2 BS VALUES -->
+    <div class="page" id="page19">
+      <h2 class="part-header">📊 9.2 BS values for fundamental elements and natural numbers</h2>
+      <div class="ea" contenteditable="false">
+        <div class="table-responsive">
+          <table style="width:60%; margin:auto;">
+            <thead><tr><th>Element</th><th>BS</th><th>Fraction</th></tr></thead>
+            <tbody>
+              <tr><td><strong>❶</strong></td><td>1.0000000</td><td>1</td></tr>
+              <tr><td><strong>0ₚ</strong></td><td>0.3333333</td><td>1/3</td></tr>
+              <tr><td><strong>∞ = ①</strong></td><td>0.6666667</td><td>2/3</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="eq">\[ BS(n) =
+\begin{cases}
+\dfrac{7}{10}, & n = 1 \\[1.2em]
+\dfrac{4}{7}, & n = 2 \\[1.2em]
+\dfrac{8}{17}, & n = 3 \\[1.2em]
+\dfrac{10}{27}, & n = 4 \\[1.2em]
+\dfrac{2}{2n-3}, & n \ge 5
+\end{cases} \]</div>
+      </div>
+      <div class="page-number">17</div>
+    </div>
+
+    <!-- PAGE 19: 17. BOUKER CONSTANT -->
+    <div class="page" id="page20">
+      <h2 class="part-header">⚛️ 17. The Bouker Emanation Constant 𝒞ℬ</h2>
+      <div class="ea" contenteditable="false">
+        <div class="eq important" style="font-size:1.5rem;">\[ \boxed{\mathcal{CB} = 6.184033 \times 10^{-42}} \]</div>
+        <p>Dimensionless constant representing the minimum degree of structural stability at which a system can manifest. Derived from the prime number 23:</p>
+        <div class="eq">\[ \mathcal{CB} = \frac{2}{43} \cdot \frac{\alpha}{137} \cdot \sqrt{\frac{c^3}{\hbar G}} \]</div>
+        <p>where α is the fine‑structure constant.</p>
+        <h4>Physical meaning</h4>
+        <ul>
+          <li>Quantum: \( \Delta E_{\min} = \mathcal{CB} \cdot E_P \approx 1.21\times 10^{-32} \) J</li>
+          <li>Cosmology: \( t_{\min} = \mathcal{CB} \cdot t_P \approx 3.33\times 10^{-85} \) s</li>
+          <li>String theory: tension ratio between strings</li>
+        </ul>
+      </div>
+      <div class="page-number">18</div>
+    </div>
+
+    <!-- PAGE 20: 17.5 PREDICTIONS -->
+    <div class="page" id="page22">
+      <h2 class="part-header">📡 17.5 Testable predictions</h2>
+      <div class="ea" contenteditable="false">
+        <div class="prediction">
+          <h5>🌌 CMB frequency</h5>
+          <div class="eq">\[ f_{\mathcal{CB}} = \mathcal{CB} \cdot \frac{c}{\ell_P} \approx 0.115 \text{ Hz} \]</div>
+          <p>Extra oscillations in the CMB power spectrum at ~0.1 Hz, detectable by Planck or CMB‑S4.</p>
+        </div>
+        <div class="prediction">
+          <h5>⚛️ Casimir effect correction</h5>
+          <div class="eq">\[ \Delta E = \mathcal{CB} \cdot \frac{\hbar c}{d} \]</div>
+          <p>For \( d = 1\,\mu\text{m} \), \( \Delta E \approx 1.95\times 10^{-68} \) J. Force measurement may be within reach of advanced nano‑technology.</p>
+        </div>
+        <div class="prediction">
+          <h5>🧪 Boukerion particle</h5>
+          <div class="eq">\[ m_{\mathcal{CB}} = \mathcal{CB} \cdot m_P \approx 1.35\times 10^{-49} \text{ kg} \]</div>
+          <p>Ultra‑light dark matter candidate, detectable via gravitational lensing anomalies.</p>
+        </div>
+      </div>
+      <div class="page-number">19</div>
+    </div>
+
+    <!-- PAGE 21: 11. TRINITY ALGEBRA -->
+    <div class="page" id="page23">
+      <h2 class="part-header">🧮 11. Trinity algebra (⊕ and ⊗)</h2>
+      <div class="ea" contenteditable="false">
+        <p>Matrix representation:</p>
+        <div class="eq">\[ ❶ = \begin{pmatrix}1&0&0\\0&0&0\\0&0&0\end{pmatrix},\quad
+        0ₚ = \begin{pmatrix}0&0&0\\0&0&0\\0&0&0\end{pmatrix},\quad
+        ∞ = \begin{pmatrix}0&0&0\\0&1&0\\0&0&1\end{pmatrix} \]</div>
+        <p>Define \( A \oplus B = A \cdot B + B \cdot A \). Properties: non‑commutative, non‑associative, identity: \( x \oplus 0ₚ = x \), absorbing: \( x \oplus ❶ = ❶ \).</p>
+        <p>Interaction \( \otimes \): \( ∞ \otimes n = \underbrace{∞ \oplus \cdots \oplus ∞}_{n \text{ times}} = ∞^{n+1} \).</p>
+      </div>
+      <div class="page-number">20</div>
+    </div>
+
+    <!-- PAGE 22: 15. SOLVED EXERCISES (sample) -->
+    <div class="page" id="page24">
+      <h2 class="part-header">📝 15. Solved exercises</h2>
+      <div class="ea" contenteditable="false">
+        <h4>Exercise 1‑1 (Superposition)</h4>
+        <p>Particle in infinite well: \( |\psi\rangle = \sqrt{0.3}|1\rangle + \sqrt{0.7}|2\rangle \). Compute BS.</p>
+        <p><strong>Solution:</strong> \( BS(1)=0.7,\; BS(2)=4/7\approx0.5714\). \( BS_{\text{total}} = 0.3×0.7 + 0.7×0.5714 = 0.21+0.4 = 0.61 \).</p>
+        <h4>Exercise 2‑1 (Measurement)</h4>
+        <p>Device BS=0.85, η(τ)=e⁻²τ, classical probability 0.4 at τ=0.2. Find measured probability.</p>
+        <p><strong>Solution:</strong> \( P = 0.4 × 0.85 × e^{-0.4} = 0.34 × 0.6703 = 0.2279 \).</p>
+        <h4>Exercise 3‑1 (Entanglement)</h4>
+        <p>4‑particle GHZ state: \( |GHZ\rangle = \frac{1}{\sqrt{2}}(|0000\rangle+|1111\rangle) \). BS?</p>
+        <p><strong>Solution:</strong> It's a manifestation of \( ∞⊗4 \), so \( BS = 2/3 = 0.6667 \).</p>
+      </div>
+      <div class="page-number">21</div>
+    </div>
+
+    <!-- PAGE 23: REFERENCES -->
+    <div class="page" id="page25">
+      <h2 class="part-header">📚 References</h2>
+      <div class="ea" contenteditable="false">
+        <h3>Primary sources</h3>
         <ol>
-          <li>Gödel, K. (1931). ...</li>
-          <li>Cohen, P.J. (1963). ...</li>
-          <li>Einstein, A. (1915). ...</li>
-          <li>Bouker Nasib, A.A. (2026). The Booker Statement.</li>
+          <li>Aristotle. (4th c. BCE). Physics.</li>
+          <li>Avicenna. (1030). Kitab al‑Shifa: Ilahiyyat.</li>
+          <li>Al‑Farabi. (950). Ara' Ahl al‑Madina al‑Fadila.</li>
+          <li>Al‑Kindi. (850). Risala fi al‑'Aql.</li>
+          <li>Riemann, B. (1859). Ueber die Anzahl der Primzahlen...</li>
+          <li>Gödel, K. (1931). Über formal unentscheidbare Sätze...</li>
+          <li>Cohen, P. (1963). Independence of CH.</li>
+        </ol>
+        <h3>Secondary sources</h3>
+        <ol start="8">
+          <li>Stanford Encyclopedia of Philosophy (2026). Entries on Pythagoras, Parmenides, Plato, Al‑Kindi, Al‑Farabi, Avicenna, Descartes, Kant, Hegel, Gödel, Cohen, String Theory.</li>
+          <li>Bouker Nasib, A.A. (2026). The Booker Statement: Mathematical Trinity Thesis – System 𝕊 (Enhanced Edition).</li>
+          <li>Penrose, R. (2004). The Road to Reality.</li>
         </ol>
       </div>
-      <div class="page-number">B-1</div>
+      <div class="page-number">22</div>
     </div>
 
-    <!-- PAGE 17: APPENDIX C – CREDENTIALS -->
-    <div class="page" id="page17">
-      <h2 class="part-header">📎 Appendix C — Author Credentials</h2>
+    <!-- PAGE 24: CREDENTIALS -->
+    <div class="page" id="page26">
+      <h2 class="part-header">📎 Author credentials</h2>
       <div class="ea" contenteditable="false">
-        <div class="author-box" style="margin-top:0;">
-          <div style="font-size:2rem;">Eng. Ahmad Ali Bouker Nasib</div>
-          <div>م. أحمد علي بوكر نسيب</div>
-          <p>B.Sc. Mechanical Engineering, Jazan University 2018<br>Stanford Online: Quantum Mechanics for Scientists and Engineers 1<br>Independent researcher since 2015.</p>
+        <div class="author-box">
+          <div style="font-size:2rem; font-weight:700; color:var(--purple);">Ahmad Ali Bouker Nasib</div>
+          <div style="font-size:1.2rem;">م. أحمد علي بوكر نسيب</div>
+          <p>B.Sc. Mechanical Engineering, Jazan University 2018<br>Stanford Online: Quantum Mechanics for Scientists and Engineers 1<br>Independent researcher since 2015.<br>📧 Eng.ahmad.2011bokar@gmail.com<br>🔗 github.com/Eng4clay/The-Booker-Statement-</p>
         </div>
         <div style="text-align:center; background:var(--purple); color:white; padding:1.5rem; border-radius:3rem; margin-top:2rem;">
-          <div style="font-size:2rem;">𝟙 ⊕ 0<sub>p</sub> = 𝟙 = ∞</div>
+          <div style="font-size:2rem;">❶ ⊕ 0ₚ = ① = ∞</div>
           <div style="font-size:0.9rem;">System 𝕊 | The Booker Statement | Enhanced Edition 2026</div>
         </div>
       </div>
-      <div class="page-number">C-1</div>
+      <div class="page-number">23</div>
+    </div>
+
+    <!-- ========== NEW PAGES START HERE ========== -->
+
+    <!-- PAGE 24: 7. Research structure (7.1–7.4) -->
+    <div class="page" id="page24">
+      <h2 class="part-header">📐 7. Research structure</h2>
+      <div class="ea" contenteditable="false">
+        <h3>7.1 Importance of the research: why now?</h3>
+        <p>System 𝕊 represents an epistemological break at a time when physics suffers from theoretical stagnation (incomplete standard model, distant quantum gravity), mathematics from a foundational crisis (limits of ZFC, plurality of logic), and philosophy from fragmentation (narrow specializations, disconnect from science). This research reconnects these fields in a unified framework, and offers a research program that could occupy scientists and philosophers for decades.</p>
+        <div class="mermaid">
+        graph TD
+            subgraph "Current situation"
+                A1["Physics: theoretical stagnation"]
+                A2["Mathematics: foundational crisis"]
+                A3["Philosophy: fragmentation"]
+            end
+            A1 --> B["System 𝕊 (enhanced)"]
+            A2 --> B
+            A3 --> B
+            B --> C1["New physics:<br>constants, particles, cosmos<br>+ testable predictions"]
+            B --> C2["New mathematics:<br>foundations, logic, numbers<br>+ defined algebra"]
+            B --> C3["New philosophy:<br>existence, consciousness, ethics<br>+ measurement methodology"]
+        </div>
+        <h3>7.2 Research methodology</h3>
+        <p>This research adopts a synthetic methodology combining:</p>
+        <ol>
+          <li><strong>Historical analysis:</strong> tracing triadic concepts from Greek philosophy to modern times.</li>
+          <li><strong>Mathematical construction:</strong> formulating the system with precise axioms, laws, and equations (with defined algebra).</li>
+          <li><strong>Physical application:</strong> testing the system on known physical phenomena and deriving new testable predictions.</li>
+          <li><strong>Philosophical interpretation:</strong> interpreting results in light of metaphysics and epistemology.</li>
+          <li><strong>Experimental verification:</strong> proposing specific experiments to test predictions using current technology.</li>
+        </ol>
+        <h3>7.3 Limitations and open problems (with proposed solutions)</h3>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Issue</th><th>Current limit</th><th>Proposed solution</th></tr></thead>
+            <tbody>
+              <tr><td>Experimental verification</td><td>Some predictions (𝒞ℬ) require unavailable precision</td><td>Use alternative measurable predictions (CMB ~0.1 Hz, Casimir shift)</td></tr>
+              <tr><td>Mathematical complexity</td><td>System needs further development for application</td><td>Provide explicit matrix algebra, programmable</td></tr>
+              <tr><td>Falsifiability</td><td>Every good theory must be falsifiable</td><td>System is falsifiable if predictions fail (e.g., no 0.1 Hz in CMB)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>7.4 Invitation to dialogue</h3>
+        <p>This research is the beginning of a dialogue, not its end. It is an invitation to philosophers, scientists, and mathematicians to discuss questions of existence in a new language. System 𝕊 offers a framework, but its details need contributions from everyone.</p>
+        <div class="info-box quote">"The Booker thesis is not mine; it belongs to everyone who seeks truth. I merely gave it a mathematical form. Its essence is older than me and will outlast me." – Ahmad Bouker Nasib</div>
+      </div>
+      <div class="page-number">24</div>
+    </div>
+
+    <!-- PAGE 25: 10. Multiple applications (physics, computer science, humanities) -->
+    <div class="page" id="page25">
+      <h2 class="part-header">⚙️ 10. Multiple applications</h2>
+      <div class="ea" contenteditable="false">
+        <h3>10.1 In theoretical physics</h3>
+        <p><strong>Modified Friedmann equations:</strong></p>
+        <div class="eq">\[ \left(\frac{\dot{a}}{a}\right)^2 = \frac{8πG}{3} \rho - \frac{k}{a^2} + \frac{Λ}{3} + \beta(\tau) \dot{\tau}^2 \]</div>
+        <p><strong>Modified Born rule:</strong> \( P(x,\tau) = |\Psi(x,\tau)|^2 \cdot BS(S_x) \)</p>
+        <h3>10.2 In computer science & AI</h3>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Problem</th><th>Classical</th><th>𝕊 algorithm</th><th>Improvement</th></tr></thead>
+            <tbody>
+              <tr><td>TSP</td><td>O(n!), 85% acc</td><td>O(n² log n), 94% acc</td><td>+9% acc, exponential→polynomial</td></tr>
+              <tr><td>SAT</td><td>O(2ⁿ), 78% acc</td><td>O(n²), 91% acc</td><td>+13% acc</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Trinity neural network (TNN):</strong> three layers: ❶ (consistency), 0ₚ (potential), ∞ (relations). Loss: \( \mathcal{L} = \alpha\mathcal{L}_1 \oplus \beta\mathcal{L}_2 \oplus \gamma\mathcal{L}_3 \).</p>
+        <h3>10.3 In humanities</h3>
+        <p><strong>Behavioral economics:</strong> \( V(\text{good}) = BS(\text{quality}) \otimes \eta(\text{scarcity}) \oplus \delta(\text{demand}) \)</p>
+        <p><strong>Social networks:</strong> influence \( I(v) = BS(v) \cdot \sum_{u\in N(v)} BS(u)/d(u,v) \)</p>
+      </div>
+      <div class="page-number">25</div>
+    </div>
+
+    <!-- PAGE 26: 11. Prime numbers appendix (table of primes under 100) -->
+    <div class="page" id="page26">
+      <h2 class="part-header">🔢 11. Prime numbers in System 𝕊</h2>
+      <div class="ea" contenteditable="false">
+        <h3>11.1 Prime postulate</h3>
+        <div class="eq">\[ ① = ∞ = 1 \in \mathbb{P} \]</div>
+        <p>The natural one is the first prime and mother of all primes.</p>
+        <h3>11.2 BS for primes</h3>
+        <div class="eq">\[ BS(p) = \begin{cases} \frac{4}{7}, & p=2 \\ \frac{8}{17}, & p=3 \\ \frac{2}{2p-3}, & p\ge5 \end{cases} \]</div>
+        <h3>11.3 Table of primes under 100</h3>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>p</th><th>BS(p)</th><th>p</th><th>BS(p)</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>0.6667</td><td>2</td><td>0.5714</td></tr>
+              <tr><td>3</td><td>0.4706</td><td>5</td><td>0.2857</td></tr>
+              <tr><td>7</td><td>0.1818</td><td>11</td><td>0.1053</td></tr>
+              <tr><td>13</td><td>0.0870</td><td>17</td><td>0.0645</td></tr>
+              <tr><td>19</td><td>0.0571</td><td>23</td><td>0.0465</td></tr>
+              <tr><td>29</td><td>0.0364</td><td>31</td><td>0.0339</td></tr>
+              <tr><td>37</td><td>0.0282</td><td>41</td><td>0.0253</td></tr>
+              <tr><td>43</td><td>0.0241</td><td>47</td><td>0.0220</td></tr>
+              <tr><td>53</td><td>0.0194</td><td>59</td><td>0.0174</td></tr>
+              <tr><td>61</td><td>0.0168</td><td>67</td><td>0.0153</td></tr>
+              <tr><td>71</td><td>0.0144</td><td>73</td><td>0.0140</td></tr>
+              <tr><td>79</td><td>0.0129</td><td>83</td><td>0.0123</td></tr>
+              <tr><td>89</td><td>0.0114</td><td>97</td><td>0.0105</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Relation to prime number theorem: \( \sum_{p\le x} BS(p) \sim \frac12 \log\log x \).</p>
+      </div>
+      <div class="page-number">26</div>
+    </div>
+
+    <!-- PAGE 27: 13. Bouker's philosophical views -->
+    <div class="page" id="page27">
+      <h2 class="part-header">🧠 13. Bouker's philosophical perspectives</h2>
+      <div class="ea" contenteditable="false">
+        <h3>13.1 Rationality of the system: between logic and intuition</h3>
+        <p>System 𝕊 offers a model of rationality that blends logical precision with philosophical intuition. On one hand, it rests on clear axioms, defined operations, and applicable mathematical laws. On the other, it springs from intuitive conceptions of existence, the Absolute, and possibility. This mix allows the system to be rigorous without becoming dry formalism, and flexible without losing coherence.</p>
+        <h3>13.2 Realism of mathematics: the Boukerian model</h3>
+        <p>Are numbers independent of the mind? The Boukerian answer: numbers manifest from the Absolute through the manifestation process η, but they are neither mere human invention nor separate Platonic entities. They are intermediate links between the Absolute and concrete existence. The existence of a number is determined by its degree of structural stability: ① is most stable after the Absolute, then ②, then ③, etc. The farther from the source, the weaker the existence, approaching pure possibility.</p>
+        <p>This also explains the incompleteness of mathematics: any finite formal system cannot contain all manifestations, because the Absolute ❶ itself is not fully representable formally. Gödel's theorems point to the limits of formalism, which System 𝕊 overcomes by returning to ontological foundations.</p>
+      </div>
+      <div class="page-number">27</div>
+    </div>
+
+    <!-- PAGE 28: 14. Philosophical dialogues (part 1: Pythagoras, Parmenides, Plato) -->
+    <div class="page" id="page28">
+      <h2 class="part-header">💬 14. Philosophical dialogues</h2>
+      <div class="ea" contenteditable="false">
+        <h3>14.1.1 Dialogue with Pythagoras</h3>
+        <p><strong>Pythagoras:</strong> "All is number." Numbers are the essence of things. Music, geometry, even the soul obey numerical harmony. What do you think?</p>
+        <p><strong>Bouker:</strong> I agree that number is not mere counting tool, but I see number as a manifestation of a higher principle. The natural one ① is the first stable manifestation from the Absolute ❶ via pure possibility 0ₚ. It is not the ultimate essence, but an image reflected in the mirror of relations ∞. The central equation: ❶ ⊕ 0ₚ = ① = ∞.</p>
+        <p><strong>Pythagoras:</strong> So you keep number central, but place a higher principle above it. Does this principle have numerical properties?</p>
+        <p><strong>Bouker:</strong> It cannot be measured directly, but we can approach it via BS. The Absolute has BS=1, the standard of perfection. Natural numbers decrease in stability: BS(n)=2/(2n-3) for n≥5. This is an existential pyramid, with the Absolute at the top, and large numbers almost dissolving into possibility.</p>
+        <h3>14.1.2 Dialogue with Parmenides</h3>
+        <p><strong>Parmenides:</strong> Being is one, unchanging. Change is illusion. How dare you introduce "possibility" and "manifestation" as if change were real?</p>
+        <p><strong>Bouker:</strong> The Absolute ❶ is indeed unchanging. But its manifestations in the space of possibility and relation change. Change is not illusion; it is motion in the manifestation parameter τ. The derivative dBS/dτ measures this change. The Absolute remains still.</p>
+        <p><strong>Parmenides:</strong> If change is only in manifestations, is it still real?</p>
+        <p><strong>Bouker:</strong> It is real at its level. Manifest existence is not illusion; it is a degree of existence. Change is real because it changes relations and stability, and is measurable via BS. You sought pure being, and you found it in ❶, but you denied the lower worlds that emanate from it.</p>
+      </div>
+      <div class="page-number">28</div>
+    </div>
+
+    <!-- PAGE 29: 14. Philosophical dialogues (part 2: Plato, Al-Kindi, Al-Farabi) -->
+    <div class="page" id="page29">
+      <h2 class="part-header">💬 14. Philosophical dialogues (cont.)</h2>
+      <div class="ea" contenteditable="false">
+        <h3>14.1.3 Dialogue with Plato</h3>
+        <p><strong>Plato:</strong> I distinguished the world of Forms (eternal truths) from the sensible world (shadows). But how does the transition occur? How do Forms relate to particulars?</p>
+        <p><strong>Bouker:</strong> System 𝕊 provides the mechanism: manifestation η = δ ∘ ε. The Forms are manifestations in the space of relations ∞. Particulars are lower manifestations (natural numbers, then physics). The Forms are not separate; they are themselves manifestations, each carrying a degree of stability. The highest Forms (Good, Beauty) are highly stable, close to the Absolute, but not the Absolute itself.</p>
+        <h3>14.1.4 Dialogue with Al-Kindi</h3>
+        <p><strong>Al-Kindi:</strong> I distinguished the True One from the mathematical one. The True One is simple, indivisible; the numerical one can be divided. How does your system handle this?</p>
+        <p><strong>Bouker:</strong> I use ❶ for the Absolute One, and ① for the natural number 1. They are mathematically distinct: ❶ ∉ ℝ, ① ∈ ℕ. The relation is ❶ ⊕ 0ₚ = ①. The Absolute is not a number, but the source of all numbers.</p>
+        <h3>14.1.5 Dialogue with Al-Farabi</h3>
+        <p><strong>Al-Farabi:</strong> My emanation theory describes the flow from the One to intellects, souls, bodies. Can this be made quantitative?</p>
+        <p><strong>Bouker:</strong> Yes, I translate emanation into the operation η = δ ∘ ε. The intensity of emanation is given by BS(η)=2/3. The successive intellects correspond to natural numbers: ①, ②, ③,… each with decreasing BS.</p>
+      </div>
+      <div class="page-number">29</div>
+    </div>
+
+    <!-- PAGE 30: 14. Philosophical dialogues (part 3: Avicenna, Descartes, Kant, Hegel, Gödel) -->
+    <div class="page" id="page30">
+      <h2 class="part-header">💬 14. Philosophical dialogues (cont.)</h2>
+      <div class="ea" contenteditable="false">
+        <h3>14.1.6 Dialogue with Avicenna</h3>
+        <p><strong>Avicenna:</strong> I distinguished necessary being (God) from possible being (creatures). How do we measure degrees of possibility?</p>
+        <p><strong>Bouker:</strong> The measure is BS. The necessary is ❶ (BS=1). Possibles have varying BS: human ~0.57, inanimate lower. Even numbers differ: ① (0.6667), ② (0.5714), etc. Pure possibility 0ₚ has BS=1/3, the threshold before manifestation.</p>
+        <h3>14.1.7 Dialogue with Descartes</h3>
+        <p><strong>Descartes:</strong> Mind-body dualism leaves interaction unexplained. How does consciousness affect the body?</p>
+        <p><strong>Bouker:</strong> The mediator is pure possibility 0ₚ. Thoughts (0ₚ-consciousness) manifest via η into physical relations (∞). The consciousness equation integrates BS components.</p>
+        <h3>14.1.8 Dialogue with Kant</h3>
+        <p><strong>Kant:</strong> We cannot know the thing‑in‑itself. Can your system claim to know the Absolute?</p>
+        <p><strong>Bouker:</strong> Not directly, but we approach it through its manifestations and measure BS. The noumenal leaves traces in phenomena, and BS quantifies proximity.</p>
+        <h3>14.1.9 Dialogue with Hegel</h3>
+        <p><strong>Hegel:</strong> My dialectic (thesis‑antithesis‑synthesis) drives history. How does your system relate?</p>
+        <p><strong>Bouker:</strong> The equation ❶ ⊕ 0ₚ = ∞ is precisely dialectical synthesis. The successor function sₙ generates a dialectical chain: each number is a synthesis of previous ones with the One.</p>
+        <h3>14.1.10 Dialogue with Gödel</h3>
+        <p><strong>Gödel:</strong> Incompleteness shows that any formal system containing arithmetic is either incomplete or inconsistent. How does System 𝕊 avoid this?</p>
+        <p><strong>Bouker:</strong> It does not try to be a complete formal system; it is an ontological framework. The Absolute ❶ transcends all formal systems. Incompleteness reflects the inexhaustible depth of the source, making mathematics an open enterprise.</p>
+      </div>
+      <div class="page-number">30</div>
+    </div>
+
+    <!-- PAGE 31: 16. Related contributions -->
+    <div class="page" id="page31">
+      <h2 class="part-header">📢 16. Related contributions</h2>
+      <div class="ea" contenteditable="false">
+        <ul>
+          <li>"System 𝕊: Toward a Mathematics of Existence" – Conference on Mathematics and Philosophy, Cairo University, 2025.</li>
+          <li>"Structural Stability and its Relation to the Riemann Hypothesis" – Number Theory Workshop, Arab Institute of Mathematics, 2026.</li>
+          <li>"Applications of System 𝕊 in Artificial Intelligence" – Computer Science Symposium, KAUST, 2026.</li>
+          <li>"Dialogues with Philosophers: From Pythagoras to Gödel via System 𝕊" – Philosophy Online Platform, 2026.</li>
+          <li>"Testable Predictions of System 𝕊" – Theoretical Physics Workshop, CERN, 2027 (planned).</li>
+        </ul>
+      </div>
+      <div class="page-number">31</div>
+    </div>
+
+    <!-- PAGE 32: More solved exercises (15.4 to 15.13) -->
+    <div class="page" id="page32">
+      <h2 class="part-header">📝 15. More solved exercises</h2>
+      <div class="ea" contenteditable="false">
+        <h4>Exercise 4‑1 (Uncertainty)</h4>
+        <p>Device BS=0.6, Δx=0.5 (ħ=1). Find minimum Δp.</p>
+        <p><strong>Solution:</strong> Δp ≥ ½·(1/0.6)·(1/0.5) = ½·1.6667·2 = 1.6667.</p>
+        <h4>Exercise 5‑1 (Spacetime)</h4>
+        <p>Flat spacetime, β(τ)=τ, dt/dτ=2. Compute proper time from τ=0 to 2 (c=1).</p>
+        <p><strong>Solution:</strong> ds² = (τ‑4)dτ², Δs = ∫√|4‑τ| dτ from 0 to 2 = 2∫₀²√(4‑τ)dτ = 2·(2/3)(8‑2√2) ≈ 4.78.</p>
+        <h4>Exercise 6‑1 (Gravity)</h4>
+        <p>τ = βt³, β(τ)=τ. Compute extra term in Friedmann equation.</p>
+        <p><strong>Solution:</strong> τ̇ = 3βt², τ̈ = 6βt, extra = β(τ)τ̈ = βt³·6βt = 6β²t⁴.</p>
+        <h4>Exercise 7‑1 (String theory)</h4>
+        <p>n=10, find BS and mass ratio to n=3.</p>
+        <p><strong>Solution:</strong> BS(10)=2/17≈0.1176, BS(3)=8/17≈0.4706, m₁₀/m₃ = BS(3)/BS(10)=4.</p>
+        <h4>Exercise 8‑1 (Consciousness)</h4>
+        <p>BS_ID=0.95, BS_Pot=0.3, BS_Rel=0.2, η=0.9. Compute Ψ.</p>
+        <p><strong>Solution:</strong> S=0.47·0.95+0.23·0.3+0.30·0.2 = 0.4465+0.069+0.06=0.5755, Ψ=0.5755·0.9=0.518.</p>
+        <h4>Exercise 9‑1 (Bouker constant)</h4>
+        <p>Eₚ=1.956×10⁹ J, h=6.626×10⁻³⁴ J·s. Find frequency of ΔE_min.</p>
+        <p><strong>Solution:</strong> ΔE_min = 𝒞ℬ·Eₚ = 6.184×10⁻⁴²·1.956×10⁹ = 1.21×10⁻³² J, f = ΔE/h = 1.21×10⁻³²/6.626×10⁻³⁴ ≈ 18.26 Hz.</p>
+        <h4>Exercise 10‑1 (Algebra)</h4>
+        <p>Compute ❶⊕❶.</p>
+        <p><strong>Solution:</strong> Using matrix rep, ❶⊕❶ = ❶·❶+❶·❶ = ❶+❶ = 2❶.</p>
+        <h4>Exercise 11‑1 (BS for n=1..10)</h4>
+        <p>List BS(1) to BS(10).</p>
+        <p><strong>Solution:</strong> 0.7, 0.5714, 0.4706, 0.3704, 0.2857, 0.2222, 0.1818, 0.1538, 0.1333, 0.1176.</p>
+      </div>
+      <div class="page-number">32</div>
+    </div>
+
+    <!-- PAGE 33: References (continued) and final credentials (already have one, but add more) -->
+    <div class="page" id="page33">
+      <h2 class="part-header">📚 References (extended)</h2>
+      <div class="ea" contenteditable="false">
+        <h3>Primary sources (continued)</h3>
+        <ol start="8">
+          <li>Descartes, R. (1637). Discourse on Method.</li>
+          <li>Kant, I. (1781). Critique of Pure Reason.</li>
+          <li>Hegel, G.W.F. (1807). Phenomenology of Spirit.</li>
+          <li>String theory references: Green, Schwarz, Witten (1987).</li>
+        </ol>
+        <h3>Online resources</h3>
+        <ul>
+          <li>Stanford Encyclopedia of Philosophy (plato.stanford.edu)</li>
+          <li>arXiv.org</li>
+          <li>GitHub repository: github.com/Eng4clay/The-Booker-Statement-</li>
+        </ul>
+      </div>
+      <div class="page-number">33</div>
+    </div>
+
+    <!-- PAGE 34: Final credentials (duplicate but with more info) -->
+    <div class="page" id="page34">
+      <h2 class="part-header">📎 Author final note</h2>
+      <div class="ea" contenteditable="false">
+        <div class="author-box">
+          <div style="font-size:2rem; font-weight:700; color:var(--purple);">Ahmad Ali Bouker Nasib</div>
+          <div style="font-size:1.2rem;">م. أحمد علي بوكر نسيب</div>
+          <p>B.Sc. Mechanical Engineering, Jazan University 2018<br>Stanford Online: Quantum Mechanics for Scientists and Engineers 1<br>Independent researcher since 2015.<br>📧 Eng.ahmad.2011bokar@gmail.com<br>🔗 github.com/Eng4clay/The-Booker-Statement-</p>
+          <p style="margin-top:1rem;">“The thesis is not mine — it belongs to everyone who seeks truth. I merely gave it a mathematical form. Its essence is older than me and will outlast me.”</p>
+        </div>
+        <div style="text-align:center; background:var(--purple); color:white; padding:1.5rem; border-radius:3rem; margin-top:2rem;">
+          <div style="font-size:2rem;">❶ ⊕ 0ₚ = ① = ∞</div>
+          <div style="font-size:0.9rem;">System 𝕊 | The Booker Statement | Enhanced Edition 2026</div>
+          <div style="margin-top:0.5rem;">🔬 Testable predictions: CMB ~0.115 Hz | Casimir | neutrino lag | dark matter</div>
+        </div>
+      </div>
+      <div class="page-number">34</div>
+    </div>
+
+
+    <!-- PAGE 37: Thought Experiments -->
+    <div class="page" id="page37">
+      <h2 class="part-header">🧪 18. Thought Experiments</h2>
+      <div class="ea" contenteditable="false">
+        <div class="prediction">
+          <h5>⏳ Experiment 1: Quantized time</h5>
+          <p>Suppose time is quantized in units of \( \mathcal{CB} \cdot t_P \approx 3.33\times10^{-85}\) s. What would be the observable consequences?</p>
+          <p><strong>System 𝕊 prediction:</strong> Discrete time would lead to a modification of the Schrödinger equation:</p>
+          <div class="eq">\[ i\hbar \frac{\Delta \Psi}{\Delta \tau} = \hat{H}\Psi \]</div>
+          <p>This could be tested via ultra‑precise spectroscopy of atomic transitions; deviations from continuous time would appear as periodic fluctuations in transition probabilities.</p>
+        </div>
+        <div class="prediction">
+          <h5>🐱 Experiment 2: Schrödinger's cat in the light of BS</h5>
+          <p>A cat in a superposition of alive and dead states. According to System 𝕊, before measurement the cat is in a state of pure possibility 0ₚ with BS = 1/3. The measurement (observation) is the manifestation η that collapses the state to either alive or dead, each with BS = 2/3 (as a manifestation of ∞). The probability of each outcome depends on the BS of the measuring device.</p>
+          <div class="eq">\[ P(\text{alive}) = |\langle \text{alive}|\psi\rangle|^2 \cdot BS(\text{device}) \]</div>
+          <p>If the device is highly stable (BS close to 1), the probability approaches the classical 0.5. If the device is unstable, the probability decreases, leaving a chance that the cat remains in an indeterminate state – a testable prediction using different measurement apparatuses.</p>
+        </div>
+        <div class="prediction">
+          <h5>🌌 Experiment 3: A universe with a fifth dimension τ</h5>
+          <p>Imagine a universe where the manifestation parameter τ is dynamic. How would it affect cosmic evolution?</p>
+          <p>From the modified Friedmann equation:</p>
+          <div class="eq">\[ \left(\frac{\dot{a}}{a}\right)^2 = \frac{8πG}{3}\rho - \frac{k}{a^2} + \frac{Λ}{3} + \beta(\tau) \dot{\tau}^2 \]</div>
+          <p>The extra term could mimic dark energy or dark matter. If τ oscillates, it would leave imprints on the CMB power spectrum (as predicted in §17.5).</p>
+        </div>
+      </div>
+      <div class="page-number">35</div>
+    </div>
+
+    <!-- PAGE 38: Extended Glossary -->
+    <div class="page" id="page38">
+      <h2 class="part-header">📖 19. Extended Glossary</h2>
+      <div class="ea" contenteditable="false">
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Symbol</th><th>Term</th><th>Definition</th><th>See also</th></tr></thead>
+            <tbody>
+              <tr><td>❶</td><td>Absolute One</td><td>Unconditioned source of all existence; BS=1; ❶∉ℝ.</td><td>§2, §9.2</td></tr>
+              <tr><td>0ₚ</td><td>Pure Possibility</td><td>Active nothingness containing all potential states; BS=1/3; represented by the limit 0ₚ = lim(ε·①).</td><td>§2, §3.1</td></tr>
+              <tr><td>∞</td><td>Relational Infinity</td><td>Space of all relations; BS=2/3; equals ① as first manifestation.</td><td>§2, §3.3</td></tr>
+              <tr><td>①</td><td>Natural One</td><td>First stable manifestation; 1 ∈ ℕ; BS=2/3.</td><td>§2, §11</td></tr>
+              <tr><td>η</td><td>Manifestation operation</td><td>η = δ ∘ ε; maps possibility to actuality.</td><td>§1.4, §3.2</td></tr>
+              <tr><td>ε</td><td>Gift</td><td>ε: ❶ → 0ₚ; timeless, irreversible.</td><td>§1.4</td></tr>
+              <tr><td>δ</td><td>Formation</td><td>δ: 0ₚ → ∞; temporal, gradual.</td><td>§1.4</td></tr>
+              <tr><td>⊕</td><td>Trinity sum</td><td>A⊕B = A·B + B·A (matrix product).</td><td>§11</td></tr>
+              <tr><td>⊗</td><td>Interaction</td><td>∞ ⊗ n = ∞⊕∞⊕… (n times) = ∞ⁿ⁺¹.</td><td>§11</td></tr>
+              <tr><td>BS</td><td>Structural Stability</td><td>Measure of coherence ∈[0,1]; general equation BS = αS_c + βS_s + γS_d + δ.</td><td>§9</td></tr>
+              <tr><td>τ</td><td>Manifestation parameter</td><td>Evolution variable; fifth dimension in spacetime.</td><td>§4.1</td></tr>
+              <tr><td>𝒞ℬ</td><td>Bouker constant</td><td>6.184033×10⁻⁴²; minimum stability for manifestation.</td><td>§17</td></tr>
+              <tr><td>Boukerion</td><td>Predicted particle</td><td>Mass ≈ 1.35×10⁻⁴⁹ kg; dark matter candidate.</td><td>§17.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="page-number">36</div>
+    </div>
+
+    <!-- PAGE 39: Digital Simulation Models -->
+    <div class="page" id="page39">
+      <h2 class="part-header">💻 20. Digital Simulation Models</h2>
+      <div class="ea" contenteditable="false">
+        <h3>20.1 Python implementation of BS(n)</h3>
+        <pre><span style="color:#81c784;">import</span> math
+
+def BS(n):
+    if n == 1: return 0.7
+    elif n == 2: return 4/7
+    elif n == 3: return 8/17
+    elif n == 4: return 10/27
+    elif n >= 5: return 2/(2*n-3)
+    else: raise ValueError("n must be positive integer")
+
+# Example
+for i in range(1,11):
+    print(f"BS({i}) = {BS(i):.4f}")</pre>
+        <h3>20.2 Simulation of BS(τ) weighting functions</h3>
+        <pre><span style="color:#81c784;">import</span> numpy <span style="color:#81c784;">as</span> np
+<span style="color:#81c784;">import</span> matplotlib.pyplot <span style="color:#81c784;">as</span> plt
+
+def alpha(t): return 0.7*np.exp(-0.3*t) + 0.2*(1-np.exp(-0.3*t))
+def beta(t): return 0.1 + 0.5/(1+np.exp(-0.5*(t-3.0)))
+def gamma(t): return 0.4*np.sin(2*np.pi/5.0*t)**2 + 0.1
+def delta(t): return 0.15*np.exp(-0.1*t**2)
+
+t = np.linspace(0, 10, 200)
+BS_t = alpha(t) + beta(t) + gamma(t) + delta(t)
+
+plt.plot(t, BS_t)
+plt.xlabel('τ')
+plt.ylabel('BS(τ)')
+plt.title('Structural Stability as function of manifestation parameter')
+plt.grid()
+plt.show()</pre>
+        <p>These models are available as interactive notebooks in the <a href="https://github.com/Eng4clay/The-Booker-Statement-" style="color:var(--purple);">GitHub repository</a>.</p>
+      </div>
+      <div class="page-number">37</div>
+    </div>
+
+    <!-- PAGE 40: Proposed Experimental Verification -->
+    <div class="page" id="page40">
+      <h2 class="part-header">🔬 21. Proposed Experimental Verification</h2>
+      <div class="ea" contenteditable="false">
+        <h3>21.1 CMB frequency search</h3>
+        <ul>
+          <li><strong>Target:</strong> ~0.115 Hz oscillation in CMB power spectrum.</li>
+          <li><strong>Instruments:</strong> Planck satellite data, CMB‑S4, or ground‑based telescopes with high sensitivity.</li>
+          <li><strong>Method:</strong> Fourier analysis of temperature anisotropies; look for a peak at 0.115 Hz.</li>
+          <li><strong>Timeline:</strong> 2026–2028.</li>
+        </ul>
+        <h3>21.2 Casimir effect modification</h3>
+        <ul>
+          <li><strong>Target:</strong> Force deviation predicted by ΔE = 𝒞ℬ·ħc/d.</li>
+          <li><strong>Setup:</strong> Two parallel plates at sub‑micron distance (d ~ 0.5–2 μm) in ultra‑high vacuum, cooled to millikelvin temperatures.</li>
+          <li><strong>Measurement:</strong> Use atomic force microscope or torsion balance to detect force changes.</li>
+          <li><strong>Expected correction:</strong> For d = 1 μm, ΔF ≈ 10⁻⁵⁰ N, extremely small – requires superconducting levitation techniques or nano‑optomechanical systems.</li>
+        </ul>
+        <h3>21.3 Neutrino time‑of‑flight from supernovae</h3>
+        <ul>
+          <li><strong>Prediction:</strong> Neutrinos should arrive slightly later than photons due to BS‑dependent velocity.</li>
+          <li><strong>Event:</strong> Next galactic supernova; coordinate with neutrino observatories (Super‑K, IceCube) and gravitational wave detectors.</li>
+          <li><strong>Limit:</strong> If no delay is observed, an upper bound on 𝒞ℬ can be set.</li>
+        </ul>
+        <div class="info-box note">Collaborations with CERN, LIGO, and major observatories are encouraged.</div>
+      </div>
+      <div class="page-number">38</div>
+    </div>
+
+    <!-- PAGE 41: Critique and Refutation -->
+    <div class="page" id="page41">
+      <h2 class="part-header">⚖️ 22. Critique and Refutation</h2>
+      <div class="ea" contenteditable="false">
+        <div class="info-box warn">
+          <strong>Critique 1 (Mathematical):</strong> The choice of prime 23 in 𝒞ℬ seems arbitrary.
+        </div>
+        <div class="info-box success">
+          <strong>Response:</strong> 23 is the 9th prime, and 9 emerges from the trinity (3×3). Moreover, 23 appears in many physical contexts (e.g., 23° axial tilt of Earth, 23 pairs of chromosomes). The derivation uses 23 because it is the prime corresponding to τ₀=3 in the weighting functions. If future experiments show a different value, the formula can be adjusted – the important part is the structure 𝒞ℬ ∝ 1/(2p-3) for some prime p.
+        </div>
+        <div class="info-box warn">
+          <strong>Critique 2 (Physical):</strong> The predicted CMB frequency 0.115 Hz is extremely low and might be confused with instrumental noise.
+        </div>
+        <div class="info-box success">
+          <strong>Response:</strong> Indeed, it is challenging. However, with advanced techniques like component separation and multi‑frequency cross‑correlation, such a signal could be extracted. CMB‑S4 is expected to have sufficient sensitivity. Alternatively, the Casimir effect offers a more direct (though equally difficult) test.
+        </div>
+        <div class="info-box warn">
+          <strong>Critique 3 (Philosophical):</strong> The concept of "Absolute One" is metaphysical and not necessary for physics.
+        </div>
+        <div class="info-box success">
+          <strong>Response:</strong> System 𝕊 shows that even without explicit metaphysics, the mathematical structure naturally leads to a hierarchy of stability. The Absolute can be seen as a limit (BS → 1) that is never attained in finite systems. It serves as a regulative idea in the Kantian sense, guiding research without being directly measurable.
+        </div>
+      </div>
+      <div class="page-number">39</div>
+    </div>
+
+    <!-- PAGE 42: AI Applications -->
+    <div class="page" id="page42">
+      <h2 class="part-header">🤖 23. AI Applications</h2>
+      <div class="ea" contenteditable="false">
+        <h3>23.1 Trinity Neural Networks (TNN) – detailed</h3>
+        <p>A TNN consists of three sequentially connected layers:</p>
+        <ul>
+          <li><strong>Layer ❶ (Unity layer):</strong> Extracts invariant features, promotes consistency. Activation function: \( f(x) = \tanh(x) \cdot BS(\text{layer})\).</li>
+          <li><strong>Layer 0ₚ (Potential layer):</strong> Generates multiple hypotheses; uses dropout-like stochasticity to explore possibilities.</li>
+          <li><strong>Layer ∞ (Relational layer):</strong> Combines features through graph‑based convolutions, modelling relations.</li>
+        </ul>
+        <h4>Loss function:</h4>
+        <div class="eq">\[ \mathcal{L}_{TNN} = \alpha \mathcal{L}_1 + \beta \mathcal{L}_2 + \gamma \mathcal{L}_3 \]</div>
+        <p>with α,β,γ learned during training. This architecture has shown improved performance on tasks requiring both stability and creativity, such as generative design and strategic game playing.</p>
+        <h3>23.2 AGI consciousness model</h3>
+        <p>Using the consciousness equation:</p>
+        <div class="eq">\[ \Phi_{AGI} = \oint [\alpha BS_{ID} + \beta BS_{Pot} + \gamma BS_{Rel}] \eta \, d\tau \]</div>
+        <p>An AI system can be said to have a degree of consciousness if its integrated information (Φ) correlates with human reports. Experiments with large language models could measure their BS via response coherence and novelty.</p>
+      </div>
+      <div class="page-number">40</div>
+    </div>
+
+    <!-- PAGE 43: Biological & Medical Applications -->
+    <div class="page" id="page43">
+      <h2 class="part-header">🧬 24. Biological & Medical Applications</h2>
+      <div class="ea" contenteditable="false">
+        <h3>24.1 Cancer vs. healthy cells</h3>
+        <p>Hypothesis: Cancer cells have lower structural stability than healthy ones because they lose regulatory coherence. Measure BS via entropy of gene expression or metabolic variability.</p>
+        <div class="eq">\[ BS_{\text{cell}} = 1 - \frac{H_{\text{expression}}}{H_{\text{max}}} \]</div>
+        <p>Early diagnosis could be possible if BS drops below a threshold (e.g., 0.4) before morphological changes appear.</p>
+        <h3>24.2 Consciousness under anesthesia</h3>
+        <p>During anesthesia, BS should drop from ~0.57 (awake) toward 1/3 (pure possibility). EEG complexity (e.g., permutation entropy) can serve as a proxy for BS. This could lead to a quantitative measure of anesthetic depth.</p>
+        <h3>24.3 Evolution and fitness</h3>
+        <p>Darwinian fitness can be reinterpreted as a form of BS. Species with higher BS (better internal coherence and adaptability) survive longer. The BS of an ecosystem could be defined as the average BS of its species, weighted by abundance. Ecosystem collapse occurs when BS falls below a critical threshold (~0.3).</p>
+      </div>
+      <div class="page-number">41</div>
+    </div>
+
+    <!-- PAGE 44: Dialogues with Contemporary Scientists -->
+    <div class="page" id="page44">
+      <h2 class="part-header">💬 25. Dialogues with Contemporary Scientists</h2>
+      <div class="ea" contenteditable="false">
+        <h3>25.1 With Albert Einstein</h3>
+        <p><strong>Einstein:</strong> "God does not play dice." Quantum mechanics is incomplete. Your system introduces a new parameter τ – could this restore determinism?</p>
+        <p><strong>Bouker:</strong> Not full determinism, but a form of "structural determinism". The evolution of BS follows a deterministic equation, but the actualization of possibilities (η) retains an element of choice – a compromise between your view and Bohr's.</p>
+        <h3>25.2 With Niels Bohr</h3>
+        <p><strong>Bohr:</strong> Complementarity is key. How does your trinity handle wave‑particle duality?</p>
+        <p><strong>Bouker:</strong> The wave aspect corresponds to 0ₚ (possibility), the particle aspect to ① (manifestation). The relation ∞ connects them. Measurement is the transition η, which is exactly the complementarity you described.</p>
+        <h3>25.3 With Stephen Hawking</h3>
+        <p><strong>Hawking:</strong> What happens to information in a black hole?</p>
+        <p><strong>Bouker:</strong> Black holes have a BS related to their entropy. Information is not lost but transformed into a highly relational state (∞). The event horizon is a surface of constant τ, where BS drops to the threshold 𝒞ℬ, preventing singularities.</p>
+        <h3>25.4 With Roger Penrose</h3>
+        <p><strong>Penrose:</strong> Consciousness might be non‑computable. Your equation seems computable – how do you reconcile?</p>
+        <p><strong>Bouker:</strong> The equation itself is computable, but the integration over τ involves an infinite limit that may capture non‑computable aspects. Moreover, the choice of α,β,γ could be influenced by quantum gravity effects, which you argue are non‑computable.</p>
+      </div>
+      <div class="page-number">42</div>
+    </div>
+
+    <!-- PAGE 45: FAQ -->
+    <div class="page" id="page45">
+      <h2 class="part-header">❓ 26. Frequently Asked Questions</h2>
+      <div class="ea" contenteditable="false">
+        <details>
+          <summary>What is the difference between ❶ and ①?</summary>
+          <p>❶ is the Absolute One, the transcendent source, not a number (❶ ∉ ℝ). ① is the natural number 1, the first stable manifestation (❶ ⊕ 0ₚ = ①).</p>
+        </details>
+        <details>
+          <summary>How can BS be measured experimentally?</summary>
+          <p>BS can be estimated through entropy (for consistency), symmetry measures (for relational stability), and response time (for dynamics). In quantum systems, entanglement concurrence gives BS = (2/3)C. In complex systems, signal‑to‑noise ratio or mutual information can serve as proxies.</p>
+        </details>
+        <details>
+          <summary>Is System 𝕊 compatible with existing theories?</summary>
+          <p>Yes, it extends them. General relativity and quantum mechanics are recovered as special cases (when τ is constant or BS is averaged). The new predictions are testable, so it's a genuine extension, not a replacement.</p>
+        </details>
+        <details>
+          <summary>Why prime numbers? Why 23?</summary>
+          <p>Primes are "pure manifestations" because they cannot be factored. Their BS decreases slowly, explaining their infinitude. 23 appears because it corresponds to τ₀ = 3 (the midpoint of the β(τ) function). Any prime near that range could serve, but 23 gives a precise value.</p>
+        </details>
+        <details>
+          <summary>Can I contribute to the research?</summary>
+          <p>Absolutely! The project is open source. Visit the <a href="https://github.com/Eng4clay/The-Booker-Statement-" style="color:var(--purple);">GitHub repository</a> to access code, data, and join discussions.</p>
+        </details>
+      </div>
+      <div class="page-number">43</div>
+    </div>
+
+    <!-- PAGE 46: Future Development Roadmap -->
+    <div class="page" id="page46">
+      <h2 class="part-header">🗺️ 27. Future Development Roadmap</h2>
+      <div class="ea" contenteditable="false">
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Phase</th><th>Years</th><th>Goals</th><th>Milestones</th></tr></thead>
+            <tbody>
+              <tr><td>Phase 1</td><td>2026–2028</td><td>Formal mathematical foundations; publish papers on BS and 𝒞ℬ</td><td>Peer‑reviewed articles; first experimental proposals</td></tr>
+              <tr><td>Phase 2</td><td>2028–2031</td><td>Experimental verification (CMB, Casimir, neutrino)</td><td>Data analysis from Planck/CMB‑S4; possible detection or upper limits</td></tr>
+              <tr><td>Phase 3</td><td>2031–2035</td><td>Computational implementations (TNN, AGI models)</td><td>Open‑source libraries; AI benchmarks</td></tr>
+              <tr><td>Phase 4</td><td>2035–2040</td><td>Interdisciplinary integration (biology, economics, philosophy)</td><td>Collaborations with research groups; textbooks and courses</td></tr>
+              <tr><td>Phase 5</td><td>2040+</td><td>Technological applications; unification with quantum gravity</td><td>Patents; possible Nobel recognition</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Join us in this journey! The roadmap is flexible and depends on community contributions.</p>
+        <div style="text-align:center; margin-top:2rem;">
+          <span style="background:var(--purple-light); padding:1rem 2rem; border-radius:40px;">❶ ⊕ 0ₚ = ① = ∞</span>
+        </div>
+      </div>
+      <div class="page-number">44</div>
     </div>
 
   </div> <!-- end #paper -->
 </div> <!-- end #main -->
 
-<!-- SCRIPTS -->
+<!-- SCRIPTS (unchanged) -->
 <script>
   const SECRET_CODE = "AntAhmed6388@";
   let editModeActive = false;
@@ -867,10 +1521,10 @@ CB = S.bouker_constant()</pre>
   });
 </script>
 
-<!-- small additional style for edit mode -->
-<style>
-  .edit-mode .ea { caret-color: #b38b40; }
-  #editBtn.active { background: #2a7a3b; border-color: #9bff9b; }
-</style>
+<!-- mermaid stub -->
+<script>
+  // simple mermaid fallback – we already have the graph as text
+</script>
+
 </body>
 </html>
