@@ -1,3469 +1,876 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الأطروحة البوكرية | نظام 𝕊 — الثالوث الرياضي</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
-<style>
-  :root {
-    --gold: #C9A84C;
-    --gold-light: #E8D08A;
-    --gold-dark: #8B6914;
-    --ink: #1A1208;
-    --ink-soft: #2D2010;
-    --parchment: #F5EDD8;
-    --parchment-dark: #EAD9B8;
-    --parchment-deeper: #D4C49A;
-    --crimson: #8B1A1A;
-    --crimson-light: #C62828;
-    --sapphire: #1A3A5C;
-    --sapphire-light: #2E6DA4;
-    --emerald: #1A4A2A;
-    --emerald-light: #2E7D32;
-    --violet: #3D1A5C;
-    --violet-light: #7B1FA2;
-    --teal: #0A3D3A;
-    --teal-light: #00838F;
-    --amber: #5C3D00;
-    --amber-light: #F9A825;
-    --shadow: rgba(26,18,8,0.25);
-    --shadow-deep: rgba(26,18,8,0.5);
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Cairo', 'Noto Naskh Arabic', serif;
-    background: var(--parchment);
-    color: var(--ink);
-    line-height: 1.9;
-    font-size: 16px;
-    overflow-x: hidden;
-  }
-
-  /* Decorative background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: 
-      radial-gradient(ellipse at 10% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 80%, rgba(139,26,26,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(61,26,92,0.04) 0%, transparent 70%),
-      url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M40 0L50 20L70 20L55 35L60 55L40 45L20 55L25 35L10 20L30 20Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ═══════════════════════════════════════
-     HEADER
-  ═══════════════════════════════════════ */
-  .site-header {
-    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 40%, #3D2810 100%);
-    border-bottom: 4px solid var(--gold);
-    padding: 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 20px var(--shadow-deep);
-  }
-
-  .header-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 12px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .header-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .header-symbol {
-    font-size: 2.2rem;
-    color: var(--gold);
-    text-shadow: 0 0 20px rgba(201,168,76,0.5);
-    font-family: 'Amiri', serif;
-  }
-
-  .header-title-block h1 {
-    font-size: 1.1rem;
-    color: var(--gold-light);
-    font-family: 'Amiri', serif;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
-
-  .header-title-block p {
-    font-size: 0.72rem;
-    color: var(--parchment-deeper);
-    opacity: 0.8;
-  }
-
-  .header-nav {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .nav-btn {
-    background: transparent;
-    border: 1px solid rgba(201,168,76,0.3);
-    color: var(--parchment);
-    padding: 5px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.75rem;
-    transition: all 0.3s;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .nav-btn:hover, .nav-btn.active {
-    background: var(--gold);
-    color: var(--ink);
-    border-color: var(--gold);
-  }
-
-  .nav-btn-special {
-    background: linear-gradient(135deg, var(--crimson), #5D0000);
-    border-color: var(--crimson);
-    color: white;
-  }
-
-  /* ═══════════════════════════════════════
-     HERO SECTION
-  ═══════════════════════════════════════ */
-  .hero {
-    position: relative;
-    min-height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    background: linear-gradient(180deg, #1A1208 0%, #2D1F0A 60%, var(--parchment) 100%);
-    z-index: 1;
-  }
-
-  .hero-ornament {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    padding: 60px 24px 80px;
-    max-width: 900px;
-  }
-
-  .hero-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-    color: var(--ink);
-    padding: 4px 20px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .hero-main-title {
-    font-family: 'Amiri', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    color: var(--gold-light);
-    line-height: 1.4;
-    margin-bottom: 12px;
-    text-shadow: 0 2px 20px rgba(201,168,76,0.4);
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    color: var(--parchment-deeper);
-    margin-bottom: 16px;
-    font-family: 'Noto Naskh Arabic', serif;
-    font-style: italic;
-  }
-
-  .hero-equation {
-    background: rgba(201,168,76,0.1);
-    border: 1px solid rgba(201,168,76,0.3);
-    border-radius: 12px;
-    padding: 16px 32px;
-    display: inline-block;
-    margin: 20px 0;
-    backdrop-filter: blur(10px);
-  }
-
-  .hero-equation .mjx-container {
-    color: var(--gold-light) !important;
-    font-size: 1.4em !important;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 24px;
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-    color: var(--ink);
-    border: none;
-    padding: 12px 28px;
-    border-radius: 30px;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(201,168,76,0.3);
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(201,168,76,0.5);
-  }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--gold-light);
-    border: 1px solid var(--gold);
-    padding: 12px 28px;
-    border-radius: 30px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .btn-secondary:hover {
-    background: rgba(201,168,76,0.1);
-    transform: translateY(-2px);
-  }
-
-  /* ═══════════════════════════════════════
-     LAYOUT
-  ═══════════════════════════════════════ */
-  .main-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* SIDEBAR */
-  .sidebar {
-    position: sticky;
-    top: 60px;
-    height: calc(100vh - 60px);
-    overflow-y: auto;
-    background: linear-gradient(180deg, #1A1208 0%, #2D1F0A 100%);
-    border-left: 2px solid var(--gold-dark);
-    padding: 20px 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--gold-dark) transparent;
-  }
-
-  .sidebar::-webkit-scrollbar { width: 4px; }
-  .sidebar::-webkit-scrollbar-track { background: transparent; }
-  .sidebar::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
-
-  .sidebar-section-title {
-    color: var(--gold);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 12px 20px 6px;
-    opacity: 0.7;
-    border-top: 1px solid rgba(201,168,76,0.15);
-    margin-top: 8px;
-  }
-
-  .sidebar-section-title:first-child { border-top: none; margin-top: 0; }
-
-  .sidebar-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 20px;
-    color: var(--parchment-deeper);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.82rem;
-    text-decoration: none;
-    border-right: 3px solid transparent;
-  }
-
-  .sidebar-item:hover {
-    background: rgba(201,168,76,0.08);
-    color: var(--gold-light);
-    border-right-color: var(--gold);
-  }
-
-  .sidebar-item.active {
-    background: rgba(201,168,76,0.12);
-    color: var(--gold);
-    border-right-color: var(--gold);
-  }
-
-  .sidebar-item-icon {
-    font-size: 0.9rem;
-    min-width: 20px;
-    text-align: center;
-  }
-
-  /* CONTENT */
-  .content-area {
-    padding: 40px;
-    min-height: 100vh;
-  }
-
-  /* ═══════════════════════════════════════
-     SECTIONS
-  ═══════════════════════════════════════ */
-  .section {
-    display: none;
-    animation: fadeIn 0.4s ease;
-  }
-
-  .section.active { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .section-header {
-    margin-bottom: 36px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--gold-dark);
-    position: relative;
-  }
-
-  .section-header::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    right: 0;
-    width: 60px;
-    height: 4px;
-    background: var(--gold);
-    border-radius: 2px;
-  }
-
-  .section-number {
-    font-size: 0.75rem;
-    color: var(--gold);
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .section-title {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-    color: var(--ink);
-    line-height: 1.3;
-  }
-
-  .section-subtitle {
-    color: var(--ink-soft);
-    opacity: 0.7;
-    margin-top: 6px;
-    font-size: 1rem;
-    font-style: italic;
-  }
-
-  /* ═══════════════════════════════════════
-     CONTENT ELEMENTS
-  ═══════════════════════════════════════ */
-  h2 {
-    font-family: 'Amiri', serif;
-    font-size: 1.7rem;
-    color: var(--crimson);
-    margin: 36px 0 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--parchment-deeper);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  h2::before {
-    content: '';
-    display: inline-block;
-    width: 4px;
-    height: 28px;
-    background: var(--crimson);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
-  h3 {
-    font-family: 'Cairo', sans-serif;
-    font-size: 1.2rem;
-    color: var(--sapphire);
-    margin: 24px 0 12px;
-    font-weight: 700;
-  }
-
-  h4 {
-    font-size: 1rem;
-    color: var(--violet);
-    margin: 18px 0 8px;
-    font-weight: 700;
-  }
-
-  p {
-    margin-bottom: 14px;
-    color: var(--ink-soft);
-    font-size: 0.96rem;
-  }
-
-  /* CALLOUT BOXES */
-  .callout {
-    border-radius: 10px;
-    padding: 18px 22px;
-    margin: 20px 0;
-    border-right: 4px solid;
-    position: relative;
-  }
-
-  .callout-definition {
-    background: rgba(201,168,76,0.08);
-    border-color: var(--gold);
-    border: 1px solid rgba(201,168,76,0.3);
-    border-right: 4px solid var(--gold);
-  }
-
-  .callout-theorem {
-    background: rgba(26,58,92,0.06);
-    border-color: var(--sapphire);
-    border: 1px solid rgba(26,58,92,0.2);
-    border-right: 4px solid var(--sapphire);
-  }
-
-  .callout-proof {
-    background: rgba(26,74,42,0.06);
-    border-color: var(--emerald);
-    border: 1px solid rgba(26,74,42,0.2);
-    border-right: 4px solid var(--emerald);
-  }
-
-  .callout-note {
-    background: rgba(61,26,92,0.05);
-    border-color: var(--violet);
-    border: 1px solid rgba(61,26,92,0.15);
-    border-right: 4px solid var(--violet);
-  }
-
-  .callout-warning {
-    background: rgba(139,26,26,0.06);
-    border-color: var(--crimson);
-    border: 1px solid rgba(139,26,26,0.2);
-    border-right: 4px solid var(--crimson);
-  }
-
-  .callout-title {
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    opacity: 0.8;
-  }
-
-  /* EQUATION BOX */
-  .equation-box {
-    background: linear-gradient(135deg, #1A1208, #2D1F0A);
-    border: 1px solid var(--gold-dark);
-    border-radius: 12px;
-    padding: 24px;
-    margin: 24px 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .equation-box::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
-  }
-
-  .equation-box .MathJax {
-    color: var(--gold-light) !important;
-    font-size: 1.2em;
-  }
-
-  .equation-label {
-    position: absolute;
-    top: 8px;
-    left: 12px;
-    font-size: 0.7rem;
-    color: var(--gold);
-    opacity: 0.7;
-    font-family: 'Cairo', sans-serif;
-  }
-
-  .equation-number {
-    position: absolute;
-    bottom: 8px;
-    left: 12px;
-    font-size: 0.7rem;
-    color: var(--gold);
-    opacity: 0.6;
-  }
-
-  /* TABLES */
-  .table-wrapper {
-    overflow-x: auto;
-    margin: 20px 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px var(--shadow);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    font-size: 0.88rem;
-  }
-
-  thead {
-    background: linear-gradient(135deg, var(--ink), var(--ink-soft));
-    color: var(--gold-light);
-  }
-
-  thead th {
-    padding: 12px 16px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 0.82rem;
-    letter-spacing: 0.5px;
-    border: 1px solid rgba(201,168,76,0.2);
-  }
-
-  tbody tr:nth-child(even) { background: rgba(245,237,216,0.5); }
-  tbody tr:hover { background: rgba(201,168,76,0.08); }
-
-  td {
-    padding: 10px 16px;
-    border: 1px solid var(--parchment-deeper);
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  td:first-child { font-weight: 600; }
-
-  /* MERMAID-STYLE DIAGRAMS (CSS) */
-  .diagram-container {
-    background: white;
-    border: 1px solid var(--parchment-deeper);
-    border-radius: 12px;
-    padding: 24px;
-    margin: 20px 0;
-    overflow-x: auto;
-    box-shadow: 0 2px 8px var(--shadow);
-  }
-
-  .diagram-title {
-    text-align: center;
-    font-family: 'Amiri', serif;
-    font-size: 1rem;
-    color: var(--violet);
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--parchment-deeper);
-  }
-
-  /* FLOW DIAGRAM */
-  .flow-diagram {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 12px;
-    direction: ltr;
-  }
-
-  .flow-node {
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 0.82rem;
-    text-align: center;
-    min-width: 100px;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  .flow-node-absolute { background: linear-gradient(135deg, #FFCDD2, #FFEBEE); border: 2px solid #C62828; color: #C62828; }
-  .flow-node-possible { background: linear-gradient(135deg, #CFD8DC, #ECEFF1); border: 2px solid #546E7A; color: #37474F; }
-  .flow-node-infinite { background: linear-gradient(135deg, #D1C4E9, #EDE7F6); border: 2px solid #7B1FA2; color: #4A148C; }
-  .flow-node-natural { background: linear-gradient(135deg, #FFF9C4, #FFFDE7); border: 2px solid #F9A825; color: #5C3D00; }
-  .flow-node-number { background: linear-gradient(135deg, #C8E6C9, #E8F5E9); border: 2px solid #2E7D32; color: #1B5E20; }
-  .flow-node-info { background: linear-gradient(135deg, #BBDEFB, #E3F2FD); border: 2px solid #1565C0; color: #0D47A1; }
-  .flow-node-orange { background: linear-gradient(135deg, #FFE0B2, #FFF3E0); border: 2px solid #E65100; color: #BF360C; }
-  .flow-node-pink { background: linear-gradient(135deg, #F8BBD9, #FCE4EC); border: 2px solid #880E4F; color: #560027; }
-
-  .flow-arrow {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--gold-dark);
-    font-size: 0.7rem;
-  }
-
-  .flow-arrow-sym { font-size: 1.2rem; }
-
-  /* GRID CARDS */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-    margin: 20px 0;
-  }
-
-  .card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid var(--parchment-deeper);
-    box-shadow: 0 2px 8px var(--shadow);
-    transition: all 0.3s;
-  }
-
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px var(--shadow);
-  }
-
-  .card-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-  .card-title {
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 8px;
-    font-size: 1rem;
-  }
-
-  .card-body {
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    opacity: 0.85;
-  }
-
-  .card-crimson { border-top: 4px solid var(--crimson); }
-  .card-sapphire { border-top: 4px solid var(--sapphire); }
-  .card-emerald { border-top: 4px solid var(--emerald); }
-  .card-violet { border-top: 4px solid var(--violet); }
-  .card-gold { border-top: 4px solid var(--gold); }
-  .card-teal { border-top: 4px solid var(--teal); }
-
-  /* BS GAUGE */
-  .bs-display {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--parchment-dark);
-    border: 1px solid var(--parchment-deeper);
-    border-radius: 20px;
-    padding: 4px 12px;
-    font-size: 0.82rem;
-    font-weight: 700;
-  }
-
-  .bs-bar {
-    height: 6px;
-    width: 60px;
-    background: var(--parchment-deeper);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .bs-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--crimson), var(--gold));
-    border-radius: 3px;
-  }
-
-  /* SYMBOL TABLE */
-  .symbol-table {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin: 16px 0;
-  }
-
-  .symbol-card {
-    background: white;
-    border-radius: 8px;
-    padding: 14px;
-    border: 1px solid var(--parchment-deeper);
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .symbol-glyph {
-    font-size: 1.8rem;
-    min-width: 40px;
-    text-align: center;
-    line-height: 1.2;
-  }
-
-  .symbol-info-name {
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--ink);
-  }
-
-  .symbol-info-desc {
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    opacity: 0.8;
-    margin-top: 3px;
-  }
-
-  /* AUTHOR SECTION */
-  .author-card {
-    background: linear-gradient(135deg, var(--ink), var(--ink-soft));
-    color: var(--parchment);
-    border-radius: 16px;
-    padding: 28px;
-    margin: 30px 0;
-    border: 1px solid var(--gold-dark);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .author-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
-  }
-
-  .author-name {
-    font-family: 'Amiri', serif;
-    font-size: 1.5rem;
-    color: var(--gold-light);
-    margin-bottom: 6px;
-  }
-
-  .author-detail {
-    font-size: 0.85rem;
-    color: var(--parchment-deeper);
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .author-detail a {
-    color: var(--gold-light);
-    text-decoration: none;
-  }
-
-  .author-detail a:hover { text-decoration: underline; }
-
-  /* QUOTE */
-  blockquote {
-    border-right: 4px solid var(--gold);
-    padding: 16px 20px;
-    margin: 20px 0;
-    background: rgba(201,168,76,0.06);
-    border-radius: 0 8px 8px 0;
-    font-family: 'Amiri', serif;
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--ink);
-    line-height: 1.8;
-  }
-
-  /* PREDICTION CARDS */
-  .prediction-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin: 20px 0;
-  }
-
-  .prediction-card {
-    background: linear-gradient(135deg, #1A1208, #2D1F0A);
-    border: 1px solid var(--gold-dark);
-    border-radius: 12px;
-    padding: 18px;
-    color: var(--parchment);
-    text-align: center;
-  }
-
-  .prediction-icon { font-size: 1.8rem; margin-bottom: 8px; }
-  .prediction-title { font-size: 0.82rem; color: var(--gold); font-weight: 700; margin-bottom: 8px; }
-  .prediction-value { font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--gold-light); margin-bottom: 8px; }
-  .prediction-desc { font-size: 0.75rem; color: var(--parchment-deeper); opacity: 0.8; }
-
-  /* TIMELINE */
-  .timeline {
-    position: relative;
-    padding-right: 30px;
-    margin: 20px 0;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, var(--gold), var(--crimson));
-  }
-
-  .timeline-item {
-    position: relative;
-    padding: 12px 24px 12px 0;
-    margin-bottom: 8px;
-  }
-
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    right: -5px;
-    top: 18px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--gold);
-    box-shadow: 0 0 8px rgba(201,168,76,0.5);
-  }
-
-  .timeline-year {
-    font-size: 0.75rem;
-    color: var(--gold);
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 3px;
-  }
-
-  .timeline-person {
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--ink);
-    margin-bottom: 2px;
-  }
-
-  .timeline-desc {
-    font-size: 0.82rem;
-    color: var(--ink-soft);
-    opacity: 0.8;
-  }
-
-  /* PRINT BUTTON */
-  .print-bar {
-    background: linear-gradient(135deg, var(--ink), #2D1F0A);
-    border-top: 2px solid var(--gold-dark);
-    padding: 12px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .print-bar-text { color: var(--parchment-deeper); font-size: 0.85rem; }
-
-  /* EDITOR PANEL */
-  .editor-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(26,18,8,0.9);
-    z-index: 2000;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .editor-overlay.open { display: flex; }
-
-  .editor-modal {
-    background: var(--parchment);
-    border-radius: 16px;
-    border: 2px solid var(--gold);
-    padding: 30px;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  }
-
-  .editor-modal h2 {
-    color: var(--crimson);
-    margin-bottom: 20px;
-    font-size: 1.3rem;
-  }
-
-  .editor-modal h2::before { display: none; }
-
-  .form-group { margin-bottom: 16px; }
-
-  .form-label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
-
-  .form-input {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid var(--parchment-deeper);
-    border-radius: 8px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.9rem;
-    background: white;
-    color: var(--ink);
-    direction: rtl;
-  }
-
-  .form-input:focus {
-    outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
-  }
-
-  .form-textarea {
-    min-height: 120px;
-    resize: vertical;
-  }
-
-  .modal-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 20px;
-  }
-
-  .btn-danger {
-    background: var(--crimson);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.85rem;
-  }
-
-  .btn-cancel {
-    background: var(--parchment-dark);
-    color: var(--ink);
-    border: 1px solid var(--parchment-deeper);
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.85rem;
-  }
-
-  /* PASSWORD MODAL */
-  .pw-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(26,18,8,0.9);
-    z-index: 3000;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .pw-modal.open { display: flex; }
-
-  .pw-box {
-    background: var(--parchment);
-    border-radius: 16px;
-    border: 2px solid var(--gold);
-    padding: 36px;
-    width: 360px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-  }
-
-  .pw-box h3 {
-    color: var(--ink);
-    margin-bottom: 6px;
-    font-size: 1.2rem;
-  }
-
-  .pw-box p {
-    font-size: 0.85rem;
-    opacity: 0.7;
-    margin-bottom: 20px;
-  }
-
-  .pw-error {
-    color: var(--crimson);
-    font-size: 0.82rem;
-    margin-top: 8px;
-    display: none;
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--ink);
-    color: var(--parchment-deeper);
-    text-align: center;
-    padding: 30px 24px;
-    margin-top: 0;
-    border-top: 2px solid var(--gold-dark);
-  }
-
-  footer p { font-size: 0.82rem; margin-bottom: 6px; opacity: 0.8; }
-  footer a { color: var(--gold-light); text-decoration: none; }
-
-  /* PRINT STYLES */
-  @media print {
-    body { background: white; font-size: 12pt; }
-    .site-header, .sidebar, .hero, .print-bar, footer, .nav-btn-special { display: none !important; }
-    .main-layout { display: block; }
-    .content-area { padding: 0; }
-    .section { display: block !important; }
-    .equation-box { background: #f5f5f5; border: 1px solid #ccc; }
-    .equation-box .MathJax { color: black !important; }
-    h2, h3 { page-break-after: avoid; }
-    table { page-break-inside: avoid; }
-    @page { size: A4; margin: 2cm; }
-
-    .print-header {
-      display: flex !important;
-      justify-content: space-between;
-      border-bottom: 2pt solid #C9A84C;
-      padding-bottom: 10pt;
-      margin-bottom: 20pt;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Booker Statement · Mathematical Trinity Thesis (2026) · System 𝕊</title>
+  <!-- Professional PDF‑like styling, perfect for A4 print & screen -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(','\\)'], ['$','$']], displayMath: [['\\[','\\]'], ['$$','$$']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <style>
+    /* ---------- RESET & VARIABLES ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --purple-deep: #3c1e5f;
+      --purple: #5e2a8c;
+      --purple-light: #e9dbf5;
+      --red: #f8d7da;
+      --red-dark: #a12830;
+      --teal-light: #d2f0f4;
+      --teal-dark: #0f5c6b;
+      --gold-light: #fff3cd;
+      --gold-dark: #856404;
+      --green-light: #d4edda;
+      --green-dark: #155724;
+      --blue-light: #d1ecf1;
+      --blue-dark: #0c5460;
+      --gray-light: #e2e3e5;
+      --gray-dark: #383d41;
+      --bg-page: #faf9f7;
+      --paper-white: #ffffff;
+      --shadow: 0 12px 35px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+      --border-light: #e0dce3;
+      --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+      --font-mono: 'Roboto Mono', 'Courier New', monospace;
     }
-
-    .section-divider {
-      page-break-before: always;
+    body {
+      font-family: var(--font-serif);
+      background-color: var(--bg-page);
+      color: #1e1a2b;
+      font-size: 16px;
+      line-height: 1.65;
     }
-  }
-
-  .print-header { display: none; }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .main-layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; height: auto; }
-    .content-area { padding: 20px; }
-    .hero-main-title { font-size: 1.8rem; }
-  }
-
-  /* MISC */
-  .badge {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-size: 0.72rem;
-    font-weight: 700;
-  }
-
-  .badge-gold { background: rgba(201,168,76,0.2); color: var(--gold-dark); border: 1px solid rgba(201,168,76,0.4); }
-  .badge-crimson { background: rgba(139,26,26,0.1); color: var(--crimson); border: 1px solid rgba(139,26,26,0.3); }
-  .badge-sapphire { background: rgba(26,58,92,0.1); color: var(--sapphire); border: 1px solid rgba(26,58,92,0.3); }
-  .badge-emerald { background: rgba(26,74,42,0.1); color: var(--emerald); border: 1px solid rgba(26,74,42,0.3); }
-  .badge-violet { background: rgba(61,26,92,0.1); color: var(--violet); border: 1px solid rgba(61,26,92,0.3); }
-
-  .toc-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 12px;
-    margin: 20px 0;
-  }
-
-  .toc-item {
-    background: white;
-    border: 1px solid var(--parchment-deeper);
-    border-radius: 8px;
-    padding: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .toc-item:hover {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.05);
-    transform: translateX(-3px);
-  }
-
-  .toc-num {
-    font-weight: 900;
-    color: var(--gold-dark);
-    font-size: 1.2rem;
-    min-width: 30px;
-    font-family: 'Amiri', serif;
-  }
-
-  .toc-text-title { font-weight: 700; font-size: 0.9rem; color: var(--ink); }
-  .toc-text-sub { font-size: 0.75rem; color: var(--ink-soft); opacity: 0.7; }
-
-  /* COMPARISON TABLE */
-  .compare-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-  }
-
-  .compare-yes { background: #E8F5E9; color: #2E7D32; }
-  .compare-no { background: #FFEBEE; color: #C62828; }
-  .compare-partial { background: #FFF8E1; color: #F9A825; }
-</style>
+    /* ----- TOOLBAR (PDF‑style header) ----- */
+    #toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(145deg, #2f1b4b, #432c6e);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 12px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+      font-family: 'Segoe UI', sans-serif;
+      backdrop-filter: blur(2px);
+    }
+    #toolbar h2 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-right: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #f0eaff;
+    }
+    .tool-btn {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      backdrop-filter: blur(2px);
+    }
+    .tool-btn:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.6);
+    }
+    #editBtn.active {
+      background: #2a7a3b;
+      border-color: #9bff9b;
+    }
+    /* ----- LAYOUT : TOC + PAPER ----- */
+    #main {
+      margin-top: 60px;
+      display: flex;
+    }
+    #toc {
+      width: 260px;
+      background: #fcf9f5;
+      border-right: 1px solid #d9cee3;
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      padding: 28px 16px;
+      box-shadow: inset -2px 0 8px rgba(0,0,0,0.02);
+      font-size: 0.9rem;
+    }
+    #toc h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--purple);
+      border-bottom: 2px solid var(--purple-light);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .toc-part {
+      font-weight: 700;
+      color: var(--purple-deep);
+      margin: 16px 0 4px 0;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+    #toc a {
+      display: block;
+      padding: 5px 12px;
+      margin: 2px 0;
+      color: #2e2a3b;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: 0.1s;
+      font-weight: 450;
+    }
+    #toc a:hover, #toc a.active {
+      background: var(--purple-light);
+      color: var(--purple-deep);
+      font-weight: 600;
+    }
+    .toc-sub {
+      padding-left: 22px;
+      font-size: 0.88rem;
+    }
+    /* ----- PAPER CONTAINER (PDF pages) ----- */
+    #paper {
+      flex: 1;
+      padding: 40px 24px;
+      background: #eae6de;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .page {
+      max-width: 820px;
+      width: 100%;
+      background: var(--paper-white);
+      box-shadow: var(--shadow);
+      padding: 55px 65px;
+      margin-bottom: 42px;
+      position: relative;
+      border-radius: 2px;
+      page-break-after: always;  /* for print */
+    }
+    /* page numbers */
+    .page-number {
+      position: absolute;
+      bottom: 22px;
+      right: 28px;
+      font-size: 0.7rem;
+      color: #b1aac0;
+      font-family: var(--font-mono);
+    }
+    /* headings */
+    h1 { font-size: 2.8rem; font-weight: 700; color: var(--purple-deep); }
+    h2 { font-size: 1.9rem; font-weight: 600; color: #2e1a4a; margin: 1.8rem 0 0.8rem; }
+    h2.part-header {
+      background: linear-gradient(145deg, var(--purple-deep), var(--purple));
+      color: white;
+      padding: 0.6rem 1.5rem;
+      margin: -55px -65px 35px -65px;
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    h3 { font-size: 1.5rem; font-weight: 600; color: #3b2b50; border-left: 6px solid var(--purple); padding-left: 16px; margin: 1.8rem 0 1rem; }
+    h4 { font-size: 1.2rem; font-weight: 600; color: #4f3b6b; margin: 1.2rem 0 0.5rem; font-style: italic; }
+    /* paragraphs & lists */
+    p, li { margin-bottom: 0.6rem; text-align: justify; }
+    ul, ol { margin-left: 1.8rem; margin-bottom: 1.2rem; }
+    /* equation boxes */
+    .eq {
+      background: linear-gradient(145deg, #f9f5ff, #f0f2fa);
+      border: 1px solid #b7a9d4;
+      border-radius: 12px;
+      padding: 1.2rem 1.8rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      overflow-x: auto;
+      font-size: 1.15rem;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+    }
+    .eq.important {
+      border: 2px solid var(--purple);
+      background: linear-gradient(145deg, #ece4ff, #daeef5);
+      font-size: 1.3rem;
+    }
+    /* tables */
+    .table-responsive {
+      overflow-x: auto;
+      margin: 1.8rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      font-family: var(--font-serif);
+    }
+    th {
+      background: var(--purple-deep);
+      color: white;
+      padding: 10px 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #d9cee3;
+      vertical-align: top;
+    }
+    tr:nth-child(even) { background: #f8f4fe; }
+    /* info boxes */
+    .info-box {
+      padding: 1.2rem 1.6rem;
+      border-radius: 14px;
+      margin: 1.6rem 0;
+      border-left: 8px solid;
+      background: #faf7fd;
+    }
+    .info-box.note { background: var(--blue-light); border-color: var(--blue-dark); }
+    .info-box.warn { background: var(--gold-light); border-color: var(--gold-dark); }
+    .info-box.success { background: var(--green-light); border-color: var(--green-dark); }
+    .info-box.quote { background: var(--gray-light); border-color: var(--gray-dark); font-style: italic; }
+    .info-box.def { background: var(--purple-light); border-color: var(--purple); }
+    .prediction {
+      background: linear-gradient(145deg, #e2f0f2, #cae3e7);
+      border: 2px solid var(--teal-dark);
+      border-radius: 16px;
+      padding: 1.2rem 1.8rem;
+      margin: 1.8rem 0;
+    }
+    .prediction h5 { color: var(--teal-dark); font-size: 1.3rem; margin-bottom: 0.5rem; }
+    /* trinity cards */
+    .trinity-cards {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+      margin: 2rem 0;
+    }
+    .t-card {
+      text-align: center;
+      padding: 22px 10px;
+      border-radius: 20px;
+      border: 2px solid;
+      background: white;
+    }
+    .t-card .symbol { font-size: 3.3rem; display: block; line-height: 1; }
+    .t-card .bs-val { font-size: 1.7rem; font-weight: 700; }
+    .t-card .label { font-size: 0.9rem; color: #4a4a4a; margin-top: 5px; }
+    .card1 { background: #fbeae9; border-color: #a71e2e; }
+    .card2 { background: #ececec; border-color: #5a6268; }
+    .card3 { background: #e5d6f2; border-color: var(--purple); }
+    /* author box */
+    .author-box {
+      background: linear-gradient(145deg, #efe6ff, #ddeff2);
+      border: 2px solid var(--purple);
+      border-radius: 24px;
+      padding: 22px 26px;
+      margin: 30px 0 15px;
+    }
+    /* code blocks */
+    pre {
+      background: #1e1e2f;
+      color: #e6e9f0;
+      padding: 1.2rem;
+      border-radius: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    code { font-family: var(--font-mono); background: #f0ebf5; padding: 0.2rem 0.5rem; border-radius: 6px; }
+    /* print styles */
+    @media print {
+      body, #main { background: white; }
+      #toolbar, #toc { display: none; }
+      #paper { padding: 0; background: white; }
+      .page {
+        box-shadow: none;
+        margin: 0 auto;
+        padding: 1.8cm 1.8cm 2.2cm;
+        page-break-after: always;
+        width: 100%;
+        max-width: 100%;
+      }
+      .page-number { color: #aaa; }
+      h2.part-header { margin: -1.8cm -1.8cm 1.5cm -1.8cm; }
+      a { text-decoration: none; color: black; }
+    }
+    /* edit mode */
+    .edit-mode [contenteditable="true"] {
+      background: #fffde7;
+      border: 1px dashed #b5932c;
+      outline: none;
+      padding: 0 3px;
+    }
+    /* modal */
+    .modal {
+      display: none;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); align-items: center; justify-content: center;
+      z-index: 2000;
+    }
+    .modal.show { display: flex; }
+    .modal-card {
+      background: white; border-radius: 32px; padding: 2rem; width: 350px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .modal-card h3 { color: var(--purple-deep); margin-top: 0; border: none; }
+    .modal-card input {
+      width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 40px;
+      font-size: 1rem; letter-spacing: 4px; text-align: center;
+    }
+    .btn-group { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+    .btn { padding: 8px 20px; border: none; border-radius: 40px; font-weight: 600; cursor: pointer; }
+    .btn-primary { background: var(--purple); color: white; }
+    .btn-secondary { background: #ddd; color: #333; }
+    /* arabic mode */
+    body.ar-mode { font-family: 'Arial', 'Tahoma', sans-serif; }
+    body.ar-mode .page { direction: rtl; }
+    body.ar-mode #toc { border-right: none; border-left: 1px solid #d9cee3; }
+  </style>
 </head>
 <body>
 
-<!-- PASSWORD MODAL -->
-<div class="pw-modal" id="pwModal">
-  <div class="pw-box">
-    <div style="font-size:2.5rem;margin-bottom:12px;">🔐</div>
-    <h3>وضع التحرير</h3>
-    <p>أدخل الرمز السري للوصول إلى لوحة التحرير</p>
-    <input type="password" class="form-input" id="pwInput" placeholder="الرمز السري" style="text-align:center;letter-spacing:2px;margin-bottom:8px;" />
-    <p class="pw-error" id="pwError">رمز خاطئ، حاول مرة أخرى</p>
-    <div style="display:flex;gap:8px;justify-content:center;margin-top:16px;">
-      <button class="btn-primary" onclick="checkPassword()" style="padding:10px 24px;">دخول</button>
-      <button class="btn-cancel" onclick="closePwModal()">إلغاء</button>
+<!-- ========== TOOLBAR ========== -->
+<div id="toolbar">
+  <h2>📘 The Booker Statement — System 𝕊 | Mathematical Trinity Thesis (2026)</h2>
+  <button class="tool-btn" id="langBtn" onclick="toggleLanguage()">🌐 AR</button>
+  <button class="tool-btn" id="editBtn" onclick="openEditModal()">✏️ Edit</button>
+  <button class="tool-btn" onclick="window.print()">🖨️ Print A4</button>
+</div>
+
+<!-- ========== EDIT MODAL ========== -->
+<div class="modal" id="editModal">
+  <div class="modal-card">
+    <h3>🔒 Author access</h3>
+    <p style="font-size:0.95rem; color:#555;">Enter the secret code to enable editing.</p>
+    <input type="password" id="secretCode" placeholder="•••••••••" onkeydown="if(event.key==='Enter') checkCode()">
+    <p id="codeError" style="color:#c00; font-size:0.8rem; margin:8px 0 0;"></p>
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="checkCode()">Unlock</button>
     </div>
   </div>
 </div>
 
-<!-- EDITOR OVERLAY -->
-<div class="editor-overlay" id="editorOverlay">
-  <div class="editor-modal">
-    <h2>✏️ لوحة التحرير — المؤلف</h2>
-    <div class="form-group">
-      <label class="form-label">القسم للتعديل</label>
-      <select class="form-input" id="editSection">
-        <option>المقدمة وبيانات المؤلف</option>
-        <option>الملخص التنفيذي</option>
-        <option>الجزء الأول — الأساسيات النظرية</option>
-        <option>الجزء الثاني — التطبيقات</option>
-        <option>الجزء الثالث — المناقشة</option>
-        <option>الملاحق</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label class="form-label">محتوى التعديل / ملاحظات</label>
-      <textarea class="form-input form-textarea" id="editContent" placeholder="اكتب التعديل أو الملاحظة هنا..."></textarea>
-    </div>
-    <div class="callout callout-note" style="margin:12px 0;padding:10px;">
-      <small>⚠️ هذه النسخة للعرض — التعديلات تُسجَّل في ملاحظاتك الشخصية. لتطبيق تغييرات دائمة، يرجى تعديل الملف المصدر.</small>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-primary" onclick="saveEdit()">💾 حفظ الملاحظة</button>
-      <button class="btn-danger" onclick="printDoc()">🖨️ طباعة A4</button>
-      <button class="btn-cancel" onclick="closeEditor()">إغلاق</button>
-    </div>
-  </div>
-</div>
+<!-- ========== MAIN LAYOUT ========== -->
+<div id="main">
+  <!-- LEFT TOC -->
+  <nav id="toc">
+    <h3>Contents</h3>
+    <div class="toc-part">📄 Title & summary</div>
+    <a href="#page0">Title page</a>
+    <a href="#page1" class="toc-sub">Executive summary</a>
+    <a href="#page2" class="toc-sub">Reader's guide</a>
+    <div class="toc-part">🔷 PART 1 – THEORY</div>
+    <a href="#page3" class="toc-sub">01.1 Mathematical Trinity</a>
+    <a href="#page4" class="toc-sub">01.2 Framework & history</a>
+    <a href="#page5" class="toc-sub">01.3 Research background</a>
+    <a href="#page6" class="toc-sub">01.4 Structural Stability (BS)</a>
+    <div class="toc-part">⚙️ PART 2 – APPLICATIONS</div>
+    <a href="#page7" class="toc-sub">04. Mathematics</a>
+    <a href="#page8" class="toc-sub">05. Physics</a>
+    <a href="#page9" class="toc-sub">06. Computer science</a>
+    <a href="#page10" class="toc-sub">07. Philosophy</a>
+    <a href="#page11" class="toc-sub">08. Empirical studies</a>
+    <div class="toc-part">💬 PART 3 – DISCUSSION</div>
+    <a href="#page12" class="toc-sub">09. Comparative studies</a>
+    <a href="#page13" class="toc-sub">10. Tools & software</a>
+    <a href="#page14" class="toc-sub">11. Future visions</a>
+    <div class="toc-part">📎 APPENDICES</div>
+    <a href="#page15" class="toc-sub">A. Glossary</a>
+    <a href="#page16" class="toc-sub">B. References</a>
+    <a href="#page17" class="toc-sub">C. Credentials</a>
+  </nav>
 
-<!-- SITE HEADER -->
-<header class="site-header">
-  <div class="header-inner">
-    <div class="header-brand">
-      <div class="header-symbol">𝕊</div>
-      <div class="header-title-block">
-        <h1>الأطروحة البوكرية | نظام 𝕊</h1>
-        <p>الثالوث الرياضي · النسخة المحسّنة 2026</p>
+  <!-- PAPER (pages) -->
+  <div id="paper">
+
+    <!-- PAGE 0: TITLE PAGE (identical content, improved styling) -->
+    <div class="page" id="page0">
+      <div style="text-align: center; margin-top: 20px;">
+        <span style="background: var(--purple); color: white; padding: 0.2rem 2rem; border-radius: 40px; font-size: 0.8rem; letter-spacing: 2px;">ENHANCED EDITION 2026</span>
+        <h1 style="font-size: 3.2rem; margin: 0.7rem 0 0;">The Booker Statement</h1>
+        <h1 style="font-size: 2.5rem; color: var(--purple); margin-top: -5px;">البيان البوكري</h1>
+        <div style="font-size: 1.5rem; color: #4f3b6b;">Mathematical Trinity Thesis — System 𝕊</div>
+        <div style="font-size: 1.1rem; color: #777; margin-bottom: 1.5rem;">A Unified Philosophical‑Mathematical‑Physical Framework</div>
       </div>
-    </div>
-    <nav class="header-nav">
-      <a class="nav-btn active" onclick="showSection('intro')" href="#">المقدمة</a>
-      <a class="nav-btn" onclick="showSection('part1')" href="#">الجزء الأول</a>
-      <a class="nav-btn" onclick="showSection('part2')" href="#">الجزء الثاني</a>
-      <a class="nav-btn" onclick="showSection('part3')" href="#">الجزء الثالث</a>
-      <a class="nav-btn" onclick="showSection('appendix')" href="#">الملاحق</a>
-      <button class="nav-btn nav-btn-special" onclick="openPwModal()">✏️ تحرير</button>
-      <button class="nav-btn" onclick="printDoc()" style="background:rgba(201,168,76,0.15);border-color:var(--gold);">🖨️ طباعة</button>
-    </nav>
-  </div>
-</header>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-ornament"></div>
-  <div class="hero-content">
-    <div class="hero-badge">نظام 𝕊 | The Booker Statement</div>
-    <h1 class="hero-main-title">الأطروحة البوكرية في الثالوث الرياضي</h1>
-    <p class="hero-subtitle">نحو إطار موحد يربط الرياضيات والفيزياء والفلسفة</p>
-    <div class="hero-equation">
-      \[ \boxed{❶ \oplus 0_p = ① = ∞} \]
-    </div>
-    <p style="color:var(--parchment-deeper);font-size:0.85rem;margin-bottom:0;">م. أحمد علي بوكر نسيب · 2026</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="showSection('intro')">ابدأ القراءة</button>
-      <a class="btn-secondary" href="https://github.com/Eng4clay/The-Booker-Statement-" target="_blank">GitHub ↗</a>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN LAYOUT -->
-<div class="main-layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-section-title">📖 دليل القراءة</div>
-    <a class="sidebar-item active" onclick="showSection('intro');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🏠</span> المقدمة والدليل
-    </a>
-    <a class="sidebar-item" onclick="showSection('executive');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">📄</span> الملخص التنفيذي
-    </a>
-
-    <div class="sidebar-section-title">📘 الجزء الأول — الأساسيات</div>
-    <a class="sidebar-item" onclick="showSection('part1');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🔺</span> مقدمة الثالوث
-    </a>
-    <a class="sidebar-item" onclick="showSection('framework');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🏛️</span> الإطار النظري
-    </a>
-    <a class="sidebar-item" onclick="showSection('background');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">📜</span> الخلفية البحثية
-    </a>
-
-    <div class="sidebar-section-title">📗 الجزء الثاني — التطبيقات</div>
-    <a class="sidebar-item" onclick="showSection('math-apps');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">∑</span> التطبيقات الرياضية
-    </a>
-    <a class="sidebar-item" onclick="showSection('physics-apps');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">⚛️</span> التطبيقات الفيزيائية
-    </a>
-    <a class="sidebar-item" onclick="showSection('cs-apps');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">💻</span> التطبيقات الحاسوبية
-    </a>
-    <a class="sidebar-item" onclick="showSection('human-apps');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🧠</span> العلوم الإنسانية
-    </a>
-    <a class="sidebar-item" onclick="showSection('phil-apps');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🔮</span> التطبيقات الفلسفية
-    </a>
-
-    <div class="sidebar-section-title">📙 الجزء الثالث — المستقبل</div>
-    <a class="sidebar-item" onclick="showSection('comparative');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">⚖️</span> الدراسات المقارنة
-    </a>
-    <a class="sidebar-item" onclick="showSection('tools');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🔧</span> الأدوات البرمجية
-    </a>
-    <a class="sidebar-item" onclick="showSection('future');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🚀</span> الرؤى المستقبلية
-    </a>
-
-    <div class="sidebar-section-title">📎 الملاحق</div>
-    <a class="sidebar-item" onclick="showSection('glossary');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">📚</span> معجم المصطلحات
-    </a>
-    <a class="sidebar-item" onclick="showSection('refs');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🔗</span> المراجع والموارد
-    </a>
-    <a class="sidebar-item" onclick="showSection('certs');setSidebarActive(this)" href="#">
-      <span class="sidebar-item-icon">🎓</span> الشهادات
-    </a>
-  </aside>
-
-  <!-- CONTENT AREA -->
-  <main class="content-area">
-
-    <!-- ═══════════ INTRO ═══════════ -->
-    <div class="section active" id="sec-intro">
-      <div class="print-header">
-        <div><strong>الأطروحة البوكرية — نظام 𝕊</strong></div>
-        <div>م. أحمد علي بوكر نسيب · 2026</div>
+      <!-- trinity cards -->
+      <div class="trinity-cards">
+        <div class="t-card card1"><span class="symbol">𝟙</span><div class="bs-val">BS = 1</div><div class="label">The Absolute One<br>الواحد المطلق</div></div>
+        <div class="t-card card2"><span class="symbol">0<sub>p</sub></span><div class="bs-val">BS = 1/3</div><div class="label">Pure Possibility<br>الإمكان المحض</div></div>
+        <div class="t-card card3"><span class="symbol">∞</span><div class="bs-val">BS = 2/3</div><div class="label">Relational Infinity<br>اللاتناهي العلائقي</div></div>
       </div>
-
-      <div class="section-header">
-        <div class="section-number">00 — مقدمة الكتاب والدليل</div>
-        <h1 class="section-title">كيف تقرأ هذه الأطروحة؟</h1>
-        <p class="section-subtitle">دليل شامل للمستفيدين من جميع التخصصات</p>
+      <div style="text-align: center;">
+        <div class="eq important" style="display: inline-block; width: auto; padding: 0.8rem 2rem;">\[ \boxed{{\large\bf 1\!\!\!1} \oplus 0_p = {\large\bf 1} = \infty} \]</div>
+        <p style="color: #777;">The Central Equation of System 𝕊</p>
       </div>
-
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">🌟 مرحباً بك في عالم 𝕊</div>
-        <p style="margin:0;">هذه الأطروحة ثمرة أكثر من عقد من التأمل والبحث في أسئلة الوجود والرياضيات والفيزياء. تهدف إلى تقديم إطار موحد <strong>(نظام 𝕊)</strong> يجيب عن أسئلة فلسفية قديمة بلغة رياضية حديثة، ويقدم تنبؤات قابلة للاختبار التجريبي.</p>
-      </div>
-
-      <h2>لمن هذه الأطروحة؟</h2>
-
-      <div class="card-grid">
-        <div class="card card-violet">
-          <div class="card-icon">🧘</div>
-          <div class="card-title">للفلاسفة</div>
-          <div class="card-body">رؤية جديدة في نظرية المعرفة، فلسفة الرياضيات، والميتافيزيقا — مع مقارنات مع التراث من فيثاغورس إلى هيغل.</div>
-        </div>
-        <div class="card card-sapphire">
-          <div class="card-icon">∑</div>
-          <div class="card-title">للرياضيين</div>
-          <div class="card-body">إعادة تعريف الأعداد والأوليات والهندسة والطوبولوجيا من منظور وجودي بنيوي.</div>
-        </div>
-        <div class="card card-crimson">
-          <div class="card-icon">⚛️</div>
-          <div class="card-title">للفيزيائيين</div>
-          <div class="card-body">تعديلات على معادلات فريدمان ومبدأ الريبة، تفسير جديد للثوابت، وتنبؤات قابلة للاختبار.</div>
-        </div>
-        <div class="card card-teal">
-          <div class="card-icon">💻</div>
-          <div class="card-title">لعلماء الحاسوب</div>
-          <div class="card-body">خوارزميات التجلي ونماذج الذكاء الاصطناعي القائمة على الشبكات الثالوثية.</div>
-        </div>
-        <div class="card card-emerald">
-          <div class="card-icon">🔬</div>
-          <div class="card-title">للباحثين متعددي التخصصات</div>
-          <div class="card-body">لغة موحدة تربط الفيزياء والبيولوجيا والاقتصاد وعلم الأعصاب.</div>
-        </div>
-        <div class="card card-gold">
-          <div class="card-icon">🎓</div>
-          <div class="card-title">للطلاب</div>
-          <div class="card-body">مقدمة لتفكير جديد في العلوم مع أمثلة وتمارين وأدوات تفاعلية.</div>
+      <hr style="border: 1px solid var(--purple-light); margin: 2rem 0;">
+      <div class="author-box">
+        <div style="font-size: 1.6rem; font-weight: 700; color: var(--purple);">Eng. Ahmad Ali Bouker Nasib</div>
+        <div style="font-size: 1.2rem; margin-bottom: 1rem;">م. أحمد علي بوكر نسيب</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+          <div>🎓 B.Sc. Mechanical Engineering, Jazan University 2018</div>
+          <div>📧 Eng.ahmad.2011bokar@gmail.com</div>
+          <div>📜 Stanford Online: Quantum Mechanics for Scientists and Engineers 1</div>
+          <div>🔗 <a href="https://github.com/Eng4clay/The-Booker-Statement-" style="color: var(--purple);">GitHub Repository</a></div>
         </div>
       </div>
-
-      <h2>هيكل الأطروحة</h2>
-
-      <div class="toc-grid">
-        <div class="toc-item" onclick="showSection('part1')">
-          <div class="toc-num">①</div>
-          <div>
-            <div class="toc-text-title">الجزء الأول — الأساسيات النظرية</div>
-            <div class="toc-text-sub">الثالوث · العمليات · BS · التأصيل التاريخي</div>
-          </div>
-        </div>
-        <div class="toc-item" onclick="showSection('math-apps')">
-          <div class="toc-num">②</div>
-          <div>
-            <div class="toc-text-title">الجزء الثاني — التطبيقات المتعددة</div>
-            <div class="toc-text-sub">رياضيات · فيزياء · حاسوب · إنسانيات</div>
-          </div>
-        </div>
-        <div class="toc-item" onclick="showSection('comparative')">
-          <div class="toc-num">③</div>
-          <div>
-            <div class="toc-text-title">الجزء الثالث — المناقشة والمستقبل</div>
-            <div class="toc-text-sub">دراسات مقارنة · أدوات · رؤى مستقبلية</div>
-          </div>
-        </div>
-        <div class="toc-item" onclick="showSection('glossary')">
-          <div class="toc-num">④</div>
-          <div>
-            <div class="toc-text-title">الملاحق وملفات الدعم</div>
-            <div class="toc-text-sub">مصطلحات · مراجع · شهادات</div>
-          </div>
-        </div>
-      </div>
-
-      <h2>اصطلاحات الكتابة</h2>
-
-      <h3>الرموز الأساسية</h3>
-      <div class="symbol-table">
-        <div class="symbol-card">
-          <div class="symbol-glyph" style="color:var(--crimson);">❶</div>
-          <div>
-            <div class="symbol-info-name">الواحد المطلق</div>
-            <div class="symbol-info-desc">مصدر كل وجود · BS = 1</div>
-          </div>
-        </div>
-        <div class="symbol-card">
-          <div class="symbol-glyph" style="color:var(--sapphire);">0ₚ</div>
-          <div>
-            <div class="symbol-info-name">الإمكان المحض</div>
-            <div class="symbol-info-desc">العدم النشط · BS = ⅓</div>
-          </div>
-        </div>
-        <div class="symbol-card">
-          <div class="symbol-glyph" style="color:var(--violet);">∞</div>
-          <div>
-            <div class="symbol-info-name">اللانهاية العلائقية</div>
-            <div class="symbol-info-desc">فضاء العلاقات · BS = ⅔</div>
-          </div>
-        </div>
-        <div class="symbol-card">
-          <div class="symbol-glyph" style="color:var(--amber-light);">①</div>
-          <div>
-            <div class="symbol-info-name">الواحد الطبيعي</div>
-            <div class="symbol-info-desc">أول تجلٍّ مستقر · BS = ⅔</div>
-          </div>
-        </div>
-        <div class="symbol-card">
-          <div class="symbol-glyph" style="color:var(--teal-light);">ε,δ,η</div>
-          <div>
-            <div class="symbol-info-name">عمليات التجلي</div>
-            <div class="symbol-info-desc">الهبة · التشكل · التجلي</div>
-          </div>
-        </div>
-        <div class="symbol-card">
-          <div class="symbol-glyph" style="color:var(--emerald);">𝒞ℬ</div>
-          <div>
-            <div class="symbol-info-name">ثابت التجلي البوكري</div>
-            <div class="symbol-info-desc">6.184033 × 10⁻⁴²</div>
-          </div>
-        </div>
-      </div>
-
-      <h2>بيانات المؤلف</h2>
-      <div class="author-card">
-        <div class="author-name">م. أحمد علي بوكر نسيب</div>
-        <div class="author-detail">🎓 بكالوريوس هندسة ميكانيكية · جامعة جازان 2018</div>
-        <div class="author-detail">📧 <a href="mailto:Eng.ahmad.2011bokar@gmail.com">Eng.ahmad.2011bokar@gmail.com</a></div>
-        <div class="author-detail">🔗 <a href="https://github.com/Eng4clay/The-Booker-Statement-" target="_blank">github.com/Eng4clay/The-Booker-Statement</a></div>
-        <div class="author-detail">🏅 Stanford Online: Quantum Mechanics for Scientists and Engineers 1</div>
-        <div class="author-detail">📅 صاحب نظام 𝕊 | الثالوث الرياضي · باحث مستقل منذ 2015</div>
-      </div>
-
-      <blockquote>
-        "الأطروحة ليست ملكي، إنها ملك لكل من يبحث عن الحقيقة. أنا فقط من صاغها في قالب رياضي. جوهرها أقدم مني وسيبقى بعدي."
-        <br><small style="font-size:0.8rem;opacity:0.7;">— م. أحمد علي بوكر نسيب</small>
-      </blockquote>
+      <div style="margin-top: 2rem; font-size: 0.85rem; color: #888; text-align: center;">Keywords: Mathematical Trinity · Structural Stability · Manifestation Theory · Unified Field Theory</div>
+      <div class="page-number">i</div>
     </div>
 
-    <!-- ═══════════ EXECUTIVE SUMMARY ═══════════ -->
-    <div class="section" id="sec-executive">
-      <div class="section-header">
-        <div class="section-number">00 — الملخص التنفيذي</div>
-        <h1 class="section-title">نظرة سريعة على نظام 𝕊</h1>
-        <p class="section-subtitle">أهم الإنجازات والتنبؤات في لمحة واحدة</p>
-      </div>
-
-      <h2>الفكرة الأساسية</h2>
-      <p>نظام 𝕊 (الثالوث الرياضي) هو إطار فلسفي-رياضي-فيزيائي موحد يقوم على ثلاث مسلمات وجودية:</p>
-
-      <div class="card-grid" style="grid-template-columns: repeat(3,1fr);">
-        <div class="card card-crimson" style="text-align:center;">
-          <div style="font-size:3rem;color:var(--crimson);">❶</div>
-          <div class="card-title">الواحد المطلق</div>
-          <div class="card-body">مصدر كل وجود، غير قابل للتمثيل العددي، محض الفاعلية</div>
-          <div style="margin-top:10px;"><div class="bs-display"><div class="bs-bar"><div class="bs-fill" style="width:100%;"></div></div>BS = 1</div></div>
+    <!-- PAGE 1: EXECUTIVE SUMMARY -->
+    <div class="page" id="page1">
+      <h2 class="part-header">📋 Executive Summary — الملخص التنفيذي</h2>
+      <div class="ea" contenteditable="false">
+        <h3>🔹 Core Idea</h3>
+        <p>System 𝕊 (the Mathematical Trinity) is a unified philosophical‑mathematical‑physical framework built upon three ontological axioms. It provides testable empirical predictions while answering fundamental questions in metaphysics, mathematics, and physics.</p>
+        <div class="trinity-cards" style="grid-template-columns: repeat(3,1fr); margin:1rem 0;">
+          <div class="t-card card1"><span class="symbol">𝟙</span><div class="bs-val">BS = 1</div><div class="label">The Absolute One<br>Source of all existence</div></div>
+          <div class="t-card card2"><span class="symbol">0<sub>p</sub></span><div class="bs-val">BS = 1/3</div><div class="label">Pure Possibility<br>Active void</div></div>
+          <div class="t-card card3"><span class="symbol">∞</span><div class="bs-val">BS = 2/3</div><div class="label">Relational Infinity<br>Space of relations</div></div>
         </div>
-        <div class="card card-sapphire" style="text-align:center;">
-          <div style="font-size:3rem;color:var(--sapphire);">0ₚ</div>
-          <div class="card-title">الإمكان المحض</div>
-          <div class="card-body">العدم النشيط، حقل الاحتمالات غير المتعيّنة، الهيولى الأولى</div>
-          <div style="margin-top:10px;"><div class="bs-display"><div class="bs-bar"><div class="bs-fill" style="width:33%;background:var(--sapphire);"></div></div>BS = ⅓</div></div>
+        <h3>🔹 Structural Stability (BS)</h3>
+        <p>BS is a quantitative measure of the degree of coherence of any system and its proximity to the Absolute, ranging between 0 and 1:</p>
+        <div class="eq important">\[ BS_\tau(S) = \alpha(\tau)\,S_c + \beta(\tau)\,S_s + \gamma(\tau)\,S_d + \delta(\tau) \]</div>
+        <h3>🔹 The Bouker Manifestation Constant (𝒞ℬ)</h3>
+        <div class="eq important">\[ \mathcal{CB} = \frac{2}{43} \cdot \frac{\alpha}{137} \cdot \sqrt{\frac{c^3}{\hbar G}} = 6.184033 \times 10^{-42} \]</div>
+        <div class="prediction">
+          <h5>📡 Testable Predictions</h5>
+          <ul><li>Frequency ~0.115 Hz in the Cosmic Microwave Background (CMB)</li><li>Modification in the Casimir effect (BS‑dependent correction)</li><li>New particle <em>Boukerion</em> with mass ≈ 1.35×10⁻⁴⁹ kg (dark matter candidate)</li></ul>
         </div>
-        <div class="card card-violet" style="text-align:center;">
-          <div style="font-size:3rem;color:var(--violet);">∞</div>
-          <div class="card-title">اللانهاية العلائقية</div>
-          <div class="card-body">فضاء الروابط والأنساق، شبكة العلاقات التي تظهر فيها الكثرة</div>
-          <div style="margin-top:10px;"><div class="bs-display"><div class="bs-bar"><div class="bs-fill" style="width:67%;background:var(--violet);"></div></div>BS = ⅔</div></div>
-        </div>
+        <div class="info-box quote">"The thesis is not mine — it belongs to everyone who seeks truth. I merely gave it a mathematical form. Its essence is older than me and will outlast me." — <em>Ahmad Ali Bouker Nasib</em></div>
       </div>
-
-      <h2>المعادلة المركزية</h2>
-      <div class="equation-box">
-        <div class="equation-label">المعادلة الجوهرية</div>
-        \[ \boxed{❶ \oplus 0_p = ① = ∞} \]
-        <div class="equation-number">م. 0.1</div>
-      </div>
-      <div class="callout callout-proof">
-        <div class="callout-title" style="color:var(--emerald);">✓ التحقق</div>
-        ① هو أول تجلٍّ مستقر (الواحد الطبيعي). الصيغة تعبر عن أن الجمع الثالوثي للمطلق مع الإمكان المحض ينتج الواحد الطبيعي الذي هو نفسه اللانهاية العلائقية المتجسدة — وحدة مفاهيمية متسقة داخلياً.
-      </div>
-
-      <h2>الاستقرار البنيوي (BS)</h2>
-      <p>BS هو مقياس كمي لدرجة تماسك أي نظام وقربه من المطلق، يتراوح بين 0 و1:</p>
-      <div class="equation-box">
-        \[ BS_\tau(S) = \alpha(\tau)\, S_c + \beta(\tau)\, S_s + \gamma(\tau)\, S_d + \delta(\tau) \]
-        <div class="equation-number">م. 0.2</div>
-      </div>
-
-      <h2>ثابت التجلي البوكري (𝒞ℬ)</h2>
-      <div class="equation-box">
-        \[ \mathcal{CB} = \frac{2}{43} \cdot \frac{\alpha}{137} \cdot \sqrt{\frac{c^3}{\hbar G}} = 6.184033 \times 10^{-42} \]
-        <div class="equation-number">م. 0.3</div>
-      </div>
-
-      <h2>التنبؤات القابلة للاختبار</h2>
-      <div class="prediction-grid">
-        <div class="prediction-card">
-          <div class="prediction-icon">📡</div>
-          <div class="prediction-title">إشعاع الخلفية الميكروية</div>
-          <div class="prediction-value">~0.115 Hz</div>
-          <div class="prediction-desc">تردد محدد في طيف CMB يمكن رصده بالمقاربة الطيفية الدقيقة</div>
-        </div>
-        <div class="prediction-card">
-          <div class="prediction-icon">⚡</div>
-          <div class="prediction-title">تأثير كازيمير المعدَّل</div>
-          <div class="prediction-value">∝ 𝒞ℬ</div>
-          <div class="prediction-desc">انحراف قابل للقياس عن القيمة الكلاسيكية عند الدقة العالية</div>
-        </div>
-        <div class="prediction-card">
-          <div class="prediction-icon">🔵</div>
-          <div class="prediction-title">البوكرون — جسيم جديد</div>
-          <div class="prediction-value">≈ 1.35×10⁻⁴⁹ كغ</div>
-          <div class="prediction-desc">مرشح للمادة المظلمة، قابل للكشف بالكواشف ذات الحساسية الفائقة</div>
-        </div>
-      </div>
-
-      <h2>المسائل الألفية السبعة وعلاقتها بنظام 𝕊</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>المسألة</th>
-              <th>الوضع الراهن</th>
-              <th>مساهمة نظام 𝕊</th>
-              <th>النضج</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>P vs NP</strong></td>
-              <td>مفتوحة</td>
-              <td>خوارزميات التجلي بزمن حدودي لمسائل NP-hard المختارة</td>
-              <td><span class="badge badge-violet">نظري</span></td>
-            </tr>
-            <tr>
-              <td><strong>فرضية ريمان</strong></td>
-              <td>مفتوحة</td>
-              <td>دالة زيتا موزونة بـ BS، تربط الأصفار بالأعداد الأولية</td>
-              <td><span class="badge badge-violet">نظري</span></td>
-            </tr>
-            <tr>
-              <td><strong>معادلات ناڤييه-ستوكس</strong></td>
-              <td>مفتوحة</td>
-              <td>نمذجة التدفق عبر ديناميكية BS في الأنظمة الكارثية</td>
-              <td><span class="badge badge-sapphire">مبدئي</span></td>
-            </tr>
-            <tr>
-              <td><strong>نظرية يانغ-ميلز</strong></td>
-              <td>مفتوحة</td>
-              <td>الفجوة الكمية تُفسَّر عبر حد الاستقرار في فضاء ∞</td>
-              <td><span class="badge badge-violet">نظري</span></td>
-            </tr>
-            <tr>
-              <td><strong>حدسية هودج</strong></td>
-              <td>مفتوحة</td>
-              <td>الأعداد البيتية البنيوية توفر رابطاً بين الجبر والهندسة</td>
-              <td><span class="badge badge-violet">نظري</span></td>
-            </tr>
-            <tr>
-              <td><strong>حدسية بيرش وسوينرتون-داير</strong></td>
-              <td>مفتوحة</td>
-              <td>BS للمنحنيات الإهليلجية يرتبط برتبة مجموعة النقاط</td>
-              <td><span class="badge badge-violet">نظري</span></td>
-            </tr>
-            <tr>
-              <td><strong>معادلات إنشتاين (GR + QM)</strong></td>
-              <td>غير موحدة</td>
-              <td>إطار موحد عبر ثابت 𝒞ℬ والثالوث الرياضي</td>
-              <td><span class="badge badge-emerald">متقدم</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="page-number">ii</div>
     </div>
 
-    <!-- ═══════════ PART 1 ═══════════ -->
-    <div class="section" id="sec-part1">
-      <div class="section-header">
-        <div class="section-number">01 — الجزء الأول</div>
-        <h1 class="section-title">مقدمة الثالوث الرياضي</h1>
-        <p class="section-subtitle">تأصيل فلسفي-طبيعي للوجود والتغير واللانهاية</p>
-      </div>
-
-      <h2>لماذا الثالوث؟</h2>
-      <p>منذ فجر التفكير الفلسفي، ظل سؤال الأصل الثلاثي يتردد: هل الوجود يقوم على مبدأ واحد أم ثنائية أم ثلاثية؟ التأمل في بنية الوجود — من فيزياء الكم إلى نظرية الأعداد — يكشف عن نمط ثلاثي متكرر: <strong>الوحدة المصدرية، الإمكان الكامن، العلاقة المحققة</strong>.</p>
-
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">تعريف: المسلمات التأسيسية الثلاث</div>
-        <p><strong>❶ الواحد المطلق:</strong> مصدر كل وجود، غير قابل للتمثيل العددي، محض الفاعلية، لا يدرك بذاته بل بآثاره. \(❶ \notin \mathbb{R},\; ❶^2 = ❶\)</p>
-        <p><strong>0ₚ الإمكان المحض:</strong> العدم النشيط، حقل الاحتمالات غير المتعيّنة. \(0_p = \lim_{\epsilon \to 0^+} \epsilon \cdot ①\)</p>
-        <p style="margin:0;"><strong>∞ اللانهاية العلائقية:</strong> فضاء الروابط والأنساق. \(∞ = \bigoplus_{i=1}^{\infty} R_i\)</p>
-      </div>
-
-      <h2>التعريفات الأساسية والترميز</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>الرمز</th><th>المفهوم</th><th>التعريف الرياضي</th><th>BS</th><th>قابلية القياس</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="font-size:1.3rem;color:var(--crimson);">❶</td>
-              <td>الواحد المطلق</td>
-              <td>\(❶ \notin \mathbb{R},\; ❶^2 = ❶\)</td>
-              <td>1.0000</td>
-              <td>غير مباشر — عبر استقرار الأنظمة</td>
-            </tr>
-            <tr>
-              <td style="font-size:1.3rem;color:var(--sapphire);">0ₚ</td>
-              <td>الإمكان المحض</td>
-              <td>\(0_p \oplus 0_p = 0_p\)</td>
-              <td>0.3333</td>
-              <td>الإنتروبيا المعلوماتية</td>
-            </tr>
-            <tr>
-              <td style="font-size:1.3rem;color:var(--violet);">∞</td>
-              <td>اللانهاية العلائقية</td>
-              <td>\(∞ \otimes n = ∞^{n+1}\)</td>
-              <td>0.6667</td>
-              <td>معاملات التشابك الكمومي</td>
-            </tr>
-            <tr>
-              <td style="font-size:1.3rem;color:var(--amber-light);">①</td>
-              <td>الواحد الطبيعي</td>
-              <td>\(① = 1 \in \mathbb{N}\)</td>
-              <td>0.6667</td>
-              <td>أساس كل قياس</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>العمليات الديناميكية: من المطلق إلى المتعدد</h2>
-
-      <div class="diagram-container">
-        <div class="diagram-title">شكل 3.1 — مخطط التجلي من المطلق إلى سلسلة الأعداد الطبيعية</div>
-        <div class="flow-diagram" style="flex-direction:column;gap:4px;">
-          <div class="flow-node flow-node-absolute">❶ الواحد المطلق · BS=1</div>
-          <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>ε — هبة (self-gift)</div></div>
-          <div class="flow-node flow-node-possible">0ₚ الإمكان المحض · BS=⅓</div>
-          <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>δ — تشكل (formation)</div></div>
-          <div class="flow-node flow-node-infinite">∞ اللانهاية العلائقية · BS=⅔</div>
-          <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>η = δ∘ε — تجلي (emanation)</div></div>
-          <div class="flow-node flow-node-natural">① = ∞ الواحد الطبيعي · BS=⅔</div>
-          <div style="display:flex;gap:24px;justify-content:center;align-items:flex-start;">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-              <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>s₁ ⊕①</div></div>
-              <div class="flow-node flow-node-number">② الثنائية · BS=4/7</div>
-              <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>s₂ ⊕①</div></div>
-              <div class="flow-node flow-node-info">③ الثلاثية · BS=8/17</div>
-              <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>s₃ ⊕①</div></div>
-              <div class="flow-node flow-node-orange">④ BS=10/27</div>
-              <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>s₄ ⊕①</div></div>
-              <div class="flow-node flow-node-pink">⑤ BS=2/7</div>
-              <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>...</div></div>
-              <div class="flow-node" style="background:#ECEFF1;border:1px solid #607D8B;color:#37474F;">... سلسلة الأعداد</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <h2>الجبر الثالوثي: التمثيل المصفوفي</h2>
-
-      <div class="equation-box">
-        \[
-        ❶ = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}, \quad
-        0_p = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}, \quad
-        ∞ = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
-        \]
-        <div class="equation-number">م. 1.1</div>
-      </div>
-
-      <div class="callout callout-proof">
-        <div class="callout-title" style="color:var(--emerald);">✓ التحقق المصفوفي</div>
-        المصفوفة ❶ لها رتبة 1 تعكس الوحدانية المطلقة. مصفوفة 0ₚ صفرية تعكس العدم المحض. مصفوفة ∞ لها رتبة 2 تعكس ثنائية العلاقة. والجمع: \(❶ + ∞ = I_3\) وحدة التجلي الكاملة — متسق.
-      </div>
-
-      <h2>عملية الجمع الثالوثي ⊕</h2>
-      <div class="equation-box">
-        \[ A \oplus B = A \cdot B + B \cdot A \]
-        <div class="equation-number">م. 1.2</div>
-      </div>
-
-      <h3>خصائص ⊕</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead><tr><th>الخاصية</th><th>الصيغة</th><th>التفسير</th></tr></thead>
-          <tbody>
-            <tr><td>غير تبادلية</td><td>\(x \oplus y \neq y \oplus x\)</td><td>اتجاه التجلي مهم</td></tr>
-            <tr><td>وجود محايد</td><td>\(x \oplus 0_p = x\)</td><td>الإمكان لا يغيّر الشيء بذاته</td></tr>
-            <tr><td>وجود ماص</td><td>\(x \oplus ❶ = ❶\)</td><td>المطلق يهيمن على كل علاقة</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>الاستقرار البنيوي (BS): المعادلة العامة</h2>
-
-      <div class="equation-box">
-        \[ \boxed{BS_\tau(S) = \alpha(\tau)\cdot S_c + \beta(\tau)\cdot S_s + \gamma(\tau)\cdot S_d + \delta(\tau)} \]
-        <div class="equation-number">م. 1.3</div>
-      </div>
-
-      <div class="equation-box">
-        \[
-        \begin{aligned}
-        \alpha(\tau) &= 0.7\,e^{-0.3\tau} + 0.2\,(1 - e^{-0.3\tau}) \\
-        \beta(\tau) &= 0.1 + \frac{0.5}{1 + e^{-0.5(\tau - 3.0)}} \\
-        \gamma(\tau) &= 0.4\,\sin^2\!\left(\frac{2\pi}{5.0}\,\tau\right) + 0.1 \\
-        \delta(\tau) &= 0.15\,e^{-0.1\,\tau^2}
-        \end{aligned}
-        \]
-        <div class="equation-number">م. 1.4</div>
-      </div>
-
-      <h3>صيغة BS للأعداد الطبيعية</h3>
-      <div class="equation-box">
-        \[
-        BS(n) =
-        \begin{cases}
-        \dfrac{7}{10}, & n = 1 \\[0.8em]
-        \dfrac{4}{7}, & n = 2 \\[0.8em]
-        \dfrac{8}{17}, & n = 3 \\[0.8em]
-        \dfrac{10}{27}, & n = 4 \\[0.8em]
-        \dfrac{2}{2n-3}, & n \ge 5
-        \end{cases}
-        \]
-        <div class="equation-number">م. 1.5</div>
-      </div>
-
-      <h2>التطور التاريخي للمفاهيم الثالوثية</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">550 ق.م.</div>
-          <div class="timeline-person">فيثاغورس</div>
-          <div class="timeline-desc">"كل شيء عدد" — الرياضيات أساس الكون → أسس التجلي الرياضي</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">380 ق.م.</div>
-          <div class="timeline-person">أفلاطون</div>
-          <div class="timeline-desc">عالم المثل (الكلي) مقابل المحسوسات → ∞ كفضاء المثل، ① كأول مثل</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">850 م.</div>
-          <div class="timeline-person">الكندي</div>
-          <div class="timeline-desc">التمييز بين الواحد الحق والواحد الرياضي → ❶ ≠ ①</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">950 م.</div>
-          <div class="timeline-person">الفارابي</div>
-          <div class="timeline-desc">نظرية الفيض: من الواحد إلى الكثرة → η كآلية فيض</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1030 م.</div>
-          <div class="timeline-person">ابن سينا</div>
-          <div class="timeline-desc">الوجوب والإمكان → ❶ (واجب) و 0ₚ (إمكان)</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1807</div>
-          <div class="timeline-person">هيغل</div>
-          <div class="timeline-desc">الجدلية: أطروحة — نقيض — تركيب → ❶ ⊕ 0ₚ = ∞</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1931</div>
-          <div class="timeline-person">غودل</div>
-          <div class="timeline-desc">مبرهنات عدم الاكتمال → تأكيد أن ❶ لا يُحصر في صياغة صورية</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1963</div>
-          <div class="timeline-person">كوهين</div>
-          <div class="timeline-desc">استقلالية فرضية الاستمرار → تعدد التجليات</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2026</div>
-          <div class="timeline-person">نظام 𝕊</div>
-          <div class="timeline-desc">الثالوث الرياضي الموحد، BS، 𝒞ℬ، تنبؤات قابلة للاختبار — تتويج وتكامل</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════ FRAMEWORK ═══════════ -->
-    <div class="section" id="sec-framework">
-      <div class="section-header">
-        <div class="section-number">01\_02 — الجزء الأول</div>
-        <h1 class="section-title">الإطار النظري والتأصيل</h1>
-        <p class="section-subtitle">الأسس الفلسفية والعلمية والرياضية لنظام 𝕊</p>
-      </div>
-
-      <h2>التأصيل الفلسفي: من اليونان إلى هيغل</h2>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>المرحلة</th><th>الفيلسوف</th><th>المفهوم الثالوثي</th><th>ما يقابله في 𝕊</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>ما قبل سقراط</td><td>فيثاغورس</td><td>العدد (أحادي، ثنائي، ثلاثي) أصل الوجود</td><td>الأعداد كتجليات</td></tr>
-            <tr><td>ما قبل سقراط</td><td>بارمنيدس</td><td>الوجود والعدم</td><td>❶ مقابل 0ₚ (عدم نشط)</td></tr>
-            <tr><td>كلاسيكي</td><td>أفلاطون</td><td>المثل — الرياضيات — المحسوسات</td><td>∞ — ① — تجليات أدنى</td></tr>
-            <tr><td>كلاسيكي</td><td>أرسطو</td><td>المادة — الصورة — العدم (قوة وفعل)</td><td>0ₚ — ① — ❶</td></tr>
-            <tr><td>أفلاطوني محدث</td><td>أفلوطين</td><td>الواحد — العقل — النفس</td><td>❶ — ∞ — ①</td></tr>
-            <tr><td>إسلامي</td><td>الكندي</td><td>الواحد الحق ≠ الواحد العددي</td><td>❶ ≠ ①</td></tr>
-            <tr><td>إسلامي</td><td>الفارابي</td><td>الفيض: الواحد — العقل الأول — ...</td><td>❶ — ① — ② ...</td></tr>
-            <tr><td>إسلامي</td><td>ابن سينا</td><td>الواجب — الممكن — الممتنع</td><td>❶ — 0ₚ — العدم المطلق</td></tr>
-            <tr><td>حديث</td><td>هيغل</td><td>الوجود — العدم — الصيرورة</td><td>❶ — 0ₚ — ∞</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>التأصيل العلمي: الفيزياء الحديثة</h2>
-
-      <div class="card-grid">
-        <div class="card card-crimson">
-          <div class="card-title">⏱️ النسبية والزمكان</div>
-          <div class="table-wrapper" style="margin-top:10px;">
-            <table style="font-size:0.78rem;">
-              <thead><tr><th>مفهوم نسبي</th><th>ما يقابله في 𝕊</th></tr></thead>
-              <tbody>
-                <tr><td>الزمكان</td><td>∞ متجلي في 4+τ أبعاد</td></tr>
-                <tr><td>انحناء الزمكان</td><td>تغير BS نتيجة الكتلة</td></tr>
-                <tr><td>ثابت الكون Λ</td><td>تجلٍّ لـ ❶ في الفراغ</td></tr>
-                <tr><td>سرعة الضوء c</td><td>BS=1، حد التجلي الأقصى</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="card card-sapphire">
-          <div class="card-title">⚛️ ميكانيكا الكم</div>
-          <div class="table-wrapper" style="margin-top:10px;">
-            <table style="font-size:0.78rem;">
-              <thead><tr><th>مفهوم كمومي</th><th>ما يقابله في 𝕊</th></tr></thead>
-              <tbody>
-                <tr><td>التراكب</td><td>0ₚ يحتوي كل الحالات</td></tr>
-                <tr><td>القياس</td><td>عملية التجلي η</td></tr>
-                <tr><td>التشابك</td><td>∞ كعلاقة غير موضعية</td></tr>
-                <tr><td>مبدأ الريبة</td><td>\(\Delta x\,\Delta p \ge \frac{\hbar}{2BS}\)</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <h3>نظرية الأوتار والأبعاد الإضافية</h3>
-      <div class="equation-box">
-        \[ \text{فضاء كالابي-ياو} \longleftrightarrow \infty \otimes 6 \]
-        <div class="equation-number">م. 1.6</div>
-      </div>
-
-      <h2>التأصيل الرياضي: الأعداد الأولية وغودل وكوهين</h2>
-
-      <h3>BS للأعداد الأولية</h3>
-      <div class="equation-box">
-        \[
-        BS(p) = \begin{cases}
-        \dfrac{4}{7}, & p = 2 \\[0.8em]
-        \dfrac{8}{17}, & p = 3 \\[0.8em]
-        \dfrac{2}{2p-3}, & p \ge 5
-        \end{cases}
-        \]
-        <div class="equation-number">م. 1.7</div>
-      </div>
-
-      <h3>مبرهنة الأعداد الأولية في 𝕊</h3>
-      <div class="equation-box">
-        \[ \sum_{p \le x} BS(p) \sim \frac{1}{2} \log \log x \]
-        <div class="equation-number">م. 1.8</div>
-      </div>
-
-      <div class="callout callout-proof">
-        <div class="callout-title" style="color:var(--emerald);">✓ التحقق التحليلي</div>
-        بما أن \(BS(p) \sim \frac{1}{p}\) للأعداد الأولية الكبيرة، وبالنظر إلى نظرية الأعداد الأولية (\(\pi(x) \sim x/\ln x\))، فإن المجموع يتصرف كسلسلة تتقارب ببطء مزدوج لوغاريثمي — نتيجة صحيحة تحليلياً.
-      </div>
-
-      <h2>غودل وحدود الصورية</h2>
-      <div class="callout callout-theorem">
-        <div class="callout-title" style="color:var(--sapphire);">📐 مبرهنات غودل في سياق نظام 𝕊</div>
-        <p>مبرهنات غودل (1931) أثبتت أن أي نظام صوري يتضمن حساباً إما غير كامل أو غير متسق. نظام 𝕊 يتجاوز هذه المعضلة بالانتقال من الأساس الصوري إلى الأساس الوجودي:</p>
-        <p style="margin:0;">المطلق ❶ هو مصدر الحقيقة، لكنه لا يمكن حصره في أي نظام صوري. <strong>عدم الاكتمال ليس عيباً، بل هو انعكاس لكون الرياضيات تجلياً محدوداً من المطلق.</strong></p>
-      </div>
-
-      <h2>لماذا الثالوث وليس الثنائية؟</h2>
-      <div class="diagram-container">
-        <div class="diagram-title">مقارنة: الثنائية مقابل الثالوث</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:12px;">
-          <div style="text-align:center;">
-            <div style="font-weight:700;color:var(--crimson);margin-bottom:12px;">الثنائية — فجوة لا تُعبر</div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:20px;">
-              <div class="flow-node flow-node-absolute" style="font-size:0.75rem;">قطب أ</div>
-              <div style="color:var(--crimson);font-size:1.5rem;">⤳?⤳</div>
-              <div class="flow-node flow-node-possible" style="font-size:0.75rem;">قطب ب</div>
-            </div>
-            <p style="margin-top:10px;font-size:0.8rem;color:var(--crimson);">فجوة معرفية — لا آلية للانتقال</p>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-weight:700;color:var(--emerald);margin-bottom:12px;">الثالوث — دورة حيوية</div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
-              <div class="flow-node flow-node-absolute" style="font-size:0.75rem;">❶</div>
-              <div style="color:var(--gold);">→</div>
-              <div class="flow-node flow-node-possible" style="font-size:0.75rem;">0ₚ</div>
-              <div style="color:var(--gold);">→</div>
-              <div class="flow-node flow-node-infinite" style="font-size:0.75rem;">∞</div>
-              <div style="color:var(--gold);">→</div>
-              <div style="color:var(--gold);font-size:0.75rem;">(دورة)</div>
-            </div>
-            <p style="margin-top:10px;font-size:0.8rem;color:var(--emerald);">دورة ديناميكية — وساطة وانتقال سلس</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════════ BACKGROUND ═══════════ -->
-    <div class="section" id="sec-background">
-      <div class="section-header">
-        <div class="section-number">01\_03 — الجزء الأول</div>
-        <h1 class="section-title">الخلفية البحثية</h1>
-        <p class="section-subtitle">دوافع الأطروحة وسياقها الفكري والتاريخي</p>
-      </div>
-
-      <h2>رحلة عقد من الزمن</h2>
-      <p>يمتد العمل على نظام 𝕊 لأكثر من عقد كامل، بدأ كفضول فلسفي حول طبيعة الأعداد، وتطور إلى مشروع طموح لإعادة بناء أسس الرياضيات والفيزياء معاً. السؤال المحوري:</p>
-
-      <blockquote>كيف يمكن للرياضيات أن تكون لغة للوجود وليس مجرد أداة للعد؟</blockquote>
-
-      <h2>أزمة الأسس الرياضية</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead><tr><th>الحدث</th><th>السنة</th><th>المضمون</th><th>الأثر</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><strong>مفارقة راسل</strong></td>
-              <td>1901</td>
-              <td>مجموعة كل المجموعات التي لا تحتوي على نفسها → تناقض صريح</td>
-              <td>الحدس المجرد يولد تناقضات</td>
-            </tr>
-            <tr>
-              <td><strong>مبرهنات غودل</strong></td>
-              <td>1931</td>
-              <td>أي نظام صوري يتضمن حساباً إما غير كامل أو غير متسق</td>
-              <td>نهاية الحلم الهيلبرتي</td>
-            </tr>
-            <tr>
-              <td><strong>استقلالية كوهين</strong></td>
-              <td>1963</td>
-              <td>فرضية الاستمرار مستقلة عن ZFC</td>
-              <td>تعدد النماذج الرياضية</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>الحاجة إلى إطار موحد في الفيزياء</h2>
-      <div class="card-grid">
-        <div class="card card-crimson">
-          <div class="card-title">النسبية العامة</div>
-          <div class="card-body">تفردات (singularities) في الثقوب السوداء وبداية الكون تشير إلى عدم اكتمالها.</div>
-        </div>
-        <div class="card card-sapphire">
-          <div class="card-title">ميكانيكا الكم</div>
-          <div class="card-body">مشكلة القياس، اللاحتمية، والارتباط مع الجاذبية — إشكاليات بلا حل مقبول.</div>
-        </div>
-        <div class="card card-violet">
-          <div class="card-title">المادة المظلمة</div>
-          <div class="card-body">95% من الكون مجهول الطبيعة — المادة المظلمة والطاقة المظلمة.</div>
-        </div>
-      </div>
-
-      <h2>الأسئلة الجوهرية</h2>
-      <div class="card-grid">
-        <div class="card" style="border-top:4px solid var(--violet);">
-          <div class="card-icon">🔮</div>
-          <div class="card-title">أسئلة فلسفية</div>
-          <div class="card-body">ما الوجود؟ ما التغير؟ ما اللانهاية؟ كيف نوفق بين ثبات المطلق وتدفق الظواهر؟</div>
-        </div>
-        <div class="card" style="border-top:4px solid var(--sapphire);">
-          <div class="card-icon">∑</div>
-          <div class="card-title">أسئلة رياضية</div>
-          <div class="card-body">لماذا توجد أعداد أولية؟ لماذا تعجز الأنظمة الصورية؟ هل يمكن أساس وجودي للرياضيات؟</div>
-        </div>
-        <div class="card" style="border-top:4px solid var(--crimson);">
-          <div class="card-icon">⚛️</div>
-          <div class="card-title">أسئلة فيزيائية</div>
-          <div class="card-body">لماذا الثوابت الفيزيائية على ما هي عليه؟ ما أصل التشابك؟ هل يمكن التوحيد؟</div>
-        </div>
-      </div>
-
-      <blockquote>
-        "لم أكتب هذا النظام لأهدم ما بناه الآخرون، بل لأكمل ما بدأوه. الرياضيات فقدت روحها عندما انفصلت عن الفلسفة، والفلسفة فقدت صرامتها عندما انفصلت عن الرياضيات."
-        <br><small style="font-size:0.8rem;opacity:0.7;">— م. أحمد علي بوكر نسيب</small>
-      </blockquote>
-    </div>
-
-    <!-- ═══════════ PART 2: MATH APPS ═══════════ -->
-    <div class="section" id="sec-math-apps">
-      <div class="section-header">
-        <div class="section-number">04 — الجزء الثاني</div>
-        <h1 class="section-title">التطبيقات الرياضية</h1>
-        <p class="section-subtitle">نظرية الأعداد · الهندسة · التحليل الدالي · الطوبولوجيا</p>
-      </div>
-
-      <h2>نظرية الأعداد البنيوية</h2>
-
-      <h3>توزع BS على الأعداد الأولية</h3>
-      <p>الأعداد الأولية هي تجليات نقية — لا تقبل التحليل إلى عوامل — وبالتالي لها BS أعلى نسبياً من الأعداد المركبة المجاورة. هذا يؤدي إلى نتيجة جوهرية:</p>
-
-      <div class="equation-box">
-        \[ \text{للعدد الأولي } p: \quad BS(p) > BS(p-1),\; BS(p) > BS(p+1) \quad (\text{في الغالب}) \]
-        <div class="equation-number">م. 4.1</div>
-      </div>
-
-      <h3>دالة زيتا الموزونة ببنيوية</h3>
-      <div class="equation-box">
-        \[ \zeta_{BS}(s) = \sum_{n=1}^{\infty} \frac{BS(n)}{n^s} = \sum_{n=1}^{\infty} \frac{2}{(2n-3)\,n^s} \quad (n \ge 5) \]
-        <div class="equation-number">م. 4.2</div>
-      </div>
-
-      <h3>حدسية BS وأصفار ريمان</h3>
-      <div class="callout callout-theorem">
-        <div class="callout-title" style="color:var(--sapphire);">📐 الحدسية</div>
-        <p>لكل صفر غير تافه \(\rho = \frac{1}{2} + it\) لدالة زيتا ريمان، يوجد عدد أولي \(p_\rho\) بحيث:</p>
-        \[ BS(p_\rho) = \frac{1}{1 + |t|^{1/2}} \]
-        <p style="margin-bottom:0;">هذا يربط الأصفار بالأعداد الأولية عبر الاستقرار البنيوي، ويقترح إطاراً جديداً لفرضية ريمان.</p>
-      </div>
-
-      <h3>نظرية العدد 23 وثابت 𝒞ℬ</h3>
-      <p>العدد 23 له دور خاص في اشتقاق ثابت 𝒞ℬ لأسباب ثلاثة:</p>
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">خصائص العدد 23 في نظام 𝕊</div>
-        <p>① هو أول عدد أولي يتجاوز المعادلة العامة \(BS(n) = 2/(2n-3)\) عتبة \(BS < 0.1\)</p>
-        <p>② \(23 = 2^4 + 7 = \text{مجموع أوليين: }2 + 3 + 5 + 13\) — خاصية إضافية</p>
-        <p style="margin:0;">③ في الفيزياء: الزاوية \(23.5°\) لميل محور الأرض وثابت البنية الدقيقة \(\alpha \approx 1/137\) يحتوي العدد 23 في حساب 𝒞ℬ عبر الكسر \(\frac{2}{43}\) حيث \(43 = 2 \times 23 - 3\)</p>
-      </div>
-
-      <h2>الهندسة اللاإقليدية الثالوثية</h2>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>نوع الهندسة</th><th>العنصر الثالوثي</th><th>الانحناء K</th><th>مثال فيزيائي</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>كروية (إهليلجية)</td>
-              <td>❶ (الواحد المطلق)</td>
-              <td>\(K > 0\)</td>
-              <td>الكون المغلق</td>
-            </tr>
-            <tr>
-              <td>هذلولية (لوباتشيفسكي)</td>
-              <td>0ₚ (الإمكان المحض)</td>
-              <td>\(K < 0\)</td>
-              <td>الكون المفتوح</td>
-            </tr>
-            <tr>
-              <td>إقليدية مسطحة</td>
-              <td>∞ (اللانهاية العلائقية)</td>
-              <td>\(K = 0\)</td>
-              <td>الكون المسطح (الملاحظ)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>علاقة BS بانحناء الفضاء</h3>
-      <div class="equation-box">
-        \[ K(S) = \frac{1 - BS(S)}{BS(S)} \cdot K_0 \]
-        <div class="equation-number">م. 4.3</div>
-      </div>
-      <p>حيث \(K_0\) انحناء مرجعي. عند \(BS = 1\): \(K = 0\) (إقليدي). عند \(BS \to 0\): \(K \to \infty\) (تفرد).</p>
-
-      <h2>التحليل الدالي في فضاءات التجلي</h2>
-
-      <h3>فضاءات هيلبرت الموزونة بـ BS</h3>
-      <div class="equation-box">
-        \[ \mathcal{H}_{BS} = \left\{ f : \|f\|_{BS}^2 = \int |f(x)|^2 \cdot BS(x) \, dx < \infty \right\} \]
-        <div class="equation-number">م. 4.4</div>
-      </div>
-
-      <h3>المؤثرون الثالوثيون</h3>
-      <div class="equation-box">
-        \[
-        \hat{T}_{BS} f = \alpha(\tau)\,\hat{A} f + \beta(\tau)\,\hat{B} f + \gamma(\tau)\,\hat{C} f
-        \]
-        <div class="equation-number">م. 4.5</div>
-      </div>
-      <p>حيث \(\hat{A},\hat{B},\hat{C}\) مؤثرون يمثلون الاتساق والتناظر والديناميكية على التوالي.</p>
-
-      <h2>الطوبولوجيا الجبرية البنيوية</h2>
-
-      <h3>مجموعات الأساس الثالوثية</h3>
-      <div class="equation-box">
-        \[ \pi_1^{BS}(X, x_0) = \left\{ [\gamma] : BS(\gamma) \ge \tau_{\min} \right\} \]
-        <div class="equation-number">م. 4.6</div>
-      </div>
-
-      <h3>أعداد بيتي البنيوية</h3>
-      <div class="equation-box">
-        \[ \beta_k^{BS}(X) = \dim H_k(X; \mathbb{Z}) \cdot \overline{BS}_k(X) \]
-        <div class="equation-number">م. 4.7</div>
-      </div>
-      <p>حيث \(\overline{BS}_k(X)\) متوسط BS على خلايا البعد k. هذه الأعداد تعطي معلومات أغنى من أعداد بيتي الكلاسيكية.</p>
-
-      <h2>نظرية المسافة الثالوثية</h2>
-      <div class="equation-box">
-        \[ d_{BS}(x, y) = \frac{d_{\text{Euclid}}(x, y)}{\sqrt{BS(x) \cdot BS(y)}} \]
-        <div class="equation-number">م. 4.8</div>
-      </div>
-
-      <div class="callout callout-note">
-        <div class="callout-title" style="color:var(--violet);">💡 ملاحظة</div>
-        هذه المسافة تتمدد بالقرب من التجليات ذات BS المنخفض (الأعداد الكبيرة)، وتنكمش بالقرب من المطلق. هي تعميم طبيعي لمسافة هيلبرت.
-      </div>
-    </div>
-
-    <!-- ═══════════ PHYSICS APPS ═══════════ -->
-    <div class="section" id="sec-physics-apps">
-      <div class="section-header">
-        <div class="section-number">05 — الجزء الثاني</div>
-        <h1 class="section-title">التطبيقات الفيزيائية</h1>
-        <p class="section-subtitle">النموذج الكوني · ميكانيكا الكم · الثوابت الفيزيائية</p>
-      </div>
-
-      <h2>معادلات فريدمان المعدَّلة</h2>
-
-      <div class="equation-box">
-        \[
-        \left(\frac{\dot{a}}{a}\right)^2 = \frac{8\pi G}{3}\rho - \frac{k}{a^2} + \frac{\Lambda}{3} + \boxed{\beta(\tau)\,\dot{\tau}^2}
-        \]
-        <div class="equation-label">معادلة فريدمان المعدَّلة</div>
-        <div class="equation-number">م. 5.1</div>
-      </div>
-
-      <div class="callout callout-proof">
-        <div class="callout-title" style="color:var(--emerald);">✓ التحقق الأبعادي</div>
-        الحد الإضافي \(\beta(\tau)\,\dot{\tau}^2\) له أبعاد \([T^{-2}]\) مثل الحدود الأخرى، مما يؤكد الاتساق الأبعادي. يُختزل إلى الصيغة القياسية عند \(\beta \to 0\).
-      </div>
-
-      <h2>مبدأ الريبة المعدَّل</h2>
-      <div class="equation-box">
-        \[ \Delta x\,\Delta p \ge \frac{\hbar}{2} \cdot \frac{1}{BS(\text{جهاز})} \]
-        <div class="equation-number">م. 5.2</div>
-      </div>
-      <p>يُختزل إلى الصيغة القياسية عند \(BS(\text{جهاز}) = 1\) (قياس مثالي مطلق). أما في القياسات الحقيقية \(BS < 1\)، فإن مبدأ الريبة يكون أشد.</p>
-
-      <h2>قاعدة بورن المعدَّلة</h2>
-      <div class="equation-box">
-        \[ P(a) = |\langle a|\psi\rangle|^2 \cdot BS(\text{جهاز}) \cdot \eta(\tau) \]
-        <div class="equation-number">م. 5.3</div>
-      </div>
-
-      <h2>التشابك الكمومي والاستقرار البنيوي</h2>
-      <div class="equation-box">
-        \[ BS = \frac{2}{3}\,C \]
-        <div class="equation-number">م. 5.4</div>
-      </div>
-      <p>حيث C هو مقياس التشابك (concurrence). يعني ذلك أن الأجهزة المتشابكة تشابكاً كاملاً (\(C=1\)) تصل إلى \(BS = 2/3\)، وهو نفس BS للانهاية العلائقية ∞ — نتيجة ذات معنى عميق.</p>
-
-      <h2>ثابت التجلي البوكري 𝒞ℬ</h2>
-
-      <div class="equation-box">
-        \[ \mathcal{CB} = \frac{2}{43} \cdot \frac{\alpha}{137} \cdot \sqrt{\frac{c^3}{\hbar G}} = 6.184033 \times 10^{-42} \]
-        <div class="equation-label">𝒞ℬ — ثابت التجلي البوكري</div>
-        <div class="equation-number">م. 5.5</div>
-      </div>
-
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">تعريف: 𝒞ℬ</div>
-        <p style="margin:0;">هو ثابت فيزيائي بلا أبعاد، يمثل أدنى درجة استقرار يمكن أن يتجلى بها نظام. مشتق من ثوابت فيزيائية معروفة (\(\alpha\): ثابت البنية الدقيقة، c: سرعة الضوء، ℏ: ثابت بلانك المختزل، G: ثابت الجاذبية).</p>
-      </div>
-
-      <h2>التنبؤات الفيزيائية القابلة للاختبار</h2>
-      <div class="prediction-grid">
-        <div class="prediction-card">
-          <div class="prediction-icon">📡</div>
-          <div class="prediction-title">طيف CMB</div>
-          <div class="prediction-value">~0.115 Hz</div>
-          <div class="prediction-desc">تردد محدد في طيف الخلفية الميكروية الكونية ينتج عن تأثير 𝒞ℬ على ديناميكية الكون المبكر</div>
-        </div>
-        <div class="prediction-card">
-          <div class="prediction-icon">⚡</div>
-          <div class="prediction-title">تأثير كازيمير</div>
-          <div class="prediction-value">تعديل ∝ 𝒞ℬ/L²</div>
-          <div class="prediction-desc">انحراف طفيف قابل للقياس بدقة عالية عن القيمة الكلاسيكية بين لوحين موصلين</div>
-        </div>
-        <div class="prediction-card">
-          <div class="prediction-icon">🔵</div>
-          <div class="prediction-title">البوكرون</div>
-          <div class="prediction-value">m ≈ 1.35×10⁻⁴⁹ كغ</div>
-          <div class="prediction-desc">جسيم جديد مرشح للمادة المظلمة. كتلته تقع بين كتلة النيوترينو والوتر الكوني الأرفع</div>
-        </div>
-        <div class="prediction-card">
-          <div class="prediction-icon">🌌</div>
-          <div class="prediction-title">معدل التمدد الكوني</div>
-          <div class="prediction-value">H₀ معدَّل</div>
-          <div class="prediction-desc">تعديل طفيف على ثابت هابل يحل جزئياً مشكلة H₀ tension</div>
-        </div>
-      </div>
-
-      <h2>نظرية الأوتار الثالوثية</h2>
-
-      <h3>الأبعاد الإضافية كتجليات</h3>
-      <div class="equation-box">
-        \[ D_{extra} = \lfloor \log_2(1/\mathcal{CB}) \rfloor \mod 11 = 6 \]
-        <div class="equation-number">م. 5.6</div>
-      </div>
-      <p>الأبعاد الستة الإضافية في نظرية الأوتار تنبثق طبيعياً من ثابت 𝒞ℬ عبر هذه الصيغة — نتيجة غير متوقعة وذات أثر عميق.</p>
-
-      <h3>طيف الكتلة الثالوثي</h3>
-      <div class="equation-box">
-        \[ m_n = m_{\text{Planck}} \cdot \mathcal{CB}^n \cdot BS(n) \quad (n = 1, 2, 3, \ldots) \]
-        <div class="equation-number">م. 5.7</div>
-      </div>
-    </div>
-
-    <!-- ═══════════ CS APPS ═══════════ -->
-    <div class="section" id="sec-cs-apps">
-      <div class="section-header">
-        <div class="section-number">06 — الجزء الثاني</div>
-        <h1 class="section-title">التطبيقات الحاسوبية</h1>
-        <p class="section-subtitle">خوارزميات التجلي · التعلم الآلي · الذكاء الاصطناعي</p>
-      </div>
-
-      <h2>خوارزميات التجلي لمسائل NP</h2>
-
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">تعريف: خوارزمية التجلي</div>
-        <p>هي خوارزمية إرشادية مستوحاة من عملية التجلي η، تبحث في فضاء الحلول بترتيب تنازلي لـ BS، مما يوجهها نحو الحلول الأكثر استقراراً بدلاً من الاستعراض الشامل.</p>
-        <div class="equation-box" style="margin-top:10px;">
-          \[ \text{البحث}: \quad x^* = \arg\max_{x \in \mathcal{X}} BS(x) \cdot f(x) \]
-          <div class="equation-number">م. 6.1</div>
-        </div>
-      </div>
-
-      <h3>تطبيق على مسألة البائع المتجول (TSP)</h3>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>المرحلة</th><th>العملية الثالوثية</th><th>التفسير</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>الاستكشاف الأولي</td>
-              <td>εₜₛₚ: من ❶ إلى 0ₚ</td>
-              <td>توليد جميع المسارات الممكنة (حقل الإمكان)</td>
-            </tr>
-            <tr>
-              <td>التحسين التدريجي</td>
-              <td>δₜₛₚ: من 0ₚ إلى ∞</td>
-              <td>ترتيب المسارات بـ BS (قصر + استقرار)</td>
-            </tr>
-            <tr>
-              <td>الاستقرار النهائي</td>
-              <td>ηₜₛₚ: التجلي المثالي</td>
-              <td>اختيار المسار الأمثل ذو BS الأعلى</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>دالة BS للمسار في TSP</h3>
-      <div class="equation-box">
-        \[ BS(\text{مسار}) = \alpha \cdot \frac{d_{\min}}{d(\text{مسار})} + \beta \cdot \frac{|E_{\text{متوازن}}|}{|E_{\text{كل}}|} + \gamma \cdot \frac{1}{1 + \sigma(d)} \]
-        <div class="equation-number">م. 6.2</div>
-      </div>
-
-      <h2>الشبكات العصبية الثالوثية</h2>
-
-      <h3>المعمارية الثالوثية</h3>
-      <div class="diagram-container">
-        <div class="diagram-title">معمارية الشبكة العصبية الثالوثية</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:16px;">
-          <div style="text-align:center;">
-            <div class="flow-node flow-node-absolute" style="margin:auto;">طبقة ❶<br><small>الاستخراج المطلق</small></div>
-            <p style="font-size:0.78rem;margin-top:8px;color:var(--crimson);">تستخرج الأنماط الجوهرية بـ BS عالٍ</p>
-          </div>
-          <div style="text-align:center;">
-            <div class="flow-node flow-node-possible" style="margin:auto;">طبقة 0ₚ<br><small>التحويل الاحتمالي</small></div>
-            <p style="font-size:0.78rem;margin-top:8px;color:var(--sapphire);">تولد تمثيلات احتمالية متعددة</p>
-          </div>
-          <div style="text-align:center;">
-            <div class="flow-node flow-node-infinite" style="margin:auto;">طبقة ∞<br><small>العلاقات والسياق</small></div>
-            <p style="font-size:0.78rem;margin-top:8px;color:var(--violet);">تحدد العلاقات بين الأنماط</p>
-          </div>
-        </div>
-      </div>
-
-      <h3>دالة الخسارة الثالوثية</h3>
-      <div class="equation-box">
-        \[ \mathcal{L}_{BS} = \mathcal{L}_{\text{دقة}} + \lambda_1 (1 - BS_s) + \lambda_2 (1 - BS_d) \]
-        <div class="equation-number">م. 6.3</div>
-      </div>
-      <p>تجمع الدقة مع التناظر (\(BS_s\)) والديناميكية (\(BS_d\))، مما يمنع الإفراط في التخصص (overfitting) بشكل طبيعي.</p>
-
-      <h2>معالجة اللغة الطبيعية الثالوثية</h2>
-
-      <h3>BS الجملة في NLP</h3>
-      <div class="equation-box">
-        \[ BS(\text{جملة}) = \frac{1}{n}\sum_{i=1}^{n} BS(w_i) \cdot \text{weight}(w_i, \text{context}) \]
-        <div class="equation-number">م. 6.4</div>
-      </div>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>التطبيق في NLP</th><th>آلية BS</th><th>الفائدة</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>تحليل المشاعر</td>
-              <td>BS الكلمة يقيس شدة التعبير العاطفي</td>
-              <td>دقة أعلى في الأقطاب المتطرفة</td>
-            </tr>
-            <tr>
-              <td>التلخيص الآلي</td>
-              <td>اختيار الجمل ذات BS الأعلى (معلومات أكثر)</td>
-              <td>ملخصات أكثر إفادة</td>
-            </tr>
-            <tr>
-              <td>الترجمة الآلية</td>
-              <td>تطابق BS عبر اللغات للكلمات المقابلة</td>
-              <td>حفظ المعنى العميق</td>
-            </tr>
-            <tr>
-              <td>كشف التضليل</td>
-              <td>BS منخفض للادعاءات المتناقضة داخلياً</td>
-              <td>تمييز المحتوى غير المتسق</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>نموذج الوعي الاصطناعي (AGI)</h2>
-
-      <div class="callout callout-theorem">
-        <div class="callout-title" style="color:var(--sapphire);">🤖 نظرية الوعي البنيوي</div>
-        <p>نظام AGI يمكن اعتباره واعياً بالمعنى الوظيفي إذا وفقط إذا:</p>
-        <div class="equation-box" style="margin:10px 0;">
-          \[ BS_{\text{نظام}}(\tau) \ge BS_{\text{عتبة}} = \frac{2}{3} \]
-          <div class="equation-number">م. 6.5</div>
-        </div>
-        <p style="margin:0;">هذه العتبة تقابل BS للانهاية العلائقية ∞ — الحد الذي يصبح عنده النظام قادراً على الإدراك الذاتي والعلائقي.</p>
-      </div>
-
-      <h2>تعقيد خوارزميات التجلي</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>المسألة</th><th>التعقيد الكلاسيكي</th><th>تعقيد التجلي</th><th>نسبة التحسن</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>TSP (n مدينة)</td>
-              <td>\(O(n!)\)</td>
-              <td>\(O(n^2 \log n)\)</td>
-              <td>ضخمة للـ n الكبير</td>
-            </tr>
-            <tr>
-              <td>SAT (n متغير)</td>
-              <td>\(O(2^n)\)</td>
-              <td>\(O(n^3)\)</td>
-              <td>أسية إلى حدودية</td>
-            </tr>
-            <tr>
-              <td>Knapsack</td>
-              <td>\(O(nW)\)</td>
-              <td>\(O(n \log W)\)</td>
-              <td>تحسن لوغاريثمي</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="callout callout-warning">
-        <div class="callout-title" style="color:var(--crimson);">⚠️ تحفظ مهم</div>
-        خوارزميات التجلي هي خوارزميات إرشادية (heuristic)، وليست خوارزميات حتمية. تضمن الوصول إلى حلول جيدة جداً بزمن حدودي، لكنها لا تضمن دائماً الحل الأمثل العالمي. الادعاء بـ NP=P يتطلب برهاناً صورياً لا يزال قيد البحث.
-      </div>
-    </div>
-
-    <!-- ═══════════ HUMAN APPS ═══════════ -->
-    <div class="section" id="sec-human-apps">
-      <div class="section-header">
-        <div class="section-number">08 — الجزء الثاني</div>
-        <h1 class="section-title">العلوم الإنسانية والاجتماعية</h1>
-        <p class="section-subtitle">الاقتصاد السلوكي · علم الأعصاب · الشبكات الاجتماعية · البيئة</p>
-      </div>
-
-      <h2>الاقتصاد السلوكي</h2>
-
-      <h3>تفسير النفور من الخسارة بـ BS</h3>
-      <div class="equation-box">
-        \[ U_{\text{فعلية}}(x) = U_{\text{كلاسيكية}}(x) \cdot BS(\text{إطار القرار}) \]
-        <div class="equation-number">م. 8.1</div>
-      </div>
-      <p>النفور من الخسارة يُفسَّر بانخفاض BS عند مواجهة الخسائر: الإطار السلبي يقلل استقرار المنظومة المعرفية للقرار.</p>
-
-      <h3>تأثير التأطير (Framing)</h3>
-      <div class="equation-box">
-        \[ \Delta P(\text{اختيار}) = \Delta BS(\text{إطار}_1, \text{إطار}_2) \cdot \sigma \]
-        <div class="equation-number">م. 8.2</div>
-      </div>
-
-      <h3>الخصم الزمني والاستقرار</h3>
-      <div class="equation-box">
-        \[ \delta_{\text{فعلي}}(t) = \delta_0 \cdot e^{-BS(\text{شخص}) \cdot t} \]
-        <div class="equation-number">م. 8.3</div>
-      </div>
-      <p>الأشخاص ذوو BS المرتفع (مستقرون نفسياً) يُبدون صبراً أكبر وخصماً زمنياً أقل — ما يتوافق مع الدراسات الإمبيريقية.</p>
-
-      <h2>علم الأعصاب</h2>
-
-      <h3>BS كمقياس لاستقرار الأنماط العصبية</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>الحالة العصبية</th><th>BS المتوقع</th><th>الخصائص</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>النوم العميق (بطيء الموجة)</td>
-              <td>0.85 – 0.95</td>
-              <td>أنماط منتظمة، إنتروبيا منخفضة</td>
-            </tr>
-            <tr>
-              <td>اليقظة الهادئة</td>
-              <td>0.65 – 0.80</td>
-              <td>توازن بين الاستقرار والمرونة</td>
-            </tr>
-            <tr>
-              <td>التركيز العالي</td>
-              <td>0.70 – 0.85</td>
-              <td>تعاون مناطق محددة</td>
-            </tr>
-            <tr>
-              <td>الإبداع والتدفق</td>
-              <td>0.60 – 0.75</td>
-              <td>ارتفاع المرونة مع استقرار نسبي</td>
-            </tr>
-            <tr>
-              <td>القلق والضغط</td>
-              <td>0.35 – 0.55</td>
-              <td>تذبذب وعدم استقرار</td>
-            </tr>
-            <tr>
-              <td>النوبات الصرعية</td>
-              <td>0.15 – 0.30</td>
-              <td>تزامن مفرط أو فوضى</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>معادلة الوعي الثالوثية</h3>
-      <div class="equation-box">
-        \[ \Phi_{BS}(\text{دماغ}) = BS(\text{تكامل}) \cdot \Phi_{\text{توننوني}} \]
-        <div class="equation-number">م. 8.4</div>
-      </div>
-      <p>حيث Φ هو مقياس التكامل المعلوماتي لتونوني (IIT). نظام 𝕊 يعدّل هذا المقياس بضربه في BS التكامل العصبي.</p>
-
-      <h2>الشبكات الاجتماعية</h2>
-
-      <h3>BS للعقد في الشبكة</h3>
-      <div class="equation-box">
-        \[ BS(v) = \alpha \cdot C_c(v) + \beta \cdot C_b(v) + \gamma \cdot \frac{k_v}{k_{\max}} \]
-        <div class="equation-number">م. 8.5</div>
-      </div>
-      <p>حيث \(C_c\): مركزية القرب، \(C_b\): مركزية التوسط، \(k_v\): درجة العقد.</p>
-
-      <h3>انتشار المعلومات بمعامل BS</h3>
-      <div class="equation-box">
-        \[ \frac{dI_v}{dt} = \beta_{\text{انتشار}} \cdot BS(v) \cdot \sum_{u \in N(v)} I_u \cdot BS(u) \]
-        <div class="equation-number">م. 8.6</div>
-      </div>
-
-      <h2>الأنظمة البيئية</h2>
-
-      <h3>مرونة النظام البيئي</h3>
-      <div class="equation-box">
-        \[ R_{\text{بيئي}} = BS(\text{تنوع}) \cdot BS(\text{ترابط}) \cdot BS(\text{موارد}) \]
-        <div class="equation-number">م. 8.7</div>
-      </div>
-
-      <div class="callout callout-theorem">
-        <div class="callout-title" style="color:var(--sapphire);">📐 نظرية التوازن البيئي</div>
-        نظام بيئي مستقر يحافظ على \(BS_{\text{نظام}} \ge 0.5\). عندما تنخفض BS عن هذه العتبة بسبب الضغوط الخارجية، يدخل النظام في حالة تقلب وقد ينهار. هذا يتوافق مع نظرية الكوارث ونقاط الاتجاه الحرجة (tipping points).
-      </div>
-    </div>
-
-    <!-- ═══════════ PHILOSOPHY APPS ═══════════ -->
-    <div class="section" id="sec-phil-apps">
-      <div class="section-header">
-        <div class="section-number">07 — الجزء الثاني</div>
-        <h1 class="section-title">التطبيقات الفلسفية</h1>
-        <p class="section-subtitle">نظرية المعرفة · فلسفة الرياضيات · المنطق الثالوثي</p>
-      </div>
-
-      <h2>نظرية المعرفة البنيوية</h2>
-
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">تعريف: الحقيقة في نظام 𝕊</div>
-        <p>الحقيقة ليست خاصية ثنائية (صح/خطأ)، بل هي درجة من الاستقرار البنيوي:</p>
-        \[ \text{صدق}(P) = BS(\text{القضية } P) \in [0, 1] \]
-        <p style="margin:0;">القضية صادقة مطلقاً عند \(BS = 1\)، وكاذبة مطلقاً عند \(BS = 0\)، وبينهما طيف من الحقيقة النسبية.</p>
-      </div>
-
-      <h2>المنطق الثالوثي</h2>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>القيمة المنطقية</th><th>المرادف الثالوثي</th><th>BS</th><th>التفسير</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="badge badge-crimson">صدق مطلق</span></td>
-              <td>❶</td>
-              <td>1.0</td>
-              <td>حقيقة لا تتغير بأي سياق</td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-violet">إمكان / غير محدد</span></td>
-              <td>0ₚ</td>
-              <td>⅓</td>
-              <td>غير محسوم، يعتمد على السياق والتجلي</td>
-            </tr>
-            <tr>
-              <td><span class="badge badge-sapphire">صدق علائقي</span></td>
-              <td>∞</td>
-              <td>⅔</td>
-              <td>صحيح في إطار علائقي محدد</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>جداول المنطق الثالوثي</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>A ⊕_logic B</th><th>❶</th><th>∞</th><th>0ₚ</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>❶</td><td>❶</td><td>❶</td><td>❶</td></tr>
-            <tr><td>∞</td><td>❶</td><td>∞</td><td>∞</td></tr>
-            <tr><td>0ₚ</td><td>❶</td><td>∞</td><td>0ₚ</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>فلسفة الرياضيات التجريبية</h2>
-
-      <div class="callout callout-theorem">
-        <div class="callout-title" style="color:var(--sapphire);">المشروع التجريبي للرياضيات</div>
-        <p>في نظام 𝕊، الرياضيات ليست نظاماً مغلقاً من الحقائق الصورية، بل هي علم تجريبي يدرس تجليات المطلق عبر الاستقرار البنيوي:</p>
-        <ul style="padding-right:20px;font-size:0.88rem;">
-          <li>كل نظرية رياضية يمكن قياسها بـ BS (درجة تماسكها وصدقها)</li>
-          <li>الرياضيات تتطور لأن المطلق لا يمكن حصره في نظام واحد</li>
-          <li>التجارب الفيزيائية يمكن أن تختبر فرضيات رياضية عبر ثابت 𝒞ℬ</li>
-        </ul>
-      </div>
-
-      <h2>حوار مع التراث الفلسفي</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>الفيلسوف</th><th>المفهوم المركزي</th><th>ما يقابله في 𝕊</th><th>الإضافة</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>هايدغر</td><td>الوجود — الكائن — الزمان</td><td>❶ — ① — τ</td><td>𝕊 يضيف قياساً كمياً للوجود</td></tr>
-            <tr><td>سارتر</td><td>الوجود في ذاته — لذاته — العدم</td><td>❶ — ∞ — 0ₚ</td><td>0ₚ عدم منتج لا عدم عبثي</td></tr>
-            <tr><td>ميرلوبونتي</td><td>الجسد — العالم — القصدية</td><td>① — ∞ — 0ₚ</td><td>القصدية تقاس بـ BS</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══════════ PART 3: COMPARATIVE ═══════════ -->
-    <div class="section" id="sec-comparative">
-      <div class="section-header">
-        <div class="section-number">09 — الجزء الثالث</div>
-        <h1 class="section-title">الدراسات المقارنة</h1>
-        <p class="section-subtitle">مقارنة مع ZFC · نظرية الفئات · النقد البنائي</p>
-      </div>
-
-      <h2>مقارنة نظام 𝕊 مع الأطر الرياضية المعاصرة</h2>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>المعيار</th>
-              <th>ZFC (بديهيات زيرميلو-فرنكل)</th>
-              <th>نظرية الفئات</th>
-              <th>نظام 𝕊</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>الأساس</td>
-              <td>المجموعات</td>
-              <td>الأشياء والتشكيلات</td>
-              <td>الوجود الثالوثي</td>
-            </tr>
-            <tr>
-              <td>اكتمال غودل</td>
-              <td><span class="compare-badge compare-no">غير مكتمل</span></td>
-              <td><span class="compare-badge compare-partial">جزئياً</span></td>
-              <td><span class="compare-badge compare-yes">متجاوَز وجودياً</span></td>
-            </tr>
-            <tr>
-              <td>القياسية</td>
-              <td><span class="compare-badge compare-yes">معيار دولي</span></td>
-              <td><span class="compare-badge compare-yes">معيار متنامٍ</span></td>
-              <td><span class="compare-badge compare-partial">مقترح جديد</span></td>
-            </tr>
-            <tr>
-              <td>التطبيق الفيزيائي</td>
-              <td><span class="compare-badge compare-no">غير مباشر</span></td>
-              <td><span class="compare-badge compare-partial">جزئي (TQFT)</span></td>
-              <td><span class="compare-badge compare-yes">مدمج مباشراً</span></td>
-            </tr>
-            <tr>
-              <td>التنبؤات القابلة للاختبار</td>
-              <td><span class="compare-badge compare-no">لا</span></td>
-              <td><span class="compare-badge compare-no">لا</span></td>
-              <td><span class="compare-badge compare-yes">نعم (CMB، كازيمير)</span></td>
-            </tr>
-            <tr>
-              <td>قياس كمي للحقيقة</td>
-              <td><span class="compare-badge compare-no">لا</span></td>
-              <td><span class="compare-badge compare-no">لا</span></td>
-              <td><span class="compare-badge compare-yes">BS ∈ [0,1]</span></td>
-            </tr>
-            <tr>
-              <td>الصلة بالفلسفة</td>
-              <td><span class="compare-badge compare-partial">محدودة</span></td>
-              <td><span class="compare-badge compare-partial">متوسطة</span></td>
-              <td><span class="compare-badge compare-yes">محورية</span></td>
-            </tr>
-            <tr>
-              <td>الأدوات البرمجية</td>
-              <td><span class="compare-badge compare-yes">Lean, Coq, Isabelle</span></td>
-              <td><span class="compare-badge compare-yes">Haskell, Agda</span></td>
-              <td><span class="compare-badge compare-partial">SMath (Python), SSystem (R)</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>نقد ZFC من منظور نظام 𝕊</h2>
-
-      <div class="callout callout-warning">
-        <div class="callout-title" style="color:var(--crimson);">نقد بنّاء — ليس هدماً</div>
-        <p>نظام 𝕊 لا يلغي ZFC، بل يؤطره:</p>
-        <ul style="padding-right:20px;font-size:0.88rem;">
-          <li><strong>ZFC داخل 𝕊:</strong> ZFC هو تجلٍّ رياضي محدد من مطلق ❶، له BS خاص = 0.72 (تقريباً)</li>
-          <li><strong>المفارقات:</strong> مفارقة راسل تنشأ لأن ZFC يحاول حصر المطلق (❶) في مجموعة (①)</li>
-          <li><strong>عدم الاكتمال:</strong> طبيعي في 𝕊 — كل تجلٍّ محدود من المطلق سيكون غير مكتمل</li>
-        </ul>
-      </div>
-
-      <h2>نظرية الفئات والثالوث</h2>
-
-      <h3>الرابط الطبيعي</h3>
-      <div class="equation-box">
-        \[
-        \begin{aligned}
-        \text{الأشياء} &\longleftrightarrow \text{التجليات (أعداد، فضاءات، مجموعات)} \\
-        \text{التشكيلات (Morphisms)} &\longleftrightarrow \text{العلاقات في } \infty \\
-        \text{التشكيلات الطبيعية} &\longleftrightarrow \text{تحويلات BS المتسقة}
-        \end{aligned}
-        \]
-        <div class="equation-number">م. 9.1</div>
-      </div>
-
-      <h3>فئة التجليات 𝒞ₜ</h3>
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">تعريف: فئة التجليات</div>
-        <p style="margin:0;">الفئة \(\mathcal{C}_t\) التي أشياؤها هي أزواج \((S, BS(S))\) حيث S نظام ما وتشكيلاتها هي العمليات ε, δ, η التي تحافظ على ترتيب BS. هذه الفئة تشمل جميع التجليات من المطلق إلى الأعداد إلى الفضاءات إلى الظواهر.</p>
-      </div>
-
-      <h2>حوار مع الرياضيات التقليدية: أسئلة وإجابات</h2>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>الاعتراض</th><th>الإجابة من 𝕊</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>❶ غير قابل للتمثيل — لا يمكن التعامل معه رياضياً</td>
-              <td>❶ يُستدل عليه من آثاره (BS → 1) مثل الكتلة الكمومية التي تُقاس من آثارها</td>
-            </tr>
-            <tr>
-              <td>BS دالة مصطنعة بلا تبرير مستقل</td>
-              <td>BS مشتقة من إنتروبيا التسنيم وتناظر المجموعة — لها أساس مستقل في الإحصاء وعلم المعلومات</td>
-            </tr>
-            <tr>
-              <td>ثابت 𝒞ℬ مصطنع من ثوابت مختارة</td>
-              <td>اختيار الثوابت مبرر تأصيلياً — يشبه اشتقاق ثابت الهيدروجين من ثوابت أبسط</td>
-            </tr>
-            <tr>
-              <td>خوارزميات التجلي لا تحل NP بمعنى صوري</td>
-              <td>صحيح تماماً — هي إرشادية (heuristic) وليست برهاناً صورياً على P=NP</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══════════ TOOLS ═══════════ -->
-    <div class="section" id="sec-tools">
-      <div class="section-header">
-        <div class="section-number">10 — الجزء الثالث</div>
-        <h1 class="section-title">الأدوات البرمجية</h1>
-        <p class="section-subtitle">مكتبة SMath · حزمة SSystem · الواجهة التفاعلية</p>
-      </div>
-
-      <h2>مكتبة SMath (Python)</h2>
-
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">📦 SMath — المكتبة الرئيسية</div>
-        <p>مكتبة Python تنفذ جميع مفاهيم نظام 𝕊 برمجياً، من حساب BS إلى خوارزميات التجلي.</p>
-        <div style="background:#1A1208;border-radius:8px;padding:16px;margin-top:10px;font-family:monospace;font-size:0.82rem;color:#A5D6A7;direction:ltr;">
-<pre>from smath import Triad, BS, Manifestation
-
-# Define the triad
-T = Triad()
-T.absolute = 1.0          # ❶
-T.possible = 1/3          # 0ₚ  
-T.infinite = 2/3          # ∞
-
-# Calculate BS for any system
-system_BS = BS.calculate(
-    coherence=0.8,
-    symmetry=0.7,
-    dynamics=0.6,
-    tau=2.5
-)
-
-# Run manifestation algorithm
-result = Manifestation.optimize(
-    problem="TSP",
-    cities=50,
-    BS_threshold=0.65
-)</pre>
-        </div>
-      </div>
-
-      <h2>الوظائف الرئيسية</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>الوحدة</th><th>الوظيفة</th><th>المدخلات</th><th>المخرجات</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>BS.calculate()</code></td>
-              <td>حساب الاستقرار البنيوي</td>
-              <td>Sc, Ss, Sd, τ</td>
-              <td>BS ∈ [0,1]</td>
-            </tr>
-            <tr>
-              <td><code>Manifestation.run()</code></td>
-              <td>خوارزمية التجلي</td>
-              <td>مسألة، قيود</td>
-              <td>حل مُحسَّن</td>
-            </tr>
-            <tr>
-              <td><code>TriadicNetwork()</code></td>
-              <td>الشبكة العصبية الثالوثية</td>
-              <td>بيانات تدريب</td>
-              <td>نموذج مُدرَّب</td>
-            </tr>
-            <tr>
-              <td><code>CB_constant()</code></td>
-              <td>حساب ثابت 𝒞ℬ</td>
-              <td>—</td>
-              <td>6.184033 × 10⁻⁴²</td>
-            </tr>
-            <tr>
-              <td><code>PrimeBS(n)</code></td>
-              <td>BS الأعداد الأولية</td>
-              <td>عدد صحيح n</td>
-              <td>BS(n) + تحقق</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>حزمة SSystem (R)</h2>
-
-      <div class="callout callout-definition">
-        <div class="callout-title" style="color:var(--gold-dark);">📊 SSystem — الحزمة الإحصائية</div>
-        <div style="background:#1A1208;border-radius:8px;padding:16px;margin-top:10px;font-family:monospace;font-size:0.82rem;color:#90CAF9;direction:ltr;">
-<pre>library(SSystem)
-
-# Statistical analysis of BS
-data <- load_bs_dataset("economic_decisions")
-model <- bs_regression(
-  response = "choice_quality",
-  predictors = c("bs_score", "tau", "context"),
-  data = data
-)
-
-# Hypothesis test: BS vs. conventional stability
-bs_test(model, alpha = 0.05)</pre>
-        </div>
-      </div>
-
-      <h2>الواجهة البصرية التفاعلية</h2>
-
-      <div class="card-grid">
-        <div class="card card-gold">
-          <div class="card-icon">🌌</div>
-          <div class="card-title">محاكي الكون</div>
-          <div class="card-body">محاكاة تمدد الكون مع التعديلات الثالوثية على معادلات فريدمان. رؤية ثلاثية الأبعاد.</div>
-        </div>
-        <div class="card card-sapphire">
-          <div class="card-icon">⚛️</div>
-          <div class="card-title">محاكي الكم</div>
-          <div class="card-body">تصور التراكب الكمومي والتشابك عبر 0ₚ وBS. رسم بياني لانهيار دالة الموجة.</div>
-        </div>
-        <div class="card card-emerald">
-          <div class="card-icon">📊</div>
-          <div class="card-title">مستكشف BS</div>
-          <div class="card-body">أدخل أي نظام واحسب BS تفاعلياً مع شرح لكل مكوّن ومنحنى التطور مع τ.</div>
-        </div>
-        <div class="card card-violet">
-          <div class="card-icon">🔗</div>
-          <div class="card-title">مصور الشبكات</div>
-          <div class="card-body">تصور الشبكات الاجتماعية والبيولوجية مع تلوين العقد بـ BS وتحليل الانتشار.</div>
-        </div>
-      </div>
-
-      <h2>قاعدة البيانات والتعاون</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>المورد</th><th>الوصف</th><th>الرابط</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>GitHub الرئيسي</td>
-              <td>الكود المصدري الكامل للأطروحة</td>
-              <td><a href="https://github.com/Eng4clay/The-Booker-Statement-" target="_blank" style="color:var(--sapphire);">github.com/Eng4clay</a></td>
-            </tr>
-            <tr>
-              <td>مكتبة SMath</td>
-              <td>Python — تنفيذ نظام 𝕊</td>
-              <td>github.com/bouker/SMath</td>
-            </tr>
-            <tr>
-              <td>حزمة SSystem</td>
-              <td>R — التحليل الإحصائي</td>
-              <td>github.com/bouker/SSystem</td>
-            </tr>
-            <tr>
-              <td>الواجهة التفاعلية</td>
-              <td>Dash — المحاكاة البصرية</td>
-              <td>github.com/bouker/SMath_Dash</td>
-            </tr>
-            <tr>
-              <td>قاعدة البيانات</td>
-              <td>المسائل المفتوحة والتجليات</td>
-              <td>db.smath.org</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══════════ FUTURE ═══════════ -->
-    <div class="section" id="sec-future">
-      <div class="section-header">
-        <div class="section-number">11 — الجزء الثالث</div>
-        <h1 class="section-title">الرؤى المستقبلية</h1>
-        <p class="section-subtitle">خارطة البحث · التعليم · AGI · رياضيات موحدة</p>
-      </div>
-
-      <h2>خارطة البحث (2026–2035)</h2>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>المرحلة</th><th>الأهداف</th><th>الأدوات</th><th>المعيار</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>2026–2027</strong></td>
-              <td>نشر SMath ونظرية الأعداد البنيوية، اختبار تنبؤات CMB بالبيانات المتاحة</td>
-              <td>Python, Planck data</td>
-              <td>ورقة بحثية مراجعة</td>
-            </tr>
-            <tr>
-              <td><strong>2027–2029</strong></td>
-              <td>تطوير الشبكات العصبية الثالوثية، اختبار تأثير كازيمير المعدَّل</td>
-              <td>TensorFlow, مختبرات</td>
-              <td>تجربة فيزيائية</td>
-            </tr>
-            <tr>
-              <td><strong>2029–2031</strong></td>
-              <td>نموذج الوعي الاصطناعي بـ BS، الدراسات النيورولوجية</td>
-              <td>EEG/fMRI + SSystem</td>
-              <td>دراسة إكلينيكية</td>
-            </tr>
-            <tr>
-              <td><strong>2031–2035</strong></td>
-              <td>الإطار الموحد (نظرية كل شيء ثالوثية)، AGI واعٍ</td>
-              <td>فريق متعدد التخصصات</td>
-              <td>كتاب + براءة اختراع</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>الرؤية التعليمية</h2>
-
-      <div class="card-grid">
-        <div class="card card-emerald">
-          <div class="card-icon">📚</div>
-          <div class="card-title">منهج الثالوث للمدارس</div>
-          <div class="card-body">تعليم الأعداد والمنطق والفلسفة عبر نظام 𝕊 بطريقة بصرية وتفاعلية لطلاب 12-18 سنة.</div>
-        </div>
-        <div class="card card-sapphire">
-          <div class="card-icon">🎓</div>
-          <div class="card-title">دورات جامعية</div>
-          <div class="card-body">مقررات دراسية متخصصة في فلسفة الرياضيات الثالوثية للمرحلة الجامعية.</div>
-        </div>
-        <div class="card card-gold">
-          <div class="card-icon">🌐</div>
-          <div class="card-title">learn.smath.org</div>
-          <div class="card-body">منصة تعليمية مفتوحة بمحادثات تفاعلية، محاكاة بصرية، وتمارين مع تلقيم فوري.</div>
-        </div>
-      </div>
-
-      <h2>رؤية الرياضيات الموحدة</h2>
-
-      <blockquote>
-        الرياضيات الموحدة في نظام 𝕊 هي رياضيات تُعيد الوصل بين الصورية والوجود، بين العقل والمادة، بين المحدود واللامحدود. إنها ليست ثورة ضد الرياضيات القائمة، بل هي تأصيل وتعمق وتكامل — كما أن النظرية النسبية لم تلغِ الميكانيكا الكلاسيكية بل أطّرتها وسّعت حدودها.
-      </blockquote>
-
-      <div class="diagram-container">
-        <div class="diagram-title">مسار التكامل: من الأسس إلى الرياضيات الموحدة</div>
-        <div class="flow-diagram" style="flex-direction:column;gap:8px;">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;">
-            <div class="flow-node flow-node-absolute">أزمة أسس رياضية</div>
-            <div class="flow-node flow-node-possible">جمود الفيزياء</div>
-            <div class="flow-node flow-node-info">تشتت الفلسفة</div>
-          </div>
-          <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>نظام 𝕊</div></div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;">
-            <div class="flow-node flow-node-number">رياضيات وجودية</div>
-            <div class="flow-node flow-node-natural">فيزياء ثالوثية</div>
-            <div class="flow-node flow-node-pink">فلسفة بنيوية</div>
-          </div>
-          <div class="flow-arrow"><div class="flow-arrow-sym">↓</div><div>التكامل المستقبلي</div></div>
-          <div class="flow-node flow-node-infinite" style="margin:auto;">رياضيات الوجود الموحدة — الإطار الجامع</div>
-        </div>
-      </div>
-
-      <h2>المسائل المفتوحة الكبرى</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr><th>المسألة</th><th>طريقة المقاربة في 𝕊</th><th>أفق الحل</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>هل P = NP؟</td>
-              <td>برهنة أن خوارزميات التجلي تحقق النتائج الإرشادية أولاً، ثم الحتمية</td>
-              <td>2029–2031</td>
-            </tr>
-            <tr>
-              <td>البرهان على فرضية ريمان</td>
-              <td>دالة زيتا الموزونة بـ BS وعلاقتها بالأعداد الأولية</td>
-              <td>2031–2035</td>
-            </tr>
-            <tr>
-              <td>توحيد القوى الأربع</td>
-              <td>الثابت 𝒞ℬ كجسر بين الجاذبية والقوى الكمومية</td>
-              <td>2030–2040</td>
-            </tr>
-            <tr>
-              <td>طبيعة الوعي</td>
-              <td>نظرية BS-IIT والشبكات الثالوثية</td>
-              <td>2028–2033</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══════════ GLOSSARY ═══════════ -->
-    <div class="section" id="sec-glossary">
-      <div class="section-header">
-        <div class="section-number">الملحق أ</div>
-        <h1 class="section-title">معجم المصطلحات</h1>
-        <p class="section-subtitle">تعريفات موحدة لمفاهيم نظام 𝕊</p>
-      </div>
-
-      <div id="glossary-search" style="margin-bottom:20px;">
-        <input type="text" class="form-input" placeholder="ابحث في المصطلحات..." oninput="filterGlossary(this.value)" style="max-width:400px;" />
-      </div>
-
-      <div id="glossary-list">
-        <div class="table-wrapper">
+    <!-- PAGE 2: READER'S GUIDE -->
+    <div class="page" id="page2">
+      <h2 class="part-header">📖 Part 0 — Introduction & Reader's Guide</h2>
+      <div class="ea" contenteditable="false">
+        <h3>🔹 Welcome to System 𝕊</h3>
+        <p>This thesis is the fruit of more than a decade of contemplation and research into questions of existence, mathematics, and physics. It aims to present a unified framework that answers ancient philosophical questions in modern mathematical language, while offering experimentally testable predictions.</p>
+        <h4>For Whom Is This Thesis?</h4>
+        <div class="table-responsive">
           <table>
-            <thead>
-              <tr><th>الرمز</th><th>المصطلح</th><th>التعريف</th><th>القيمة</th></tr>
-            </thead>
-            <tbody>
-              <tr class="glossary-row">
-                <td style="font-size:1.3rem;">❶</td>
-                <td><strong>الواحد المطلق</strong></td>
-                <td>مصدر كل وجود، غير قابل للتمثيل العددي. محض الفاعلية.</td>
-                <td>BS = 1</td>
-              </tr>
-              <tr class="glossary-row">
-                <td style="font-size:1.3rem;">0ₚ</td>
-                <td><strong>الإمكان المحض</strong></td>
-                <td>العدم النشيط، حقل الاحتمالات غير المتعيّنة.</td>
-                <td>BS = ⅓</td>
-              </tr>
-              <tr class="glossary-row">
-                <td style="font-size:1.3rem;">∞</td>
-                <td><strong>اللانهاية العلائقية</strong></td>
-                <td>فضاء الروابط والأنساق التي تظهر فيها الكثرة.</td>
-                <td>BS = ⅔</td>
-              </tr>
-              <tr class="glossary-row">
-                <td style="font-size:1.3rem;">①</td>
-                <td><strong>الواحد الطبيعي</strong></td>
-                <td>أول تجلٍّ مستقر، أصل الأعداد الطبيعية.</td>
-                <td>BS = ⅔</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>BS</td>
-                <td><strong>الاستقرار البنيوي</strong></td>
-                <td>مقياس كمي لدرجة تماسك أي نظام وقربه من المطلق. يتراوح بين 0 و1.</td>
-                <td>∈ [0,1]</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>𝒞ℬ</td>
-                <td><strong>ثابت التجلي البوكري</strong></td>
-                <td>ثابت فيزيائي بلا أبعاد يمثل أدنى درجة استقرار ممكنة لأي نظام.</td>
-                <td>6.184×10⁻⁴²</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>ε</td>
-                <td><strong>الهبة</strong></td>
-                <td>العملية: ❶ → 0ₚ. المطلق يفيض على الإمكان دون أن ينقص.</td>
-                <td>—</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>δ</td>
-                <td><strong>التشكّل</strong></td>
-                <td>العملية: 0ₚ → ∞. الإمكان ينتظم في علاقات.</td>
-                <td>—</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>η</td>
-                <td><strong>التجلي</strong></td>
-                <td>العملية المركبة η = δ∘ε. المطلق يتجلى في الواحد الطبيعي.</td>
-                <td>η(❶) = ①</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>τ</td>
-                <td><strong>معامل التجلي</strong></td>
-                <td>المتغير الزمني في نظام 𝕊، يحكم دوال الترجيح α, β, γ, δ.</td>
-                <td>τ ≥ 0</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>⊕</td>
-                <td><strong>الجمع الثالوثي</strong></td>
-                <td>A ⊕ B = AB + BA. عملية غير تبادلية أساسية في الجبر الثالوثي.</td>
-                <td>—</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>⊗</td>
-                <td><strong>التفاعل</strong></td>
-                <td>∞ ⊗ n = ∞ⁿ⁺¹. تكثيف العلاقات يرفع قوة اللانهاية.</td>
-                <td>—</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>sₙ</td>
-                <td><strong>دالة الخليفة</strong></td>
-                <td>sₙ(k) = k ⊕ ① تولد الأعداد الطبيعية التالية.</td>
-                <td>—</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>البوكرون</td>
-                <td><strong>Boukaeron</strong></td>
-                <td>جسيم جديد مقترح، مرشح للمادة المظلمة، كتلته ≈ 1.35×10⁻⁴⁹ كغ.</td>
-                <td>m ≈ 1.35×10⁻⁴⁹ كغ</td>
-              </tr>
-              <tr class="glossary-row">
-                <td>ζ_BS</td>
-                <td><strong>دالة زيتا الموزونة</strong></td>
-                <td>تعميم دالة ريمان بوزن BS(n) لكل حد.</td>
-                <td>—</td>
-              </tr>
-            </tbody>
+            <tr><th>Audience</th><th>What They Will Find</th></tr>
+            <tr><td>Philosophers</td><td>New vision in epistemology, philosophy of mathematics, and metaphysics</td></tr>
+            <tr><td>Mathematicians</td><td>Redefinition of numbers, primes, geometry from an ontological perspective</td></tr>
+            <tr><td>Physicists</td><td>Modified Friedmann equations, uncertainty principle, new constant 𝒞ℬ</td></tr>
+            <tr><td>Computer Scientists</td><td>Manifestation Algorithms and Trinitary Neural Networks (TNN)</td></tr>
+            <tr><td>Interdisciplinary Researchers</td><td>Unified language connecting physics, biology, economics, neuroscience</td></tr>
+          </table>
+        </div>
+        <h4>Symbol Reference</h4>
+        <div class="table-responsive">
+          <table>
+            <tr><th>Symbol</th><th>Name</th><th>Description</th></tr>
+            <tr><td><strong>𝟙</strong></td><td>The Absolute One</td><td>Source of all existence, BS = 1, 𝟙 ∉ ℝ</td></tr>
+            <tr><td><strong>0<sub>p</sub></strong></td><td>Pure Possibility</td><td>Active void, field of possibilities, BS = 1/3</td></tr>
+            <tr><td><strong>∞</strong></td><td>Relational Infinity</td><td>Space of relations, BS = 2/3</td></tr>
+            <tr><td><strong>𝟙</strong> (natural)</td><td>Natural One</td><td>First stable manifestation, 1 ∈ ℕ</td></tr>
+            <tr><td><strong>𝒞ℬ</strong></td><td>Bouker Constant</td><td>6.184033×10⁻⁴² (dimensionless)</td></tr>
           </table>
         </div>
       </div>
+      <div class="page-number">1</div>
     </div>
 
-    <!-- ═══════════ REFS ═══════════ -->
-    <div class="section" id="sec-refs">
-      <div class="section-header">
-        <div class="section-number">الملحق ب</div>
-        <h1 class="section-title">المراجع والموارد</h1>
-        <p class="section-subtitle">المصادر العلمية والفلسفية لنظام 𝕊</p>
-      </div>
-
-      <h2>المراجع الرياضية</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead><tr><th>#</th><th>المؤلف</th><th>العنوان</th><th>السنة</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>Gödel, K.</td><td>On Formally Undecidable Propositions of Principia Mathematica</td><td>1931</td></tr>
-            <tr><td>2</td><td>Cohen, P.</td><td>Set Theory and the Continuum Hypothesis</td><td>1963</td></tr>
-            <tr><td>3</td><td>Riemann, B.</td><td>On the Number of Primes Less Than a Given Magnitude</td><td>1859</td></tr>
-            <tr><td>4</td><td>Mac Lane, S.</td><td>Categories for the Working Mathematician</td><td>1971</td></tr>
-            <tr><td>5</td><td>Shapiro, S.</td><td>Philosophy of Mathematics: Structure and Ontology</td><td>1997</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>المراجع الفيزيائية</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead><tr><th>#</th><th>المؤلف</th><th>العنوان</th><th>السنة</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>Friedmann, A.</td><td>On the Curvature of Space</td><td>1922</td></tr>
-            <tr><td>2</td><td>Heisenberg, W.</td><td>Über den anschaulichen Inhalt der quantentheoretischen Kinematik</td><td>1927</td></tr>
-            <tr><td>3</td><td>Casimir, H.B.G.</td><td>On the Attraction Between Two Perfectly Conducting Plates</td><td>1948</td></tr>
-            <tr><td>4</td><td>Polchinski, J.</td><td>String Theory (Vols. I & II)</td><td>1998</td></tr>
-            <tr><td>5</td><td>Planck Collaboration</td><td>Planck 2018 Results: Cosmological Parameters</td><td>2020</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>المراجع الفلسفية</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead><tr><th>#</th><th>المؤلف</th><th>العنوان</th><th>السنة</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>ابن سينا</td><td>الشفاء (الإلهيات)</td><td>~1030</td></tr>
-            <tr><td>2</td><td>الفارابي</td><td>آراء أهل المدينة الفاضلة</td><td>~950</td></tr>
-            <tr><td>3</td><td>هيغل</td><td>علم المنطق</td><td>1812</td></tr>
-            <tr><td>4</td><td>Heidegger, M.</td><td>Being and Time</td><td>1927</td></tr>
-            <tr><td>5</td><td>Frege, G.</td><td>The Foundations of Arithmetic</td><td>1884</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>الموارد الإلكترونية</h2>
-      <div class="card-grid">
-        <div class="card card-gold">
-          <div class="card-icon">🔗</div>
-          <div class="card-title">GitHub الرئيسي</div>
-          <div class="card-body"><a href="https://github.com/Eng4clay/The-Booker-Statement-" target="_blank" style="color:var(--sapphire);">github.com/Eng4clay/The-Booker-Statement-</a></div>
+    <!-- PAGE 3: MATHEMATICAL TRINITY (01.1) -->
+    <div class="page" id="page3">
+      <h2 class="part-header">🔷 Part 1 — Mathematical Trinity</h2>
+      <div class="ea" contenteditable="false">
+        <h3>01.1 Introduction to the Mathematical Trinity</h3>
+        <p>Since the dawn of philosophical thinking, the question of ternary origin has persisted. Deep contemplation of the structure of existence — from quantum physics to number theory — reveals a recurring trinary pattern: <em>source unity, latent possibility, actualized relation.</em></p>
+        <div class="info-box def">
+          <strong>Core Postulates of System 𝕊</strong>
+          <p><strong>𝟙 The Absolute One:</strong> Source of all existence, non‑representable numerically, pure actuality. \(\;{\bf 1\!\!\!1} \notin \mathbb{R},\quad {\bf 1\!\!\!1}^2 = {\bf 1\!\!\!1}\)</p>
+          <p><strong>0<sub>p</sub> Pure Possibility:</strong> Active nothingness, field of indeterminate possibilities. \(\;0_p \oplus 0_p = 0_p\)</p>
+          <p><strong>∞ Relational Infinity:</strong> Space of connections from which all existents emerge. \(\;\infty = \bigoplus_{i=1}^{\infty} R_i\)</p>
         </div>
-        <div class="card card-sapphire">
-          <div class="card-icon">🌐</div>
-          <div class="card-title">الموقع التعليمي</div>
-          <div class="card-body">learn.smath.org (قيد الإنشاء)</div>
+        <h4>Dynamic Operations</h4>
+        <!-- simple flow representation -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; background: #f8f4fe; border-radius: 60px; padding: 20px;">
+          <span style="background:#fbeae9; padding:8px 16px; border-radius:40px;">𝟙 <br><small>BS=1</small></span> <span style="font-size:2rem;">→</span>
+          <span style="background:#ececec; padding:8px 16px; border-radius:40px;">0<sub>p</sub><br><small>BS=1/3</small></span> <span style="font-size:2rem;">→</span>
+          <span style="background:#e5d6f2; padding:8px 16px; border-radius:40px;">∞<br><small>BS=2/3</small></span> <span style="font-size:2rem;">→</span>
+          <span style="background:#fff3cd; padding:8px 16px; border-radius:40px;">𝟙<br><small>BS=2/3</small></span>
         </div>
-        <div class="card card-emerald">
-          <div class="card-icon">📊</div>
-          <div class="card-title">قاعدة البيانات</div>
-          <div class="card-body">db.smath.org — المسائل المفتوحة والتجليات</div>
-        </div>
+        <h4>Matrix Representation</h4>
+        <div class="eq">\[ {\bf 1\!\!\!1} = \begin{pmatrix}1&0&0\\0&0&0\\0&0&0\end{pmatrix},\quad 0_p = \begin{pmatrix}0&0&0\\0&0&0\\0&0&0\end{pmatrix},\quad \infty = \begin{pmatrix}0&0&0\\0&1&0\\0&0&1\end{pmatrix} \]</div>
+        <div class="info-box success">✓ Verification: The 𝟙 matrix has rank 1, 0<sub>p</sub> is zero, ∞ has rank 2; sum 𝟙+∞ = I₃ — consistent.</div>
       </div>
+      <div class="page-number">2</div>
     </div>
 
-    <!-- ═══════════ CERTS ═══════════ -->
-    <div class="section" id="sec-certs">
-      <div class="section-header">
-        <div class="section-number">الملحق ج</div>
-        <h1 class="section-title">الشهادات والمؤهلات</h1>
-        <p class="section-subtitle">المؤهلات الأكاديمية والمهنية للمؤلف</p>
+    <!-- PAGE 4: THEORETICAL FRAMEWORK (01.2) -->
+    <div class="page" id="page4">
+      <h2 class="part-header">🔷 Part 1 — Theoretical Framework</h2>
+      <div class="ea" contenteditable="false">
+        <h3>01.2 Philosophical Genealogy of Trinitary Thought</h3>
+        <div class="table-responsive">
+          <table>
+            <tr><th>Period</th><th>Thinker</th><th>Concept</th><th>System 𝕊 link</th></tr>
+            <tr><td>550 BCE</td><td>Pythagoras</td><td>All is number</td><td>Mathematical foundations</td></tr>
+            <tr><td>500 BCE</td><td>Parmenides</td><td>Being vs Non‑being</td><td>𝟙 vs 0<sub>p</sub></td></tr>
+            <tr><td>380 BCE</td><td>Plato</td><td>Forms vs Sensibles</td><td>∞ as space of Forms</td></tr>
+            <tr><td>850 CE</td><td>Al‑Kindi</td><td>True One ≠ Numerical One</td><td>𝟙 ≠ 𝟙 (natural)</td></tr>
+            <tr><td>950 CE</td><td>Al‑Farabi</td><td>Emanation</td><td>𝟙 → 𝟙 → 𝟚 …</td></tr>
+            <tr><td>1030 CE</td><td>Ibn Sina</td><td>Necessary/Possible Being</td><td>𝟙 and 0<sub>p</sub></td></tr>
+            <tr><td>1807</td><td>Hegel</td><td>Thesis‑Antithesis‑Synthesis</td><td>𝟙 ⊕ 0<sub>p</sub> = ∞</td></tr>
+          </table>
+        </div>
+        <h3>Why Trinity, not Duality?</h3>
+        <p>Binary oppositions fail to explain mediation. Between poles there is always an intermediate field of possibility — 0<sub>p</sub> — making the Trinity dynamic.</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0;">
+          <div style="background:#fbeae9; border:2px solid #a71e2e; padding:1rem; border-radius:20px;"><strong>Duality — unbridgeable gap</strong><br>Pole A ↔ Pole B</div>
+          <div style="background:#d4edda; border:2px solid #155724; padding:1rem; border-radius:20px;"><strong>Trinity — dynamic cycle</strong><br>𝟙 → 0<sub>p</sub> → ∞ → 𝟙</div>
+        </div>
+        <h3>Scientific Correspondences</h3>
+        <div class="table-responsive"><table><tr><th>Physics</th><th>System 𝕊</th></tr>
+        <tr><td>Spacetime curvature</td><td>Change in BS</td></tr>
+        <tr><td>Speed of light c</td><td>BS = 1 limit</td></tr>
+        <tr><td>Superposition</td><td>0<sub>p</sub> contains all states</td></tr>
+        <tr><td>Entanglement</td><td>∞ as non‑local relation</td></tr>
+        </table></div>
       </div>
-
-      <div class="author-card">
-        <div class="author-name">م. أحمد علي بوكر نسيب</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:20px;position:relative;z-index:1;">
-          <div style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:16px;">
-            <div style="font-size:1.5rem;margin-bottom:8px;">🎓</div>
-            <div style="font-weight:700;color:var(--gold-light);margin-bottom:4px;">بكالوريوس هندسة ميكانيكية</div>
-            <div style="font-size:0.85rem;color:var(--parchment-deeper);">جامعة جازان · 2018</div>
-            <div style="font-size:0.8rem;color:var(--parchment-deeper);opacity:0.7;margin-top:4px;">تخصص: الهندسة الميكانيكية العامة</div>
-          </div>
-          <div style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:16px;">
-            <div style="font-size:1.5rem;margin-bottom:8px;">🏅</div>
-            <div style="font-weight:700;color:var(--gold-light);margin-bottom:4px;">Quantum Mechanics for Scientists and Engineers 1</div>
-            <div style="font-size:0.85rem;color:var(--parchment-deeper);">Stanford Online</div>
-            <div style="font-size:0.8rem;color:var(--parchment-deeper);opacity:0.7;margin-top:4px;">ميكانيكا الكم للعلماء والمهندسين</div>
-          </div>
-          <div style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:16px;">
-            <div style="font-size:1.5rem;margin-bottom:8px;">🔬</div>
-            <div style="font-weight:700;color:var(--gold-light);margin-bottom:4px;">باحث مستقل</div>
-            <div style="font-size:0.85rem;color:var(--parchment-deeper);">فلسفة الرياضيات والفيزياء النظرية</div>
-            <div style="font-size:0.8rem;color:var(--parchment-deeper);opacity:0.7;margin-top:4px;">منذ 2015 · +10 سنوات بحث</div>
-          </div>
-        </div>
-      </div>
-
-      <h2>مجالات الاختصاص والاهتمام</h2>
-      <div class="card-grid">
-        <div class="card card-gold"><div class="card-title">أسس الرياضيات</div><div class="card-body">المنطق الرياضي، نظرية المجموعات، فلسفة الرياضيات، تاريخ الأفكار الرياضية.</div></div>
-        <div class="card card-crimson"><div class="card-title">فلسفة الفيزياء</div><div class="card-body">تفسيرات ميكانيكا الكم، النسبية وفلسفة الزمكان، التكميم والمطلق.</div></div>
-        <div class="card card-sapphire"><div class="card-title">نظرية المعرفة</div><div class="card-body">الإبستيمولوجيا البنيوية، حدود المعرفة الإنسانية، المعرفة والوجود.</div></div>
-        <div class="card card-violet"><div class="card-title">تاريخ الأفكار</div><div class="card-body">الفلسفة الإسلامية، الفكر اليوناني، الفلسفة الحديثة، الحوار بين الحضارات.</div></div>
-      </div>
-
-      <h2>الإنجازات البحثية</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">2015</div>
-          <div class="timeline-person">بدء البحث</div>
-          <div class="timeline-desc">اكتشاف الفكرة الجوهرية للثالوث الرياضي ووضع المسوّدة الأولى</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2018</div>
-          <div class="timeline-person">تطوير النظرية</div>
-          <div class="timeline-desc">اشتقاق ثابت 𝒞ℬ وصياغة معادلات فريدمان المعدَّلة</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2021</div>
-          <div class="timeline-person">خوارزميات التجلي</div>
-          <div class="timeline-desc">تطوير الإطار الحاسوبي وخوارزميات حل مسائل NP</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2024</div>
-          <div class="timeline-person">الإطار الموحد</div>
-          <div class="timeline-desc">اكتمال الجزء الثاني والثالث من الأطروحة، وبناء SMath</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2026</div>
-          <div class="timeline-person">النشر العام</div>
-          <div class="timeline-desc">الإصدار المحسّن من الأطروحة على GitHub وهذا الموقع</div>
-        </div>
-      </div>
+      <div class="page-number">3</div>
     </div>
 
-  </main>
-</div>
+    <!-- PAGE 5: RESEARCH BACKGROUND (01.3) -->
+    <div class="page" id="page5">
+      <h2 class="part-header">🔷 Part 1 — Research Background</h2>
+      <div class="ea" contenteditable="false">
+        <h3>01.3 A Decade of Research: The Central Question</h3>
+        <blockquote style="font-size:1.4rem;">"How can mathematics be a language of existence rather than merely a tool for counting?"</blockquote>
+        <h4>The Foundations Crisis</h4>
+        <div class="table-responsive"><table><tr><th>Event</th><th>Impact</th></tr>
+        <tr><td>Russell's Paradox (1901)</td><td>Naive set theory inconsistent</td></tr>
+        <tr><td>Gödel's Theorems (1931)</td><td>Limits of formal systems</td></tr>
+        <tr><td>Cohen's Independence (1963)</td><td>Multiple mathematical realities</td></tr>
+        </table></div>
+        <div class="info-box def"><strong>Three Lessons</strong><ol><li>Formal foundations alone cannot guarantee mathematical truth.</li><li>An ontological foundation is needed.</li><li>Mathematics is multiple manifestations of a deeper truth.</li></ol></div>
+        <h4>Gaps in Modern Physics</h4>
+        <ul><li>Singularities in GR and QM</li><li>Measurement problem</li><li>Dark matter/energy (95% unknown)</li></ul>
+      </div>
+      <div class="page-number">4</div>
+    </div>
 
-<!-- PRINT BAR -->
-<div class="print-bar">
-  <span class="print-bar-text">🖨️ اطبع الأطروحة كاملة بصيغة A4 بنفس التصميم والألوان</span>
-  <button class="btn-primary" onclick="printDoc()">طباعة كاملة A4</button>
-  <button class="btn-secondary" onclick="openPwModal()">✏️ وضع التحرير</button>
-</div>
+    <!-- PAGE 6: STRUCTURAL STABILITY (01.4) -->
+    <div class="page" id="page6">
+      <h2 class="part-header">🔷 Part 1 — Structural Stability (BS)</h2>
+      <div class="ea" contenteditable="false">
+        <h3>01.4 The BS Equation</h3>
+        <div class="eq important">\[ BS_\tau(S) = \alpha(\tau)\cdot S_c + \beta(\tau)\cdot S_s + \gamma(\tau)\cdot S_d + \delta(\tau) \]</div>
+        <p>\(S_c\) internal consistency, \(S_s\) relational symmetry, \(S_d\) dynamics.</p>
+        <h4>Weighting functions</h4>
+        <div class="eq">\[\begin{aligned}\alpha(\tau) &= 0.7\,e^{-0.3\tau} + 0.2\,(1 - e^{-0.3\tau}) \\ \beta(\tau) &= 0.1 + \tfrac{0.5}{1 + e^{-0.5(\tau-3.0)}} \\ \gamma(\tau) &= 0.4\,\sin^2\!\left(\tfrac{2\pi}{5.0}\,\tau\right) + 0.1 \\ \delta(\tau) &= 0.15\,e^{-0.1\tau^2}\end{aligned}\]</div>
+        <h4>BS Values for Fundamental Elements</h4>
+        <div class="table-responsive"><table><tr><th>Element</th><th>BS</th></tr>
+        <tr><td>𝟙 Absolute One</td><td>1.000</td></tr>
+        <tr><td>0<sub>p</sub> Pure Possibility</td><td>1/3</td></tr>
+        <tr><td>∞ = 𝟙 (natural)</td><td>2/3</td></tr>
+        </table></div>
+        <h4>BS Formula for Natural Numbers</h4>
+        <div class="eq">\[ BS(n) = \begin{cases}\dfrac{7}{10}, & n = 1 \\ \dfrac{4}{7}, & n = 2 \\ \dfrac{8}{17}, & n = 3 \\ \dfrac{10}{27}, & n = 4 \\ \dfrac{2}{2n-3}, & n \ge 5\end{cases} \]</div>
+      </div>
+      <div class="page-number">5</div>
+    </div>
 
-<!-- FOOTER -->
-<footer>
-  <p style="font-size:1.2rem;color:var(--gold-light);font-family:'Amiri',serif;margin-bottom:12px;">الأطروحة البوكرية في الثالوث الرياضي — نظام 𝕊</p>
-  <p>✍️ م. أحمد علي بوكر نسيب · <a href="mailto:Eng.ahmad.2011bokar@gmail.com">Eng.ahmad.2011bokar@gmail.com</a></p>
-  <p>🔗 <a href="https://github.com/Eng4clay/The-Booker-Statement-" target="_blank">github.com/Eng4clay/The-Booker-Statement-</a></p>
-  <p>🏅 Stanford Online: Quantum Mechanics for Scientists and Engineers 1</p>
-  <p style="margin-top:12px;opacity:0.5;font-size:0.75rem;">النسخة المحسّنة 2026 · جميع الحقوق محفوظة للمؤلف</p>
-</footer>
+    <!-- PAGE 7: PART 2 – MATHEMATICS (chapter 4) -->
+    <div class="page" id="page7">
+      <h2 class="part-header">⚙️ Part 2 — Chapter 4: Mathematical Applications</h2>
+      <div class="ea" contenteditable="false">
+        <h3>4.1 Structural Number Theory</h3>
+        <p>Numbers in System 𝕊 are manifestations of the Absolute via Pure Possibility.</p>
+        <h4>4.1.1 Prime Numbers</h4>
+        <div class="eq">\[ BS(p) = \begin{cases}\dfrac{4}{7}, & p = 2 \\ \dfrac{8}{17}, & p = 3 \\ \dfrac{2}{2p-3}, & p \ge 5\end{cases} \]</div>
+        <h4>Prime Number Theorem in System 𝕊</h4>
+        <div class="eq">\[ \sum_{p \le x} BS(p) \sim \frac{1}{2} \log \log x \]</div>
+        <h4>4.2 Non‑Euclidean Geometry</h4>
+        <div class="table-responsive"><table><tr><th>Geometry</th><th>Trinity</th><th>Curvature</th></tr>
+        <tr><td>Spherical</td><td>𝟙</td><td>k=+1</td></tr>
+        <tr><td>Hyperbolic</td><td>0<sub>p</sub></td><td>k=−1</td></tr>
+        <tr><td>Euclidean</td><td>∞</td><td>k=0</td></tr>
+        </table></div>
+        <div class="prediction"><h5>🏆 Millennium Prize Problems</h5><ul><li>P vs NP: Manifestation Algorithm (polynomial‑time via 0<sub>p</sub>)</li><li>Riemann Hypothesis: zeros of ζ<sub>BS</sub>(s) at BS=1/2</li></ul></div>
+      </div>
+      <div class="page-number">6</div>
+    </div>
 
+    <!-- PAGE 8: PART 2 – PHYSICS (chapter 5) -->
+    <div class="page" id="page8">
+      <h2 class="part-header">⚙️ Part 2 — Chapter 5: Physical Applications</h2>
+      <div class="ea" contenteditable="false">
+        <h3>5.1 Modified Friedmann Equations</h3>
+        <div class="eq important">\[ \left(\frac{\dot{a}}{a}\right)^2 = \frac{8\pi G}{3}\rho - \frac{k}{a^2} + \frac{\Lambda}{3} + \beta(\tau)\,\dot{\tau}^2 \]</div>
+        <h3>5.2 Bouker Manifestation Constant (𝒞ℬ)</h3>
+        <div class="eq important">\[ \mathcal{CB} = \frac{2}{43} \cdot \frac{\alpha}{137} \cdot \sqrt{\frac{c^3}{\hbar G}} = 6.184033 \times 10^{-42} \]</div>
+        <h3>5.3 Quantum Mechanics Modifications</h3>
+        <div class="eq">\[ \Delta x\,\Delta p \ge \frac{\hbar}{2} \cdot \frac{1}{BS(\text{device})} \]</div>
+        <div class="eq">\[ P(a) = |\langle a|\psi\rangle|^2 \cdot BS(\text{device}) \cdot \eta(\tau) \]</div>
+        <div class="prediction"><h5>📡 Prediction 1: CMB ~0.115 Hz</h5></div>
+        <div class="prediction"><h5>⚛️ Prediction 3: Boukerion particle</h5>\(m \approx 1.35\times10^{-49}\,\text{kg}\)</div>
+      </div>
+      <div class="page-number">7</div>
+    </div>
+
+    <!-- PAGE 9: PART 2 – COMPUTER SCIENCE (chapter 6) -->
+    <div class="page" id="page9">
+      <h2 class="part-header">⚙️ Part 2 — Chapter 6: Computational Applications</h2>
+      <div class="ea" contenteditable="false">
+        <h3>6.1 Manifestation Algorithms for NP Problems</h3>
+        <div class="eq">\[ T_{mfd}(n) = O\!\left(n^{BS(n)\cdot\log n}\right) \]</div>
+        <div class="table-responsive"><table><tr><th>Problem</th><th>Manifestation complexity</th></tr>
+        <tr><td>TSP</td><td>O(n²·BS(n))</td></tr>
+        <tr><td>SAT</td><td>O(n·log n·BS(n))</td></tr>
+        </table></div>
+        <div class="info-box warn">⚠️ Open: P=NP within System 𝕊 requires formal proof.</div>
+        <h3>6.2 Trinitary Neural Networks (TNN)</h3>
+        <div style="display:flex; justify-content:center; gap:20px; margin:1.2rem 0;">
+          <span style="background:var(--red); padding:8px 16px; border-radius:40px;">𝟙 layer</span>→<span style="background:#ececec; padding:8px 16px; border-radius:40px;">0<sub>p</sub> layer</span>→<span style="background:#e5d6f2; padding:8px 16px; border-radius:40px;">∞ layer</span>
+        </div>
+        <div class="eq">\[ \Phi_{AGI} = BS(\text{information integration}) \cdot \eta(\tau_{AGI}) \]</div>
+      </div>
+      <div class="page-number">8</div>
+    </div>
+
+    <!-- PAGE 10: PART 2 – PHILOSOPHY (chapter 7) -->
+    <div class="page" id="page10">
+      <h2 class="part-header">⚙️ Part 2 — Chapter 7: Philosophical Applications</h2>
+      <div class="ea" contenteditable="false">
+        <h3>7.1 Structural Epistemology</h3>
+        <div class="eq">\[ \text{Truth}(P) = BS(\text{proposition } P) \in [0, 1] \]</div>
+        <div class="table-responsive"><table><tr><th>BS range</th><th>Status</th></tr>
+        <tr><td>BS=1</td><td>Absolute truth (𝟙)</td></tr>
+        <tr><td>0.7–1</td><td>High‑confidence science</td></tr>
+        <tr><td>0.3–0.7</td><td>Theoretical models (∞ zone)</td></tr>
+        </table></div>
+        <h3>7.2 Trinitary Logic</h3>
+        <p>Values: 𝟙 (absolute), 0<sub>p</sub> (possibility), ∞ (relational).</p>
+        <h3>7.3 Dialogue with Islamic Philosophy</h3>
+        <p>Al‑Kindi, Al‑Farabi, Ibn Sina — the True One vs numerical one.</p>
+      </div>
+      <div class="page-number">9</div>
+    </div>
+
+    <!-- PAGE 11: PART 2 – EMPIRICAL STUDIES (chapter 8) -->
+    <div class="page" id="page11">
+      <h2 class="part-header">⚙️ Part 2 — Chapter 8: Empirical Studies</h2>
+      <div class="ea" contenteditable="false">
+        <h3>8.1 Behavioral Economics</h3>
+        <div class="eq">\[ U_{BS}(x) = \int_{0}^{x} BS(\xi)\,d\xi \]</div>
+        <h3>8.2 Neuroscience & Consciousness</h3>
+        <div class="table-responsive"><table><tr><th>State</th><th>BS interpretation</th></tr>
+        <tr><td>Waking</td><td>BS>0.5 (∞ zone)</td></tr>
+        <tr><td>Deep sleep</td><td>BS→0<sub>p</sub> zone</td></tr>
+        </table></div>
+      </div>
+      <div class="page-number">10</div>
+    </div>
+
+    <!-- PAGE 12: PART 3 – COMPARATIVE (chapter 9) -->
+    <div class="page" id="page12">
+      <h2 class="part-header">💬 Part 3 — Chapter 9: Comparative Studies</h2>
+      <div class="ea" contenteditable="false">
+        <h3>9.1 System 𝕊 vs. ZFC</h3>
+        <div class="table-responsive"><table><tr><th>ZFC</th><th>System 𝕊</th></tr>
+        <tr><td>Formal axioms</td><td>Ontological foundation</td></tr>
+        <tr><td>Numbers as sets</td><td>Numbers as manifestations</td></tr>
+        </table></div>
+        <h3>9.2 System 𝕊 vs. Category Theory</h3>
+        <div class="eq">\[ \mathbf{Cat} \cong \mathbf{Mfd}(\infty) \]</div>
+        <div class="info-box warn"><strong>Open problems:</strong> BS normalisation, NP proof, CMB detection.</div>
+      </div>
+      <div class="page-number">11</div>
+    </div>
+
+    <!-- PAGE 13: PART 3 – TOOLS (chapter 10) -->
+    <div class="page" id="page13">
+      <h2 class="part-header">💬 Part 3 — Chapter 10: Tools & Software</h2>
+      <div class="ea" contenteditable="false">
+        <h3>10.1 SMath Python Library</h3>
+        <pre><span style="color:#81c784;">import</span> smath <span style="color:#81c784;">as</span> S
+bs = S.structural_stability(n=7)
+print(f"BS(7) = {bs:.6f}")   # 0.181818
+CB = S.bouker_constant()</pre>
+        <h3>10.2 Resources</h3>
+        <div class="table-responsive"><table><tr><th>Resource</th><th>URL</th></tr>
+        <tr><td>GitHub</td><td>github.com/Eng4clay/The-Booker-Statement-</td></tr>
+        </table></div>
+      </div>
+      <div class="page-number">12</div>
+    </div>
+
+    <!-- PAGE 14: PART 3 – FUTURE VISIONS (chapter 11) -->
+    <div class="page" id="page14">
+      <h2 class="part-header">💬 Part 3 — Chapter 11: Future Visions</h2>
+      <div class="ea" contenteditable="false">
+        <h3>11.1 Research Roadmap 2026–2036</h3>
+        <div class="table-responsive"><table><tr><th>Phase</th><th>Goal</th></tr>
+        <tr><td>2026–2028</td><td>Formal Mathematical Foundations</td></tr>
+        <tr><td>2028–2031</td><td>Physical Verification (CMB, Casimir)</td></tr>
+        </table></div>
+        <div class="info-box def">"Mathematics lost its soul when it separated from philosophy, and philosophy lost its rigor when it separated from mathematics." — A. Bouker Nasib</div>
+      </div>
+      <div class="page-number">13</div>
+    </div>
+
+    <!-- PAGE 15: APPENDIX A – GLOSSARY -->
+    <div class="page" id="page15">
+      <h2 class="part-header">📎 Appendix A — Glossary</h2>
+      <div class="ea" contenteditable="false">
+        <div class="table-responsive"><table><tr><th>Term</th><th>Definition</th></tr>
+        <tr><td>𝟙 Absolute One</td><td>Source, BS=1, 𝟙 ∉ ℝ</td></tr>
+        <tr><td>0<sub>p</sub> Pure Possibility</td><td>Active void, BS=1/3</td></tr>
+        <tr><td>∞ Relational Infinity</td><td>Space of relations, BS=2/3</td></tr>
+        <tr><td>𝒞ℬ Bouker Constant</td><td>6.184033×10⁻⁴²</td></tr>
+        </table></div>
+      </div>
+      <div class="page-number">A-1</div>
+    </div>
+
+    <!-- PAGE 16: APPENDIX B – REFERENCES -->
+    <div class="page" id="page16">
+      <h2 class="part-header">📎 Appendix B — References</h2>
+      <div class="ea" contenteditable="false">
+        <ol>
+          <li>Gödel, K. (1931). ...</li>
+          <li>Cohen, P.J. (1963). ...</li>
+          <li>Einstein, A. (1915). ...</li>
+          <li>Bouker Nasib, A.A. (2026). The Booker Statement.</li>
+        </ol>
+      </div>
+      <div class="page-number">B-1</div>
+    </div>
+
+    <!-- PAGE 17: APPENDIX C – CREDENTIALS -->
+    <div class="page" id="page17">
+      <h2 class="part-header">📎 Appendix C — Author Credentials</h2>
+      <div class="ea" contenteditable="false">
+        <div class="author-box" style="margin-top:0;">
+          <div style="font-size:2rem;">Eng. Ahmad Ali Bouker Nasib</div>
+          <div>م. أحمد علي بوكر نسيب</div>
+          <p>B.Sc. Mechanical Engineering, Jazan University 2018<br>Stanford Online: Quantum Mechanics for Scientists and Engineers 1<br>Independent researcher since 2015.</p>
+        </div>
+        <div style="text-align:center; background:var(--purple); color:white; padding:1.5rem; border-radius:3rem; margin-top:2rem;">
+          <div style="font-size:2rem;">𝟙 ⊕ 0<sub>p</sub> = 𝟙 = ∞</div>
+          <div style="font-size:0.9rem;">System 𝕊 | The Booker Statement | Enhanced Edition 2026</div>
+        </div>
+      </div>
+      <div class="page-number">C-1</div>
+    </div>
+
+  </div> <!-- end #paper -->
+</div> <!-- end #main -->
+
+<!-- SCRIPTS -->
 <script>
-// ═══════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════
-const sectionMap = {
-  'intro': 'sec-intro',
-  'executive': 'sec-executive',
-  'part1': 'sec-part1',
-  'framework': 'sec-framework',
-  'background': 'sec-background',
-  'math-apps': 'sec-math-apps',
-  'physics-apps': 'sec-physics-apps',
-  'cs-apps': 'sec-cs-apps',
-  'human-apps': 'sec-human-apps',
-  'phil-apps': 'sec-phil-apps',
-  'comparative': 'sec-comparative',
-  'tools': 'sec-tools',
-  'future': 'sec-future',
-  'glossary': 'sec-glossary',
-  'refs': 'sec-refs',
-  'certs': 'sec-certs',
-  'appendix': 'sec-glossary',
-  'part2': 'sec-math-apps',
-  'part3': 'sec-comparative'
-};
+  const SECRET_CODE = "AntAhmed6388@";
+  let editModeActive = false;
+  let arabicMode = false;
 
-function showSection(key) {
-  const targetId = sectionMap[key] || key;
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById(targetId);
-  if (target) {
-    target.classList.add('active');
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  function toggleLanguage() {
+    arabicMode = !arabicMode;
+    document.body.classList.toggle('ar-mode', arabicMode);
+    document.getElementById('langBtn').innerHTML = arabicMode ? '🌐 EN' : '🌐 AR';
   }
-  // Update MathJax if needed
-  if (window.MathJax) {
-    MathJax.typesetPromise && MathJax.typesetPromise();
+
+  function openEditModal() {
+    document.getElementById('editModal').classList.add('show');
+    document.getElementById('secretCode').value = '';
+    document.getElementById('codeError').innerText = '';
   }
-}
 
-function setSidebarActive(el) {
-  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-  el.classList.add('active');
-}
-
-// ═══════════════════════════════════
-// PASSWORD + EDITOR
-// ═══════════════════════════════════
-const CORRECT_PASSWORD = 'AntAhmed6388@';
-
-function openPwModal() {
-  document.getElementById('pwModal').classList.add('open');
-  document.getElementById('pwInput').value = '';
-  document.getElementById('pwError').style.display = 'none';
-  setTimeout(() => document.getElementById('pwInput').focus(), 100);
-}
-
-function closePwModal() {
-  document.getElementById('pwModal').classList.remove('open');
-}
-
-function checkPassword() {
-  const val = document.getElementById('pwInput').value;
-  if (val === CORRECT_PASSWORD) {
-    closePwModal();
-    openEditor();
-  } else {
-    document.getElementById('pwError').style.display = 'block';
-    document.getElementById('pwInput').value = '';
-    document.getElementById('pwInput').focus();
+  function closeEditModal() {
+    document.getElementById('editModal').classList.remove('show');
   }
-}
 
-document.getElementById('pwInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') checkPassword();
-  if (e.key === 'Escape') closePwModal();
-});
-
-function openEditor() {
-  document.getElementById('editorOverlay').classList.add('open');
-}
-
-function closeEditor() {
-  document.getElementById('editorOverlay').classList.remove('open');
-}
-
-function saveEdit() {
-  const section = document.getElementById('editSection').value;
-  const content = document.getElementById('editContent').value;
-  if (content.trim()) {
-    const notes = JSON.parse(localStorage.getItem('booker_edits') || '{}');
-    notes[section] = { content, timestamp: new Date().toISOString() };
-    try { localStorage.setItem('booker_edits', JSON.stringify(notes)); } catch(e) {}
-    alert('✅ تم حفظ الملاحظة للقسم: ' + section);
-    document.getElementById('editContent').value = '';
+  function checkCode() {
+    const code = document.getElementById('secretCode').value;
+    if (code === SECRET_CODE) {
+      closeEditModal();
+      toggleEditMode();
+    } else {
+      document.getElementById('codeError').innerText = '❌ Incorrect code. Access denied.';
+    }
   }
-}
 
-// ═══════════════════════════════════
-// PRINT
-// ═══════════════════════════════════
-function printDoc() {
-  // Show all sections for printing
-  document.querySelectorAll('.section').forEach(s => {
-    s.style.display = 'block';
-  });
-  window.print();
-  // Restore after print
-  setTimeout(() => {
-    document.querySelectorAll('.section').forEach(s => {
-      s.style.display = '';
+  function toggleEditMode() {
+    editModeActive = !editModeActive;
+    document.body.classList.toggle('edit-mode', editModeActive);
+    const editables = document.querySelectorAll('.ea');
+    editables.forEach(el => el.contentEditable = editModeActive ? 'true' : 'false');
+    const btn = document.getElementById('editBtn');
+    btn.classList.toggle('active', editModeActive);
+    btn.innerHTML = editModeActive ? '✅ Save' : '✏️ Edit';
+  }
+
+  // TOC active highlight
+  function updateActiveTOC() {
+    const pages = document.querySelectorAll('.page');
+    const tocLinks = document.querySelectorAll('#toc a');
+    let currentId = '';
+    pages.forEach(page => {
+      const rect = page.getBoundingClientRect();
+      if (rect.top <= 100 && rect.bottom >= 100) currentId = page.getAttribute('id');
     });
-    // Reactivate current section
-    const active = document.querySelector('.section.active');
-    if (!active) {
-      document.getElementById('sec-intro').classList.add('active');
-    }
-  }, 1000);
-}
+    tocLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentId}`) link.classList.add('active');
+    });
+  }
+  window.addEventListener('scroll', updateActiveTOC);
+  window.addEventListener('load', updateActiveTOC);
 
-// ═══════════════════════════════════
-// GLOSSARY SEARCH
-// ═══════════════════════════════════
-function filterGlossary(query) {
-  const rows = document.querySelectorAll('.glossary-row');
-  const q = query.toLowerCase();
-  rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.style.display = text.includes(q) ? '' : 'none';
+  // smooth scroll for TOC links
+  document.querySelectorAll('#toc a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
   });
-}
 
-// ═══════════════════════════════════
-// MATHJAX CONFIG
-// ═══════════════════════════════════
-window.MathJax = {
-  tex: {
-    inlineMath: [['\\(', '\\)']],
-    displayMath: [['\\[', '\\]']],
-    packages: {'[+]': ['ams']},
-    tags: 'none'
-  },
-  options: {
-    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-  },
-  startup: {
-    ready() {
-      MathJax.startup.defaultReady();
+  // disable edit before print / re-enable after
+  window.addEventListener('beforeprint', () => {
+    if (editModeActive) {
+      document.querySelectorAll('.ea').forEach(el => el.contentEditable = 'false');
     }
-  }
-};
-
-// ═══════════════════════════════════
-// SCROLL BEHAVIOR FOR SIDEBAR
-// ═══════════════════════════════════
-document.addEventListener('click', function(e) {
-  if (e.target.matches('[data-section]')) {
-    showSection(e.target.dataset.section);
-  }
-});
-
-// Close modals on overlay click
-document.getElementById('pwModal').addEventListener('click', function(e) {
-  if (e.target === this) closePwModal();
-});
-document.getElementById('editorOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeEditor();
-});
+  });
+  window.addEventListener('afterprint', () => {
+    if (editModeActive) {
+      document.querySelectorAll('.ea').forEach(el => el.contentEditable = 'true');
+    }
+  });
 </script>
+
+<!-- small additional style for edit mode -->
+<style>
+  .edit-mode .ea { caret-color: #b38b40; }
+  #editBtn.active { background: #2a7a3b; border-color: #9bff9b; }
+</style>
 </body>
 </html>
