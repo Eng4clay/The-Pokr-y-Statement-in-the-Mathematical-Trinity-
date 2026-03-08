@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- MathJax configuration -->
   <script>
     MathJax = {
       tex: { inlineMath: [['\\(','\\)'], ['$','$']], displayMath: [['\\[','\\]'], ['$$','$$']] },
@@ -15,10 +17,15 @@
     };
   </script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
-  <style>
-     <!-- إضافة Mermaid.js -->
+  
+  <!-- Mermaid.js (لرسوم المخططات) -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script>
+    // تهيئة Mermaid بعد تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    });
+  </script>
     /* ---------- RESET & VARIABLES ---------- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -1522,10 +1529,6 @@ plt.show()</pre>
       document.querySelectorAll('.ea').forEach(el => el.contentEditable = 'true');
     }
   });
-      // تهيئة Mermaid بعد تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', function() {
-      mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
-    });
   </script>
 
 <!-- mermaid stub -->
