@@ -26,6 +26,9 @@
       mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
     });
   </script>
+  
+  <!-- الأنماط الرئيسية (نفسها بدون أي تغيير) -->
+  <style>
     /* ---------- RESET & VARIABLES ---------- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -356,7 +359,7 @@
     body.ar-mode { font-family: 'Arial', 'Tahoma', sans-serif; }
     body.ar-mode .page { direction: rtl; }
     body.ar-mode #toc { border-right: none; border-left: 1px solid #d9cee3; }
-    /* mermaid (fallback) */
+    /* mermaid (fallback) – هذا التنسيق سيستخدم إذا فشل السكريبت */
     .mermaid { background: #f5f0fa; padding: 1rem; border-radius: 12px; text-align: center; font-family: monospace; white-space: pre; overflow-x: auto; }
     /* Details/summary for FAQ */
     details {
@@ -374,6 +377,7 @@
   </style>
 </head>
 <body>
+  <!-- ... باقي المحتوى (كما هو) ... -->
 
 <!-- ========== TOOLBAR ========== -->
 <div id="toolbar">
