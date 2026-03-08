@@ -16,6 +16,9 @@
   </script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
   <style>
+     <!-- إضافة Mermaid.js -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>
     /* ---------- RESET & VARIABLES ---------- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -1519,7 +1522,11 @@ plt.show()</pre>
       document.querySelectorAll('.ea').forEach(el => el.contentEditable = 'true');
     }
   });
-</script>
+      // تهيئة Mermaid بعد تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    });
+  </script>
 
 <!-- mermaid stub -->
 <script>
