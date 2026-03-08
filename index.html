@@ -18,16 +18,14 @@
   </script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
   
-  <!-- Mermaid.js (لرسوم المخططات) -->
+  <!-- Mermaid.js -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script>
-    // تهيئة Mermaid بعد تحميل الصفحة
     document.addEventListener('DOMContentLoaded', function() {
       mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
     });
   </script>
   
-  <!-- الأنماط الرئيسية (نفسها بدون أي تغيير) -->
   <style>
     /* ---------- RESET & VARIABLES ---------- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -182,7 +180,7 @@
       margin-bottom: 42px;
       position: relative;
       border-radius: 2px;
-      page-break-after: always;
+      page-break-after: always; /* كل صفحة تبدأ في صفحة جديدة عند الطباعة */
     }
     .page-number {
       position: absolute;
@@ -310,22 +308,69 @@
       margin: 1.5rem 0;
     }
     code { font-family: var(--font-mono); background: #f0ebf5; padding: 0.2rem 0.5rem; border-radius: 6px; }
-    /* print */
+    /* print styles - محسّنة بشكل كبير */
     @media print {
-      body, #main { background: white; }
-      #toolbar, #toc { display: none; }
-      #paper { padding: 0; background: white; }
+      /* إخفاء العناصر غير المرغوب فيها */
+      #toolbar, #toc, #editModal, .modal, .tool-btn, #editBtn, #langBtn {
+        display: none !important;
+      }
+      /* إعادة تعيين خلفية الصفحة الرئيسية */
+      body, #main, #paper {
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+      }
+      /* إزالة التباعد الجانبي */
+      #main {
+        margin-top: 0 !important;
+      }
+      /* كل صفحة تطبع بحجم A4 كامل */
+      .page {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 2cm 1.5cm !important; /* هوامش مناسبة لـ A4 */
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        page-break-after: always !important;
+        break-inside: avoid;
+        background: white !important;
+        /* الحفاظ على الألوان */
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      /* إزالة الخلفية الرمادية حول الصفحات */
+      #paper {
+        background: white !important;
+        padding: 0 !important;
+      }
+      /* ضمان ظهور ألوان الخلفية والتدرجات */
+      .part-header, .eq, .eq.important, .info-box, .prediction, .t-card, .author-box, pre, table th {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      /* منع كسر الجداول والصناديق عبر الصفحات */
+      table, .info-box, .prediction, .eq, .t-card {
+        break-inside: avoid;
+      }
+      /* ضبط أحجام الخطوط للطباعة */
+      body {
+        font-size: 12pt;
+      }
+      h1 { font-size: 28pt; }
+      h2 { font-size: 22pt; }
+      h3 { font-size: 18pt; }
+      .page-number {
+        color: #666 !important;
+        font-size: 10pt;
+      }
+      /* إزالة تأثيرات الظل */
       .page {
         box-shadow: none;
-        margin: 0 auto;
-        padding: 1.8cm 1.8cm 2.2cm;
-        page-break-after: always;
-        width: 100%;
-        max-width: 100%;
       }
-      .page-number { color: #aaa; }
-      h2.part-header { margin: -1.8cm -1.8cm 1.5cm -1.8cm; }
-      a { text-decoration: none; color: black; }
     }
     /* edit mode */
     .edit-mode [contenteditable="true"] {
@@ -359,7 +404,7 @@
     body.ar-mode { font-family: 'Arial', 'Tahoma', sans-serif; }
     body.ar-mode .page { direction: rtl; }
     body.ar-mode #toc { border-right: none; border-left: 1px solid #d9cee3; }
-    /* mermaid (fallback) – هذا التنسيق سيستخدم إذا فشل السكريبت */
+    /* mermaid (fallback) */
     .mermaid { background: #f5f0fa; padding: 1rem; border-radius: 12px; text-align: center; font-family: monospace; white-space: pre; overflow-x: auto; }
     /* Details/summary for FAQ */
     details {
@@ -377,7 +422,7 @@
   </style>
 </head>
 <body>
-  <!-- ... باقي المحتوى (كما هو) ... -->
+  
 
 <!-- ========== TOOLBAR ========== -->
 <div id="toolbar">
@@ -1454,91 +1499,85 @@ plt.show()</pre>
   </div> <!-- end #paper -->
 </div> <!-- end #main -->
 
-<!-- SCRIPTS (unchanged) -->
-<script>
-  const SECRET_CODE = "AntAhmed6388@";
-  let editModeActive = false;
-  let arabicMode = false;
+  <!-- SCRIPTS (نفس الكود السابق) -->
+  <script>
+    const SECRET_CODE = "AntAhmed6388@";
+    let editModeActive = false;
+    let arabicMode = false;
 
-  function toggleLanguage() {
-    arabicMode = !arabicMode;
-    document.body.classList.toggle('ar-mode', arabicMode);
-    document.getElementById('langBtn').innerHTML = arabicMode ? '🌐 EN' : '🌐 AR';
-  }
-
-  function openEditModal() {
-    document.getElementById('editModal').classList.add('show');
-    document.getElementById('secretCode').value = '';
-    document.getElementById('codeError').innerText = '';
-  }
-
-  function closeEditModal() {
-    document.getElementById('editModal').classList.remove('show');
-  }
-
-  function checkCode() {
-    const code = document.getElementById('secretCode').value;
-    if (code === SECRET_CODE) {
-      closeEditModal();
-      toggleEditMode();
-    } else {
-      document.getElementById('codeError').innerText = '❌ Incorrect code. Access denied.';
+    function toggleLanguage() {
+      arabicMode = !arabicMode;
+      document.body.classList.toggle('ar-mode', arabicMode);
+      document.getElementById('langBtn').innerHTML = arabicMode ? '🌐 EN' : '🌐 AR';
     }
-  }
 
-  function toggleEditMode() {
-    editModeActive = !editModeActive;
-    document.body.classList.toggle('edit-mode', editModeActive);
-    const editables = document.querySelectorAll('.ea');
-    editables.forEach(el => el.contentEditable = editModeActive ? 'true' : 'false');
-    const btn = document.getElementById('editBtn');
-    btn.classList.toggle('active', editModeActive);
-    btn.innerHTML = editModeActive ? '✅ Save' : '✏️ Edit';
-  }
-
-  // TOC active highlight
-  function updateActiveTOC() {
-    const pages = document.querySelectorAll('.page');
-    const tocLinks = document.querySelectorAll('#toc a');
-    let currentId = '';
-    pages.forEach(page => {
-      const rect = page.getBoundingClientRect();
-      if (rect.top <= 100 && rect.bottom >= 100) currentId = page.getAttribute('id');
-    });
-    tocLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${currentId}`) link.classList.add('active');
-    });
-  }
-  window.addEventListener('scroll', updateActiveTOC);
-  window.addEventListener('load', updateActiveTOC);
-
-  // smooth scroll for TOC links
-  document.querySelectorAll('#toc a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-  // disable edit before print / re-enable after
-  window.addEventListener('beforeprint', () => {
-    if (editModeActive) {
-      document.querySelectorAll('.ea').forEach(el => el.contentEditable = 'false');
+    function openEditModal() {
+      document.getElementById('editModal').classList.add('show');
+      document.getElementById('secretCode').value = '';
+      document.getElementById('codeError').innerText = '';
     }
-  });
-  window.addEventListener('afterprint', () => {
-    if (editModeActive) {
-      document.querySelectorAll('.ea').forEach(el => el.contentEditable = 'true');
+
+    function closeEditModal() {
+      document.getElementById('editModal').classList.remove('show');
     }
-  });
+
+    function checkCode() {
+      const code = document.getElementById('secretCode').value;
+      if (code === SECRET_CODE) {
+        closeEditModal();
+        toggleEditMode();
+      } else {
+        document.getElementById('codeError').innerText = '❌ Incorrect code. Access denied.';
+      }
+    }
+
+    function toggleEditMode() {
+      editModeActive = !editModeActive;
+      document.body.classList.toggle('edit-mode', editModeActive);
+      const editables = document.querySelectorAll('.ea');
+      editables.forEach(el => el.contentEditable = editModeActive ? 'true' : 'false');
+      const btn = document.getElementById('editBtn');
+      btn.classList.toggle('active', editModeActive);
+      btn.innerHTML = editModeActive ? '✅ Save' : '✏️ Edit';
+    }
+
+    // TOC active highlight
+    function updateActiveTOC() {
+      const pages = document.querySelectorAll('.page');
+      const tocLinks = document.querySelectorAll('#toc a');
+      let currentId = '';
+      pages.forEach(page => {
+        const rect = page.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) currentId = page.getAttribute('id');
+      });
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentId}`) link.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', updateActiveTOC);
+    window.addEventListener('load', updateActiveTOC);
+
+    // smooth scroll for TOC links
+    document.querySelectorAll('#toc a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // disable edit before print / re-enable after
+    window.addEventListener('beforeprint', () => {
+      if (editModeActive) {
+        document.querySelectorAll('.ea').forEach(el => el.contentEditable = 'false');
+      }
+    });
+    window.addEventListener('afterprint', () => {
+      if (editModeActive) {
+        document.querySelectorAll('.ea').forEach(el => el.contentEditable = 'true');
+      }
+    });
   </script>
-
-<!-- mermaid stub -->
-<script>
-  // simple mermaid fallback – we already have the graph as text
-</script>
-
 </body>
 </html>
