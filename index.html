@@ -309,69 +309,104 @@
     }
     code { font-family: var(--font-mono); background: #f0ebf5; padding: 0.2rem 0.5rem; border-radius: 6px; }
     /* print styles - محسّنة بشكل كبير */
-    @media print {
-      /* إخفاء العناصر غير المرغوب فيها */
-      #toolbar, #toc, #editModal, .modal, .tool-btn, #editBtn, #langBtn {
-        display: none !important;
-      }
-      /* إعادة تعيين خلفية الصفحة الرئيسية */
-      body, #main, #paper {
-        background: white !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        display: block !important;
-      }
-      /* إزالة التباعد الجانبي */
-      #main {
-        margin-top: 0 !important;
-      }
-      /* كل صفحة تطبع بحجم A4 كامل */
-      .page {
-        max-width: 100% !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-        padding: 2cm 1.5cm !important; /* هوامش مناسبة لـ A4 */
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        page-break-after: always !important;
-        break-inside: avoid;
-        background: white !important;
-        /* الحفاظ على الألوان */
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-      }
-      /* إزالة الخلفية الرمادية حول الصفحات */
-      #paper {
-        background: white !important;
-        padding: 0 !important;
-      }
-      /* ضمان ظهور ألوان الخلفية والتدرجات */
-      .part-header, .eq, .eq.important, .info-box, .prediction, .t-card, .author-box, pre, table th {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-      }
-      /* منع كسر الجداول والصناديق عبر الصفحات */
-      table, .info-box, .prediction, .eq, .t-card {
-        break-inside: avoid;
-      }
-      /* ضبط أحجام الخطوط للطباعة */
-      body {
-        font-size: 12pt;
-      }
-      h1 { font-size: 28pt; }
-      h2 { font-size: 22pt; }
-      h3 { font-size: 18pt; }
-      .page-number {
-        color: #666 !important;
-        font-size: 10pt;
-      }
-      /* إزالة تأثيرات الظل */
-      .page {
-        box-shadow: none;
-      }
-    }
+@media print {
+  /* إخفاء العناصر غير المرغوب فيها */
+  #toolbar, #toc, #editModal, .modal, .tool-btn, #editBtn, #langBtn {
+    display: none !important;
+  }
+  
+  /* إعادة تعيين خلفية الصفحة الرئيسية */
+  body, #main, #paper {
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+  
+  /* إزالة التباعد الجانبي */
+  #main {
+    margin-top: 0 !important;
+  }
+  
+  /* تنسيق الصفحات للطباعة */
+  .page {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 2cm 1.5cm !important; /* هوامش مناسبة لـ A4 */
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    page-break-after: always !important;
+    page-break-inside: avoid !important; /* منع تقسيم الصفحة الواحدة */
+    background: white !important;
+    /* الحفاظ على الألوان */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    /* ضمان بقاء المحتوى في صفحة واحدة */
+    overflow: visible !important; /* تغيير من hidden إلى visible */
+  }
+  
+  /* تنسيق خاص للصفحة 0 (Title Page) */
+  #page0 {
+    padding: 1.2cm 1.5cm !important; /* تقليل الهوامش قليلاً */
+  }
+  
+  /* تصغير حجم الخط قليلاً في الصفحة 0 إذا لزم الأمر */
+  #page0 h1 {
+    font-size: 32pt !important; /* تصغير من 3.2rem (حوالي 36pt) إلى 32pt */
+  }
+  
+  #page0 .trinity-cards {
+    margin: 1rem 0 !important;
+    gap: 10px !important; /* تقليل المسافة بين البطاقات */
+  }
+  
+  #page0 .author-box {
+    padding: 15px 20px !important; /* تقليل البطانة الداخلية */
+    margin: 15px 0 !important;
+  }
+  
+  #page0 hr {
+    margin: 1rem 0 !important; /* تقليل المسافة حول الخط الفاصل */
+  }
+  
+  /* إزالة الخلفية الرمادية حول الصفحات */
+  #paper {
+    background: white !important;
+    padding: 0 !important;
+  }
+  
+  /* ضمان ظهور ألوان الخلفية والتدرجات */
+  .part-header, .eq, .eq.important, .info-box, .prediction, .t-card, .author-box, pre, table th {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* منع كسر الجداول والصناديق عبر الصفحات */
+  table, .info-box, .prediction, .eq, .t-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  /* ضبط أحجام الخطوط للطباعة */
+  body {
+    font-size: 11pt; /* تصغير الخط العام قليلاً لتوفير مساحة */
+  }
+  h1 { font-size: 28pt; }
+  h2 { font-size: 20pt; }
+  h3 { font-size: 16pt; }
+  .page-number {
+    color: #666 !important;
+    font-size: 9pt;
+  }
+  
+  /* إزالة تأثيرات الظل */
+  .page {
+    box-shadow: none;
+  }
+}
     /* edit mode */
     .edit-mode [contenteditable="true"] {
       background: #fffde7;
