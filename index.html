@@ -1630,6 +1630,28 @@ window.addEventListener('beforeprint', () => {
 window.addEventListener('afterprint', () => {
   if (editActive) document.querySelectorAll('.page p, .page h1, .page h2, .page h3, .page h4, .page li, .page td, .page blockquote').forEach(el => el.contentEditable='true');
 });
+  // ===== عناصر الصوت والتحكم =====
+const bgAudio = document.getElementById('bgAudio');
+const muteBtn = document.createElement('button');
+muteBtn.className = 'tbtn';
+muteBtn.id = 'muteBtn';
+muteBtn.innerHTML = '🔊 تشغيل الصوت';
+document.getElementById('toolbar').appendChild(muteBtn);
+
+let audioMuted = false;
+
+muteBtn.addEventListener('click', () => {
+    audioMuted = !audioMuted;
+    bgAudio.muted = audioMuted;
+    muteBtn.innerHTML = audioMuted ? '🔇 كتم' : '🔊 تشغيل الصوت';
+});
+
+// بدء التشغيل بعد تفاعل المستخدم (لتجنب منع التشغيل التلقائي من المتصفح)
+document.addEventListener('click', function initAudio() {
+    bgAudio.play().catch(() => {});
+    document.removeEventListener('click', initAudio);
+}, { once: true 
+   });
 </script>
 </body>
 </html>
